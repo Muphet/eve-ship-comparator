@@ -6,65 +6,38 @@ var static      = require('node-static'),
 	file        = new (static.Server)('./assets');
 
 
+function service(method, resolve, req, res) {
+	var name = decodeURI(req.url.split('/').pop());
+
+	ShipService[method](name, resolve).then(function(ship) {
+		if( (Array.isArray(ship) && ship.length) || typeof ship !== 'null') {
+			res.writeHead(200, { 'Content-Type': 'text/json' });
+			res.end(JSON.stringify(ship, '\t'));
+		} else {
+			res.writeHead(404, { 'Content-Type': 'text/plain' });
+			res.end("Nothing found with argument " + name);					
+		}
+	}, function(e) {
+		res.writeHead(500, { 'Content-Type': 'text/plain' });
+		res.end(e.toString());
+	}).fail(function(e) {
+		console.log(e);
+	});
+}
+
 var routes = {
 	ship: {
 		byName: function(req, res) {
-			var name = decodeURI(req.url.split('/').pop());
-
-			ShipService.getByName(name).then(function(ship) {
-				if(ship && ship.length) {
-					res.writeHead(200, { 'Content-Type': 'text/json' });
-					res.end(JSON.stringify(ship, '\t'));
-				} else {
-					res.writeHead(404, { 'Content-Type': 'text/plain' });
-					res.end("Ship not found with name " + name);					
-				}
-			}, function(e) {
-				res.writeHead(500, { 'Content-Type': 'text/plain' });
-				res.end(e.toString());
-			}).fail(function(e) {
-				console.log(e);
-			});
-
+			service('getByName', false, req, res);
 		},
 		byId: function(req, res) {
-			var id = req.url.split('/').pop();
-
-			ShipService.getById(id, true).then(function(ship) {
-				if(ship) {
-					res.writeHead(200, { 'Content-Type': 'text/json' });
-					res.end(JSON.stringify(ship, '\t'));
-				} else {
-					res.writeHead(404, { 'Content-Type': 'text/plain' });
-					res.end("Ship not found with id " + id);					
-				}
-			}, function(e) {
-				res.writeHead(500, { 'Content-Type': 'text/plain' });
-				res.end(e.toString());
-			}).fail(function(e) {
-				console.log(e);
-			});
+			service('getById', true, req, res);
 		},
 		byNameOrType: function(req, res) {
-			var name = decodeURI(req.url.split('/').pop());
-
-			ShipService.getByNameOrType(name).then(function(ship) {
-				if(ship && ship.length) {
-					res.writeHead(200, { 'Content-Type': 'text/json' });
-					res.end(JSON.stringify(ship, '\t'));
-				} else {
-					res.writeHead(404, { 'Content-Type': 'text/plain' });
-					res.end("Ship not found with name " + name);					
-				}
-			}, function(e) {
-				res.writeHead(500, { 'Content-Type': 'text/plain' });
-				res.end(e.toString());
-			}).fail(function(e) {
-				console.log(e);
-			});
+			service('getByNameOrType', false, req, res);
 		}
 	}
-}
+};
 
 
 http.createServer(function(req, res) {
