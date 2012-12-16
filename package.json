@@ -1,0 +1,17 @@
+{
+	"name": "eve-ship-comparator",
+	"author": "Nicholas Husher <nhusher@gmail.com>",
+	"version": "0.1.0",
+	"engines": {
+		"node": ">=0.8"
+	},
+	"scripts": {
+		"start": "server.js"
+	},
+	"subdomain": "eve-ship-comparator",
+	"dependencies": {
+		"node-static": "*",
+		"q": "*",
+		"sqlite3": "*"
+	}
+}
