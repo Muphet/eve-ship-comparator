@@ -6,6 +6,8 @@ YUI({
 	var micro = new Y.Template(),
 		list = Y.one('.ship-comparator-table .ship-list'),
 
+		comparisons = [],
+
 		shipRow = micro.compile([
 			'<tr class="ship-row">',
 				'<td class="ship-image"><img class="ship-image" src="/img/ships/<%= this.typeID %>.png" /></td>',
@@ -17,7 +19,11 @@ YUI({
 				'<td><%= this.attributes.cpuOutput %></td>',
 				'<td><%= this.attributes.capacitorCapacity %></td>',
 				'<td><%= this.attributes.rechargeRate / 1000 %>s</td>',
+				'<td><%= this.peakRecharge.toFixed(1) %></td>',
 				'<td><%= this.attributes.signatureRadius %></td>',
+				'<td class="slot-col high-slot-col"><%= this.attributes.hiSlots %></td>',
+				'<td class="slot-col med-slot-col"><%= this.attributes.medSlots %></td>',
+				'<td class="slot-col low-slot-col"><%= this.attributes.lowSlots %></td>',
 				'<td><%= this.attributes.maxVelocity %>m/s</td>',
 			'</tr>'
 		].join('')),
@@ -39,7 +45,11 @@ YUI({
 		Y.io('/ship/byId/' + newShipId, {
 			on: {
 				success: function(id, res) {
-					var shipData = JSON.parse(res.responseText);
+					var shipData = JSON.parse(res.responseText),
+						maxCap = shipData.attributes.capacitorCapacity,
+						rechargeTime = shipData.attributes.rechargeRate;
+
+					shipData.peakRecharge = Math.sqrt(0.25) * 2 * maxCap / (rechargeTime / 5000);
 
 					list.get('parentNode').removeClass('empty');
 					list.append(shipRow(shipData))
@@ -71,7 +81,19 @@ YUI({
 	item.ac.after('select', function(e) {
 		showShip(e.result.raw.typeID);
 		item.set('value', '');
+		comparisons.push(e.result.raw.typeID);
 	});
 
-
+	/*
+	Y.one('#save-comparison').on('click', function(evt) {
+		Y.io('/save/comparisons', {
+			data: comparisons,
+			on: {
+				success: function(id, res) {
+					console.log(res);
+				}
+			}
+		});
+	});
+	*/
 });

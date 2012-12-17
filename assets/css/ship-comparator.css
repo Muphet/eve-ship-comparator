@@ -29,6 +29,18 @@ body {
 	color: #ddddc5;
 }
 
+#save-comparison {
+	margin: 50px 0;
+	display: inline-block;
+	background-color: #444448;
+	padding: 12px;
+	border: 0;
+	color: #ddddc5;
+	cursor: pointer;
+}
+#save-comparison:hover {
+	outline: 2px solid #ddddc5;
+}
 
 .yui3-aclist .yui3-aclist-list {
 	color: #ddddc5;
@@ -76,15 +88,23 @@ body {
 	border-spacing: 0;
 }
 
-.ship-comparator-table.empty {
+/*.ship-comparator-table.empty {
 	display: none;
-}
+}*/
 
 .ship-comparator-table td,
 .ship-comparator-table th {
 	text-align: left;
 	padding: 2px;
 	-webkit-transition: background-color 0.2s;
+}
+
+.ship-comparator-table .render-col {
+	width: 48px;
+}
+.ship-comparator-table .slot-col {
+	width: 24px;
+	text-align: center;
 }
 
 .ship-row td {

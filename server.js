@@ -3,7 +3,10 @@ var DB          = new (require('./lib/db').ItemDB)('data/cutting-edge-current-db
 	
 var static      = require('node-static'),
 	http        = require('http'),
+	url         = require('url'),
 	file        = new (static.Server)('./assets');
+
+var savedComparisons = [];
 
 
 function service(method, resolve, req, res) {
@@ -12,7 +15,7 @@ function service(method, resolve, req, res) {
 	ShipService[method](name, resolve).then(function(ship) {
 		if( (Array.isArray(ship) && ship.length) || typeof ship !== 'null') {
 			res.writeHead(200, { 'Content-Type': 'text/json' });
-			res.end(JSON.stringify(ship, '\t'));
+			res.end(JSON.stringify(ship, null, '\t'));
 		} else {
 			res.writeHead(404, { 'Content-Type': 'text/plain' });
 			res.end("Nothing found with argument " + name);					
@@ -36,12 +39,27 @@ var routes = {
 		byNameOrType: function(req, res) {
 			service('getByNameOrType', false, req, res);
 		}
+	},
+	comparison: {
+		save: function(req, res) {
+			console.log(url.parse(req.url, true));
+
+
+
+			res.writeHead(200, { 'Content-Type': 'text/json' });
+			res.end(JSON.stringify({ success: true }), null, '\t');
+		},
+		show: function(req, res) {
+			var u = url.parse(req.url, true);
+
+			
+		}
 	}
 };
 
 
 http.createServer(function(req, res) {
-	var path = req.url.split('/').slice(1);
+	var path = req.url.split('?')[0].split('/').slice(1);
 
 	if(routes[path[0]] && routes[path[0]][path[1]]) {
 		routes[path[0]][path[1]](req, res);
