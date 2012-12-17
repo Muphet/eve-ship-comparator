@@ -27,8 +27,6 @@ YUI({
 		});
 
 	item.ac.on('select', function(evt) {
-		console.log(evt);
-
 		window.ship = new esc.Ship(evt.result.raw);
 
 		Y.one('#ship-display').setHTML(JSON.stringify(window.ship, null, '\t'));
