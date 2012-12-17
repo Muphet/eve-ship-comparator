@@ -1,5 +1,8 @@
 
-YUI().use('io', 'template', 'node-event-delegate', 'autocomplete', function(Y) {
+YUI({
+	skin: 'night',
+	insertBefore: 'main-styles'
+}).use('io', 'template', 'node-event-delegate', 'autocomplete', function(Y) {
 	var micro = new Y.Template(),
 		list = Y.one('.ship-comparator-table .ship-list'),
 
@@ -18,10 +21,16 @@ YUI().use('io', 'template', 'node-event-delegate', 'autocomplete', function(Y) {
 		 shipResult = micro.compile([
 			'<img class="ship-result-image" src="/img/ships/<%= this.typeID %>.png" width="32" height="32" />',
 			'<span class="ship-result-name"><%= this.typeName %></span>',
-			'<span class="ship-result-type"><%= this.groupName %></span>'
+			'<span class="ship-result-type"><%= this.groupName %></span>',
+			'<span class="ship-faction-name"><%= this.factionName %></span>'
 		].join(''));
 
-		shipId = 582;
+		 FACTIONS = {
+		 	1: 'Caldari',
+		 	2: 'Minmatar',
+		 	4: 'Amarr',
+		 	8: 'Gallente'
+		 };
 
 	function showShip(newShipId) {
 		shipId = newShipId;
@@ -53,6 +62,8 @@ YUI().use('io', 'template', 'node-event-delegate', 'autocomplete', function(Y) {
 
 		resultFormatter: function(query, results) {
 			return Y.Array.map(results, function(r) {
+				r.raw.factionName = FACTIONS[r.raw.raceID];
+
 				return shipResult(r.raw);
 			});
 		}
