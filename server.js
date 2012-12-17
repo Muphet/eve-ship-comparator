@@ -6,13 +6,11 @@ var static      = require('node-static'),
 	url         = require('url'),
 	file        = new (static.Server)('./assets');
 
-var savedComparisons = [];
 
-
-function service(method, resolve, req, res) {
+function service(method, req, res) {
 	var name = decodeURI(req.url.split('/').pop());
 
-	ShipService[method](name, resolve).then(function(ship) {
+	ShipService[method](name).then(function(ship) {
 		if( (Array.isArray(ship) && ship.length) || typeof ship !== 'null') {
 			res.writeHead(200, { 'Content-Type': 'text/json' });
 			res.end(JSON.stringify(ship, null, '\t'));
@@ -31,28 +29,13 @@ function service(method, resolve, req, res) {
 var routes = {
 	ship: {
 		byName: function(req, res) {
-			service('getByName', false, req, res);
+			service('getByName', req, res);
 		},
 		byId: function(req, res) {
-			service('getById', true, req, res);
+			service('getById', req, res);
 		},
 		byNameOrType: function(req, res) {
-			service('getByNameOrType', false, req, res);
-		}
-	},
-	comparison: {
-		save: function(req, res) {
-			console.log(url.parse(req.url, true));
-
-
-
-			res.writeHead(200, { 'Content-Type': 'text/json' });
-			res.end(JSON.stringify({ success: true }), null, '\t');
-		},
-		show: function(req, res) {
-			var u = url.parse(req.url, true);
-
-			
+			service('getByNameOrType', req, res);
 		}
 	}
 };
@@ -71,29 +54,3 @@ http.createServer(function(req, res) {
 	}
 
 }).listen(8080);
-
-
-
-// ShipService.getByName('rifter', true).then(function(rifter) {
-// 	console.log(rifter);
-// }, function(e) {
-// 	console.log(e);
-// });
-
-
-
-// var RIFTER_ID = 587;
-
-// ShipService.getByName("rifter").then(function(rifter) {
-// 	rifter = rifter.pop();
-
-// 	ShipService.getAttributes(rifter).then(function(rifterAttrs) {
-// 		console.log(rifterAttrs);
-// 	}, function(e) {
-// 		console.log(e);
-// 	});
-// //	console.log(rifter);
-// }, function() {
-// 	console.log(arguments);
-// });
-

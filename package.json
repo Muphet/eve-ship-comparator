@@ -1,7 +1,7 @@
 {
 	"name": "eve-ship-comparator",
 	"author": "Nicholas Husher <nhusher@gmail.com>",
-	"version": "0.1.0-5",
+	"version": "0.1.0-7",
 	"engines": {
 		"node": ">=0.8"
 	},
