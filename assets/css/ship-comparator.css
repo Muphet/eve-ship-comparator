@@ -13,10 +13,6 @@ body {
 
 #ship-picker {
 	margin: 50px auto 0;
-	box-sizing: border-box;
-}
-
-#ship-picker input {
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
@@ -26,7 +22,17 @@ body {
 	border: 0;
 	color: #fff;
 }
+#ship-picker:focus {
+	outline: 2px solid #ddddc5;
+}
+#ship-picker::-webkit-input-placeholder {
+	color: #ddddc5;
+}
 
+
+.yui3-aclist .yui3-aclist-list {
+	color: #ddddc5;
+}
 
 .yui3-aclist .yui3-aclist-item {
 	position: relative;
@@ -73,7 +79,7 @@ body {
 .ship-comparator-table td,
 .ship-comparator-table th {
 	text-align: left;
-	padding: 2px 8px;
+	padding: 2px;
 }
 
 .ship-row td {

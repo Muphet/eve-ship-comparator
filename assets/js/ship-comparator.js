@@ -8,8 +8,8 @@ YUI({
 
 		shipRow = micro.compile([
 			'<tr class="ship-row">',
-				'<td><img class="ship-image" src="/img/ships/<%= this.typeID %>.png" /></td>',
-				'<td><%= this.typeName %></td>',
+				'<td class="ship-image"><img class="ship-image" src="/img/ships/<%= this.typeID %>.png" /></td>',
+				'<td class="ship-type-name"><%= this.typeName %></td>',
 				'<td><%= this.attributes.hp %></td>',
 				'<td><%= this.attributes.armorHP %></td>',
 				'<td><%= this.attributes.shieldCapacity %></td>',
@@ -22,7 +22,7 @@ YUI({
 			'<img class="ship-result-image" src="/img/ships/<%= this.typeID %>.png" width="32" height="32" />',
 			'<span class="ship-result-name"><%= this.typeName %></span>',
 			'<span class="ship-result-type"><%= this.groupName %></span>',
-			'<span class="ship-faction-name"><%= this.factionName %></span>'
+			'<span class="ship-faction-name"><%= this.marketGroupName %></span>'
 		].join(''));
 
 		 FACTIONS = {
@@ -54,15 +54,15 @@ YUI({
 		this.get('parentNode').remove();
 	}, 'td');
 
-	var item = Y.one('#ship-picker input').plug(Y.Plugin.AutoComplete, {
+	var item = Y.one('#ship-picker').plug(Y.Plugin.AutoComplete, {
 		source: '/ship/byNameOrType/{query}',
 		resultHighlighter: 'phraseMatch',
 		resultTextLocator: 'typeName',
-		minQueryLength: 3,
+		minQueryLength: 2,
 
 		resultFormatter: function(query, results) {
 			return Y.Array.map(results, function(r) {
-				r.raw.factionName = FACTIONS[r.raw.raceID];
+				// r.raw.factionName = FACTIONS[r.raw.raceID];
 
 				return shipResult(r.raw);
 			});
