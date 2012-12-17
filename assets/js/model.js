@@ -1,200 +1,232 @@
-(function(NS) {
+(function() {
+	var defineModel = function(NS) {
 
-	var UNDEFINED;
+	    var UNDEFINED;
 
-	NS.setValue = function(o, path, val) {
-	    var i,
-	        p = path.split('.'),
-	        leafIdx = p.length - 1,
-	        ref = o;
-	 
-	    if (leafIdx >= 0) {
-	        for (i = 0; ref !== UNDEFINED && i < leafIdx; i++) {
-	            ref = ref[p[i]];
+	    NS.setValue = function(o, path, val) {
+	        var i,
+	            p = path.split('.'),
+	            leafIdx = p.length - 1,
+	            ref = o;
+	     
+	        if (leafIdx >= 0) {
+	            for (i = 0; ref !== UNDEFINED && i < leafIdx; i++) {
+	                ref = ref[p[i]];
+	            }
+	     
+	            if (ref !== UNDEFINED) {
+	                ref[p[i]] = val;
+	            } else {
+	                return UNDEFINED;
+	            }
 	        }
-	 
-	        if (ref !== UNDEFINED) {
-	            ref[p[i]] = val;
+
+	        return o;
+	    };
+
+	    NS.getValue = function(o, path) { 
+	        var i,
+	            p = path.split('.'),
+	            l = p.length;
+	     
+	        for (i = 0; o !== UNDEFINED && i < l; i++) {
+	            o = o[p[i]];
+	        }
+	     
+	        return o;
+	    };
+
+	    NS.each = function(o, callback, context) {
+	        if(Array.isArray(o)) {
+	            o.forEach(callback, context);
 	        } else {
-	            return UNDEFINED;
+	            var k,v;
+
+	            for(k in o) {
+	                if(o.hasOwnProperty(k)) {
+	                    callback.call(context || UNDEFINED, o[k], k, o);
+	                }
+	            }
 	        }
-	    }
-
-	    return o;
-	};
-
-	NS.getValue = function(o, path) { 
-	    var i,
-	        p = path.split('.'),
-	        l = p.length;
-	 
-	    for (i = 0; o !== UNDEFINED && i < l; i++) {
-	        o = o[p[i]];
-	    }
-	 
-	    return o;
-	};
-
-	NS.each = function(o, callback, context) {
-		if(Array.isArray(o)) {
-			o.forEach(callback, context);
-		} else {
-			var k,v;
-
-			for(k in o) {
-				if(o.hasOwnProperty(k)) {
-					callback.call(context || UNDEFINED, o[k], k, o);
-				}
-			}
-		}
-	};
+	    };
 
 //
 // --- Capacitor ------------------------------------------------------------
 //
 
-	var Capacitor, CapacitorProto;
+	    var Capacitor, CapacitorProto;
 
-	Capacitor = function() {};
+	    Capacitor = function() {};
 
-	CapacitorProto = Capacitor.prototype;
+	    CapacitorProto = Capacitor.prototype;
 
-	CapacitorProto.capacity = 0;
-	CapacitorProto.recharge = 0;
+	    CapacitorProto.capacity = 0;
+	    CapacitorProto.recharge = 0;
 
-	Object.defineProperty(CapacitorProto, 'peakRecharge', {
-		writeable: false,
-		get: function() { return Math.sqrt(0.25) * 2 * this.capacity / (this.recharge / 5000); }
-	});
+	    /*
+		The peak recharge of a capacitor appears to happen on or near the 25% mark and is defined by:
 
-	CapacitorProto.toString = function() { return '[object Capacitor]'; };
+		dC/dt = ( SQRT( Cx/Cmax ) - C/Cmax ) * 2 * Cmax / tau
 
-	NS.Capacitor = Capacitor;
+		Where:
+
+		dC/dt = The amount the capacitor will recharge per second
+		Cx    = The current amount of energy in the capacitor
+		Cmax  = The total amount of energy in a fully-charged capacitor
+		tau   = A constant that's either t/5 or t/4.8 where t is the recharge rate in seconds. (I chose 5) 
+
+		Source: <http://wiki.eveonline.com/en/wiki/Capacitor_recharge_rate>
+	    */
+	    Object.defineProperty(CapacitorProto, 'peakRecharge', {
+	        writeable: false,
+	        get: function() { return (Math.sqrt(0.25) - 0.25) * 2 * this.capacity / (this.recharge / 5000); }
+	    });
+
+	    CapacitorProto.toString = function() { return '[object Capacitor]'; };
+
+	    NS.Capacitor = Capacitor;
 
 //
 // --- HP Pool --------------------------------------------------------------
 //
 
-	var resistanceFunctions = {},
-		getResistanceFn = function(type) {
-			if(!resistanceFunctions[type]) {
-				resistanceFunctions[type] = function() { return 1 - this[type + 'Resonance']; };
-			}
+	    function getResistanceFn(type) {
+	        return function() { return 1 - this[type + 'Resonance']; };
+	    };
 
-			return resistanceFunctions[type];
-		};
+	    var HpPool, HpPoolProto;
 
-	var HpPool, HpPoolProto;
+	    HpPool = function() {};
+	    HpPoolProto = HpPool.prototype;
 
+	    HpPoolProto.hp                 = 0;
+	    HpPoolProto.emResonance        = 0;
+	    HpPoolProto.explosiveResonance = 0;
+	    HpPoolProto.kineticResonance   = 0;
+	    HpPoolProto.thermalResonance   = 0;
 
-	HpPool = function() {};
-	HpPoolProto = HpPool.prototype;
+	    /*
+	    HP pool resonances appear to be the inverse of that pool's resistances. Resistances aren't saved in the dataset
+	    I'm using, so I'm using an ECMA5 getter to generate that data as needed.
+	    */
+	    Object.defineProperties(HpPoolProto, {
+	        emResistance        : { writeable: false, get: getResistanceFn('em')        },
+	        explosiveResistance : { writeable: false, get: getResistanceFn('explosive') },
+	        kineticResistance   : { writeable: false, get: getResistanceFn('kinetic')   },
+	        thermalResistance   : { writeable: false, get: getResistanceFn('thermal')   }
+	    });
 
-	HpPoolProto.hp                 = 0;
-	HpPoolProto.emResonance        = 0;
-	HpPoolProto.explosiveResonance = 0;
-	HpPoolProto.kineticResonance   = 0;
-	HpPoolProto.thermalResonance   = 0;
-
-	Object.defineProperties(HpPoolProto, {
-		emResistance        : { writeable: false, get: getResistanceFn('em')        },
-		explosiveResistance : { writeable: false, get: getResistanceFn('explosive') },
-		kineticResistance   : { writeable: false, get: getResistanceFn('kinetic')   },
-		thermalResistance   : { writeable: false, get: getResistanceFn('thermal')   }
-	});
-
-	HpPoolProto.toString = function() { return '[object HpPool]'; };
+	    HpPoolProto.toString = function() { return '[object HpPool]'; };
 
 
 //
 // --- Shield ---------------------------------------------------------------
 //
 
-	var Shield, ShieldProto;
+	    var Shield, ShieldProto;
 
-	Shield = function() {};
+	    Shield = function() {};
 
-	ShieldProto = Shield.prototype = Object.create(HpPoolProto);
+	    ShieldProto = Shield.prototype = new HpPool(); // Inherits frmo HpPool
 
-	ShieldProto.constructor  = Shield;
-	ShieldProto.rechargeRate = 0;
+	    ShieldProto.constructor  = Shield;
+	    ShieldProto.rechargeRate = 0;
 
-	Object.defineProperty(ShieldProto, 'peakRecharge', {
-		writeable: false,
-		get: function() { return this.hp * 2.5 / ( this.rechargeRate / 1000) }
-	});
+	    /*
+	    The peak recharge of a shield is defined by:
 
-	ShieldProto.toString = function() { return '[object Shield]'; };
+	        R = 2.4 * S / R
 
-	NS.Shield = Shield;
+		Where R is the recharge rate, S is the maximum shield size, and R is the recharge rate in seconds.
+
+		Source: <http://wiki.eveonline.com/en/wiki/Shield_recharge>
+	    */
+	    Object.defineProperty(ShieldProto, 'peakRecharge', {
+	        writeable: false,
+	        get: function() { return this.hp * 2.4 / ( this.rechargeRate / 1000); }
+	    });
+
+	    ShieldProto.toString = function() { return '[object Shield]'; };
+
+	    NS.Shield = Shield;
 
 
 //
 // --- Ship -----------------------------------------------------------------
 //
 
-	var Ship, ShipProto;
+	    var Ship, ShipProto;
 
-	Ship = function(shipData) {
-		this.sensors         = {};
-		this.slots           = {};
-		this.capacitor       = new Capacitor();
-		this.drones          = {};
-		this.heatAttenuation = {};
-		this.hull            = new HpPool();
-		this.armor           = new HpPool();
-		this.shield          = new Shield();
+	    Ship = function(shipData) {
+	        this.sensors         = {};
+	        this.slots           = {};
+	        this.capacitor       = new Capacitor();
+	        this.drones          = {};
+	        this.heatAttenuation = {};
+	        this.hull            = new HpPool();
+	        this.armor           = new HpPool();
+	        this.shield          = new Shield();
 
-		if(shipData) {
-			this.fromShip(shipData);
-		}
+	        if(shipData) {
+	            this.fromShip(shipData);
+	        }
+	    };
+
+	    Ship.NOT_RESOLVED_ID = -1;
+
+	    ShipProto = Ship.prototype;
+
+	    ShipProto.id              = Ship.NOT_RESOLVED_ID;
+	    ShipProto.name            = null;
+	    ShipProto.capacity        = null;
+	    ShipProto.type            = null;
+	    ShipProto.meta            = null;
+	    ShipProto.agility         = null;
+	    ShipProto.velocity        = null;
+
+	    ShipProto.sensors         = null;
+	    ShipProto.slots           = null;
+	    ShipProto.capacitor       = null;
+	    ShipProto.drones          = null;
+	    ShipProto.heatAttenuation = null;
+	    ShipProto.hull            = null;
+	    ShipProto.armor           = null;
+	    ShipProto.shield          = null;
+
+	    Object.defineProperty(ShipProto, 'resolved', {
+	        writeable: false,
+	        get: function() { return this.id === Ship.NOT_RESOLVED_ID; }
+	    });
+
+	    ShipProto.fromShip = function(ship) {
+	        function propagate(sourceObj, destObj) {
+	            NS.each(sourceObj, function(sourceVal, sourceKey) {
+	                if(typeof sourceVal === 'object' && destObj[sourceKey]) {
+	                    propagate(sourceVal, destObj[sourceKey]);
+	                } else {
+	                    destObj[sourceKey] = sourceVal;
+	                }
+	            });
+	        }
+
+	        propagate(ship, this);
+
+	        return this;
+	    };
+
+
+	    ShipProto.toString = function() { return '[object Ship]'; };
+
+	    NS.Ship = Ship;
 	};
 
-	Ship.NOT_RESOLVED_ID = -1;
+	if(typeof YUI === 'undefined') {
+		defineModel(exports);
+	} else {
+		YUI.add('ship-model', function(Y, NAME) {
+			defineModel(Y.namespace('esc'));
+		});
+	}
 
-	ShipProto = Ship.prototype;
+}());
 
-	ShipProto.id              = Ship.NOT_RESOLVED_ID;
-	ShipProto.name            = null;
-	ShipProto.capacity        = null;
-	ShipProto.type            = null;
-	ShipProto.meta            = null;
-	ShipProto.agility         = null;
-	ShipProto.velocity        = null;
-
-	ShipProto.sensors         = null;
-	ShipProto.slots           = null;
-	ShipProto.capacitor       = null;
-	ShipProto.drones          = null;
-	ShipProto.heatAttenuation = null;
-	ShipProto.hull            = null;
-	ShipProto.armor           = null;
-	ShipProto.shield          = null;
-
-	Object.defineProperty(ShipProto, 'resolved', {
-		writeable: false,
-		get: function() { return this.id === Ship.NOT_RESOLVED_ID; }
-	});
-
-	ShipProto.fromShip = function(ship) {
-		function propagate(sourceObj, destObj) {
-			NS.each(sourceObj, function(sourceVal, sourceKey) {
-				if(typeof sourceVal === 'object' && destObj[sourceKey]) {
-					propagate(sourceVal, destObj[sourceKey]);
-				} else {
-					destObj[sourceKey] = sourceVal;
-				}
-			});
-		}
-
-		propagate(ship, this);
-
-		return this;
-	};
-
-
-	ShipProto.toString = function() { return '[object Ship]'; };
-
-	NS.Ship = Ship;
-
-}(typeof exports === 'undefined' ? (window.esc ? window.esc : (window.esc = {})) : exports ));

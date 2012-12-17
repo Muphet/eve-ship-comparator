@@ -2,7 +2,7 @@
 YUI({
 	skin: 'night',
 	insertBefore: 'main-styles'
-}).use('io', 'template', 'node-event-delegate', 'autocomplete', function(Y) {
+}).use('io', 'template', 'autocomplete', 'ship-model', function(Y) {
 
 	var micro = new Y.Template();
 
@@ -27,7 +27,7 @@ YUI({
 		});
 
 	item.ac.on('select', function(evt) {
-		window.ship = new esc.Ship(evt.result.raw);
+		window.ship = new Y.esc.Ship(evt.result.raw);
 
 		Y.one('#ship-display').setHTML(JSON.stringify(window.ship, null, '\t'));
 	});
