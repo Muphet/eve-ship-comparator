@@ -13,8 +13,12 @@ YUI({
 				'<td><%= this.attributes.hp %></td>',
 				'<td><%= this.attributes.armorHP %></td>',
 				'<td><%= this.attributes.shieldCapacity %></td>',
+				'<td><%= this.attributes.powerOutput %></td>',
+				'<td><%= this.attributes.cpuOutput %></td>',
+				'<td><%= this.attributes.capacitorCapacity %></td>',
+				'<td><%= this.attributes.rechargeRate / 1000 %>s</td>',
 				'<td><%= this.attributes.signatureRadius %></td>',
-				'<td><%= this.attributes.maxVelocity %></td>',
+				'<td><%= this.attributes.maxVelocity %>m/s</td>',
 			'</tr>'
 		].join('')),
 
@@ -25,12 +29,6 @@ YUI({
 			'<span class="ship-faction-name"><%= this.marketGroupName %></span>'
 		].join(''));
 
-		 FACTIONS = {
-		 	1: 'Caldari',
-		 	2: 'Minmatar',
-		 	4: 'Amarr',
-		 	8: 'Gallente'
-		 };
 
 	function showShip(newShipId) {
 		shipId = newShipId;
@@ -43,6 +41,7 @@ YUI({
 				success: function(id, res) {
 					var shipData = JSON.parse(res.responseText);
 
+					list.get('parentNode').removeClass('empty');
 					list.append(shipRow(shipData))
 
 				}

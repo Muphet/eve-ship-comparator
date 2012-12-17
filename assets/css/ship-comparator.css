@@ -76,10 +76,15 @@ body {
 	border-spacing: 0;
 }
 
+.ship-comparator-table.empty {
+	display: none;
+}
+
 .ship-comparator-table td,
 .ship-comparator-table th {
 	text-align: left;
 	padding: 2px;
+	-webkit-transition: background-color 0.2s;
 }
 
 .ship-row td {
