@@ -180,6 +180,7 @@
         ShipProto.name            = null;
         ShipProto.capacity        = null;
         ShipProto.type            = null;
+        ShipProto.race            = null;
         ShipProto.meta            = null;
         ShipProto.agility         = null;
         ShipProto.velocity        = null;

@@ -12,7 +12,11 @@ body {
 }
 
 #ship-display {
-    
+    margin: 20px 0;
+}
+
+#ship-display table {
+    width: 100%;
 }
 
 #ship-picker {

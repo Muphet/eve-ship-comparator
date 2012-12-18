@@ -5,8 +5,7 @@ var static      = require('node-static'),
     http        = require('http'),
     url         = require('url'),
     file        = new (static.Server)('./assets');
-
-
+    
 function service(method, req, res) {
     var name = decodeURI(req.url.split('/').pop());
 

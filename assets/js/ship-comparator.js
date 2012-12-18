@@ -2,7 +2,7 @@
 YUI({
     skin: 'night',
     insertBefore: 'main-styles'
-}).use('io', 'template', 'autocomplete', 'ship-model', function(Y) {
+}).use('io', 'template', 'autocomplete', 'ship-model', 'datatable', 'datatable-sort', function(Y) {
 
     var micro = new Y.Template();
 
@@ -26,9 +26,23 @@ YUI({
             }
         });
 
-    item.ac.on('select', function(evt) {
-        window.ship = new Y.esc.Ship(evt.result.raw);
 
-        Y.one('#ship-display').setHTML(JSON.stringify(window.ship, null, '\t'));
+    Y.io('/ship/byNameOrType/frigate', {
+        on: {
+            success: function(id, res) {
+                var res = JSON.parse(res.responseText),
+                    rows = [];
+                
+                res.forEach(function(s) {
+                    rows.push(new Y.esc.Ship(s));
+                })
+
+                console.log(rows);
+            }
+        }
+    });
+
+    item.ac.on('select', function(evt) {
+
     });
 });
