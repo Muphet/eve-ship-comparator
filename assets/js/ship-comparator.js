@@ -45,6 +45,10 @@ YUI({
             return (getVal(va, path) - getVal(vb, path)) * (desc ? -1 : 1);
         }
     }
+    
+    function getDurability(ship) {
+        return ship.hull.strength + ship.armor.strength + ship.shield.strength;
+    }
 
     var table = new Y.DataTable({
         columns: [
@@ -65,6 +69,37 @@ YUI({
             {
                 key: "name",
                 label: "Ship Name"
+            },
+            {
+                key: "durability",
+                label: "Durability",
+                formatter: function(o) {
+                    return Math.round(getDurability(o.data));
+                },
+                sortFn: function(a, b, desc) {
+                    var da = getDurability(a.getAttrs()),
+                        db = getDurability(b.getAttrs());
+                        
+                    return da - db * (desc ? -1 : 1)
+                }
+            },
+            {
+                key: "hull",
+                label: "Hull Strength",
+                formatter: function(o) { return Math.round(o.value.strength * 100) / 100; },
+                sortFn: sortNested('hull.strength')
+            },
+            {
+                key: "armor",
+                label: "Armor Strength",
+                formatter: function(o) { return Math.round(o.value.strength * 100) / 100; },
+                sortFn: sortNested('armor.strength')
+            },
+            {
+                key: "shield",
+                label: "Shield Strength",
+                formatter: function(o) { return Math.round(o.value.strength * 100) / 100; },
+                sortFn: sortNested('shield.strength')
             },
             {
                 key: "shield",

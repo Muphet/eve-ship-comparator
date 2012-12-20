@@ -113,7 +113,20 @@
             emResistance        : { writeable: false, get: getResistanceFn('em')        },
             explosiveResistance : { writeable: false, get: getResistanceFn('explosive') },
             kineticResistance   : { writeable: false, get: getResistanceFn('kinetic')   },
-            thermalResistance   : { writeable: false, get: getResistanceFn('thermal')   }
+            thermalResistance   : { writeable: false, get: getResistanceFn('thermal')   },
+            
+            strength: {
+                writeable: false,
+                get: function() {
+                    var avgResist = (
+                        this.emResistance +
+                        this.explosiveResistance +
+                        this.kineticResistance + 
+                        this.thermalResistance ) / 4
+                        
+                    return this.hp + this.hp * avgResist;
+                }
+            }
         });
 
         HpPoolProto.toString = function() { return '[object HpPool]'; };
@@ -194,9 +207,11 @@
         ShipProto.armor           = null;
         ShipProto.shield          = null;
 
-        Object.defineProperty(ShipProto, 'resolved', {
-            writeable: false,
-            get: function() { return this.id === Ship.NOT_RESOLVED_ID; }
+        Object.defineProperties(ShipProto, {
+            resolved: {
+                writeable: false,
+                get: function() { return this.id === Ship.NOT_RESOLVED_ID; }
+            }
         });
 
         ShipProto.fromShip = function(ship) {
