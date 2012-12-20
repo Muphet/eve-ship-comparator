@@ -56,7 +56,9 @@ YUI({
                 key: "id",
                 label: ' ',
                 allowHTML: true,
-                formatter: function(o) { return '<img src="/img/ships/' + o.value + '.png" />'; },
+                formatter: function(o) {
+                    return '<img src="/img/ships/' + o.value + '.png" />';
+                },
                 sortFn: function(a, b, desc) {
                     var ra = a.get('race'),
                         rb = b.get('race'),
@@ -79,9 +81,7 @@ YUI({
                 sortFn: function(a, b, desc) {
                     var da = getDurability(a.getAttrs()),
                         db = getDurability(b.getAttrs());
-                    
-                    console.log(da, db);
-                    
+                                        
                     return (da - db) * (desc ? -1 : 1)
                 }
             },
@@ -119,11 +119,9 @@ YUI({
         sortable: true
     }).render('#ship-display');
 
-    /*
     table.delegate('click', function(evt) {
-        console.log(evt);
+        table.getRecord(evt.target).destroy();
     }, 'img');
-    */
 
     Y.io('/ship/byNameOrType/frigate', {
         on: {
