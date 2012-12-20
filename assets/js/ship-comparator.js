@@ -79,8 +79,10 @@ YUI({
                 sortFn: function(a, b, desc) {
                     var da = getDurability(a.getAttrs()),
                         db = getDurability(b.getAttrs());
-                        
-                    return da - db * (desc ? -1 : 1)
+                    
+                    console.log(da, db);
+                    
+                    return (da - db) * (desc ? -1 : 1)
                 }
             },
             {
