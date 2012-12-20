@@ -4,10 +4,15 @@ YUI({
     insertBefore: 'main-styles'
 }).use('io', 'template', 'autocomplete', 'ship-model', 'datatable', 'datatable-sort', function(Y) {
 
-    /*
-    var micro = new Y.Template();
-
-    var item = Y.one('#ship-picker').plug(Y.Plugin.AutoComplete, {
+    var micro = new Y.Template(),
+        shipResult = micro.compile([
+            '<img class="ship-result-image" src="/img/ships/<%= this.id %>.png" width="32" height="32" />',
+            '<span class="ship-result-name"><%= this.name %></span>',
+            '<span class="ship-result-type"><%= this.type %></span>',
+            '<span class="ship-faction-name"><%= this.race %></span>'
+        ].join('')),
+                
+        picker = Y.one('#ship-picker').plug(Y.Plugin.AutoComplete, {
             source: '/ship/byNameOrType/{query}',
             resultHighlighter: 'phraseMatch',
             resultTextLocator: 'name',
@@ -19,7 +24,14 @@ YUI({
                 });
             }
         });
-    */
+        
+    picker.ac.after('select', function(evt) {
+        table.addRow(new Y.esc.Ship(evt.result.raw));
+    });
+    
+    Y.one('#empty-table').on('click', function() {
+        table.set('data', []);
+    })
     
     function sortNested(propertyPath) {
         var getVal = Y.Object.getValue,
@@ -70,7 +82,11 @@ YUI({
         sortable: true
     }).render('#ship-display');
 
-
+    /*
+    table.delegate('click', function(evt) {
+        console.log(evt);
+    }, 'img');
+    */
 
     Y.io('/ship/byNameOrType/frigate', {
         on: {

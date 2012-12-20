@@ -12,11 +12,21 @@ body {
 }
 
 #ship-display {
+    clear: both;
     margin: 20px 0;
 }
 
 #ship-display table {
     width: 100%;
+}
+
+#empty-table {
+    background-color: #444448;
+    padding: 12px;
+    text-align: right;
+    float: right;
+    margin: 20px 0;
+    cursor: pointer;
 }
 
 #ship-picker {
