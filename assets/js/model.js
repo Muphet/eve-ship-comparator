@@ -263,10 +263,19 @@
         ShipProto.name            = null;
         ShipProto.capacity        = null;
         ShipProto.type            = null;
+        ShipProto.description     = null;
         ShipProto.race            = null;
+        
         ShipProto.meta            = null;
+        ShipProto.techLevel       = null;
+        
         ShipProto.agility         = null;
         ShipProto.velocity        = null;
+        ShipProto.signature       = null;
+        ShipProto.warpSpeed       = null;
+        
+        ShipProto.cpu             = null;
+        ShipProto.powerGrid       = null;
 
         ShipProto.sensors         = null;
         ShipProto.slots           = null;
