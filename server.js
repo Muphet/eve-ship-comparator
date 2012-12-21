@@ -39,6 +39,10 @@ var routes = {
     }
 };
 
+ShipService.getByName('Kestrel').then(function(s) {
+    console.log(s);
+});
+
 
 http.createServer(function(req, res) {
     var path = req.url.split('?')[0].split('/').slice(1);
@@ -49,7 +53,7 @@ http.createServer(function(req, res) {
 
         req.addListener('end', function() {
             file.serve(req, res);
-        });     
+        });
     }
 
 }).listen(8080);
