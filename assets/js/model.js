@@ -227,6 +227,35 @@
         ShieldProto.toString = function() { return '[object Shield]'; };
 
         NS.Shield = Shield;
+        
+
+//
+// --- Skill Requirements ---------------------------------------------------
+//
+        var SkillRequirements, SkillRequirementsProto;
+        
+        SkillRequirements = function() {
+            this.skills = [];
+        };
+        
+        SkillRequirementsProto = SkillRequirements.prototype;
+        
+        SkillRequirementsProto.skills = null;
+        
+        Object.defineProperties(SkillRequirementsProto, {
+            primary: {
+                get: function() { return this.skills[0]; },
+                set: function(val) { this.skills[0] = val; }
+            },
+            secondary: {
+                get: function() { return this.skills[1]; },
+                set: function(val) { this.skills[1] = val; }
+            },
+            tertiary: {
+                get: function() { return this.skills[2]; },
+                set: function(val) { this.skills[2] = val; }
+            }
+        });
 
 
 //
@@ -241,14 +270,17 @@
         @param shipData {Object} An object literal describing a ship.
         */
         Ship = function(shipData) {
-            this.sensors         = {};
-            this.slots           = {};
-            this.capacitor       = new Capacitor();
-            this.drones          = {};
-            this.heatAttenuation = {};
-            this.hull            = new HpPool();
-            this.armor           = new HpPool();
-            this.shield          = new Shield();
+            this.capacity          = {};
+            this.sensors           = {};
+            this.slots             = {};
+            this.capacitor         = new Capacitor();
+            this.drones            = {};
+            this.heatAttenuation   = {};
+            this.hull              = new HpPool();
+            this.armor             = new HpPool();
+            this.shield            = new Shield();
+            this.jumpDrive         = {};
+            this.skillRequirements = [];
 
             if(shipData) {
                 this.fromShip(shipData);
@@ -259,32 +291,38 @@
 
         ShipProto = Ship.prototype;
 
-        ShipProto.id              = Ship.NOT_RESOLVED_ID;
-        ShipProto.name            = null;
-        ShipProto.capacity        = null;
-        ShipProto.type            = null;
-        ShipProto.description     = null;
-        ShipProto.race            = null;
+        ShipProto.id                  = Ship.NOT_RESOLVED_ID;
+        ShipProto.name                = null;
         
-        ShipProto.meta            = null;
-        ShipProto.techLevel       = null;
-        
-        ShipProto.agility         = null;
-        ShipProto.velocity        = null;
-        ShipProto.signature       = null;
-        ShipProto.warpSpeed       = null;
-        
-        ShipProto.cpu             = null;
-        ShipProto.powerGrid       = null;
+        ShipProto.type                = null;
+        ShipProto.description         = null;
+        ShipProto.race                = null;
 
-        ShipProto.sensors         = null;
-        ShipProto.slots           = null;
-        ShipProto.capacitor       = null;
-        ShipProto.drones          = null;
-        ShipProto.heatAttenuation = null;
-        ShipProto.hull            = null;
-        ShipProto.armor           = null;
-        ShipProto.shield          = null;
+        ShipProto.meta                = null;
+        ShipProto.techLevel           = null;
+        
+        ShipProto.signature           = null;
+        ShipProto.agility             = null;
+        ShipProto.velocity            = null;
+        ShipProto.warpSpeed           = null;
+        ShipProto.warpSpeedMultiplier = null;
+
+        ShipProto.cpu                 = null;
+        ShipProto.powerGrid           = null;
+                                      
+        ShipProto.capacity            = null;
+        ShipProto.sensors             = null;
+        ShipProto.slots               = null;
+        ShipProto.capacitor           = null;
+        ShipProto.drones              = null;
+        ShipProto.heatAttenuation     = null;
+        ShipProto.hull                = null;
+        ShipProto.armor               = null;
+        ShipProto.shield              = null;
+        ShipProto.jumpDrive           = null;
+
+
+        ShipProto.skillRequirements   = null;
 
 
         Object.defineProperties(ShipProto, {
