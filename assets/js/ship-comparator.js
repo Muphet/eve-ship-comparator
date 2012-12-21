@@ -129,6 +129,10 @@ YUI({
                 key: "velocity",
                 label: "Velocity",
                 formatter: function(o) { return o.value + 'm/s'; }
+            },
+            {
+                key: "signature",
+                label: "Sig."
             }
         ],
         sortable: true
