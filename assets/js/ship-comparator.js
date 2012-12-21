@@ -113,6 +113,22 @@ YUI({
                 label: "Cap Recharge",
                 formatter: function(o) { return o.value.peakRecharge.toFixed(2); },
                 sortFn: sortNested('capacitor.peakRecharge')
+            },
+            {
+                key: "slots",
+                label: "Slots (H/M/L)",
+                formatter: function(o) { return [o.value.high,o.value.medium,o.value.low].join(' / ') },
+                sortFn: function(a, b, desc) {
+                    var as = a.get('slots'),
+                        bs = b.get('slots');
+                        
+                    return ((as.high + as.medium + as.low) - (bs.high + bs.medium + bs.low)) * (desc ? -1 : 1);
+                }
+            },
+            {
+                key: "velocity",
+                label: "Velocity",
+                formatter: function(o) { return o.value + 'm/s'; }
             }
         ],
         sortable: true
