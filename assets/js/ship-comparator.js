@@ -47,7 +47,7 @@ YUI({
     }
     
     function getDurability(ship) {
-        return ship.hull.strength + ship.armor.strength + ship.shield.strength;
+        return ship.hull.ehp + ship.armor.ehp + ship.shield.ehp;
     }
 
     var table = new Y.DataTable({
@@ -73,8 +73,7 @@ YUI({
                 label: "Ship Name"
             },
             {
-                key: "durability",
-                label: "Durability",
+                label: "EHP",
                 formatter: function(o) {
                     return Math.round(getDurability(o.data));
                 },
@@ -87,32 +86,32 @@ YUI({
             },
             {
                 key: "hull",
-                label: "Hull Strength",
-                formatter: function(o) { return Math.round(o.value.strength * 100) / 100; },
-                sortFn: sortNested('hull.strength')
+                label: "Hull EHP",
+                formatter: function(o) { return Math.round(o.value.ehp); },
+                sortFn: sortNested('hull.ehp')
             },
             {
                 key: "armor",
-                label: "Armor Strength",
-                formatter: function(o) { return Math.round(o.value.strength * 100) / 100; },
-                sortFn: sortNested('armor.strength')
+                label: "Armor EHP",
+                formatter: function(o) { return Math.round(o.value.ehp); },
+                sortFn: sortNested('armor.ehp')
             },
             {
                 key: "shield",
-                label: "Shield Strength",
-                formatter: function(o) { return Math.round(o.value.strength * 100) / 100; },
-                sortFn: sortNested('shield.strength')
+                label: "Shield EHP",
+                formatter: function(o) { return Math.round(o.value.ehp); },
+                sortFn: sortNested('shield.ehp')
             },
             {
                 key: "shield",
                 label: "Shield Recharge",
-                formatter: function(o) { return Math.round(o.value.peakRecharge * 100) / 100; },
+                formatter: function(o) { return o.value.peakRecharge.toFixed(2); },
                 sortFn: sortNested('shield.peakRecharge')
             },
             {
                 key: "capacitor",
                 label: "Cap Recharge",
-                formatter: function(o) { return Math.round(o.value.peakRecharge * 100) / 100; },
+                formatter: function(o) { return o.value.peakRecharge.toFixed(2); },
                 sortFn: sortNested('capacitor.peakRecharge')
             }
         ],

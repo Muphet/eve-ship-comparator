@@ -1,5 +1,13 @@
 (function() {
+    /*
+    The defineModel function here just generates the necessary class and method code to set up our data model. It is
+    called in one of two ways at the bottom of this file depending on environment.
+    */
     var defineModel = function(NS) {
+        /**
+        @module Model
+        @namespace esc
+        **/
 
         var UNDEFINED;
 
@@ -49,6 +57,36 @@
                 }
             }
         };
+        
+//
+// --- Damage Profile -------------------------------------------------------
+//
+
+        NS.DamageProfile = function(r) {
+            return NS.DamageProfile[NS.DamageProfile.profile](r);
+        };
+        
+        NS.DamageProfile.profile = 'eft';
+        
+        NS.DamageProfile.eve = function(r) {
+            return Math.min(r.emResistance, r.explosiveResistance, r.kineticResistance, r.thermalResistance);
+        };
+        
+        NS.DamageProfile.eft = function(r) {
+            var balance = NS.DamageProfile.damageBalance;
+            
+            return r.emResistance        * balance.EM +
+                   r.explosiveResistance * balance.EXPLOSIVE +
+                   r.kineticResistance   * balance.KINETIC +
+                   r.thermalResistance   * balance.THERMAL;
+        };
+        
+        NS.DamageProfile.damageBalance = {
+            EM:        0.25,
+            EXPLOSIVE: 0.25,
+            KINETIC:   0.25,
+            THERMAL:   0.25
+        };
 
 //
 // --- Capacitor ------------------------------------------------------------
@@ -56,26 +94,35 @@
 
         var Capacitor, CapacitorProto;
 
+        /**
+        @class Capacitor
+        @constructor
+        **/
         Capacitor = function() {};
 
         CapacitorProto = Capacitor.prototype;
 
-        CapacitorProto.capacity = 0;
+        CapacitorProto.capacity = 0;        
         CapacitorProto.recharge = 0;
 
         /*
+        A read-only synthetic property that's the peak recharge rate of a capacitor.
+        
         The peak recharge of a capacitor appears to happen on or near the 25% mark and is defined by:
 
-        dC/dt = ( SQRT( Cx/Cmax ) - C/Cmax ) * 2 * Cmax / tau
+        `dC/dt = ( SQRT( Cx/Cmax ) - C/Cmax ) * 2 * Cmax / tau`
 
         Where:
 
-        dC/dt = The amount the capacitor will recharge per second
-        Cx    = The current amount of energy in the capacitor
-        Cmax  = The total amount of energy in a fully-charged capacitor
-        tau   = A constant that's either t/5 or t/4.8 where t is the recharge rate in seconds. (I chose 5) 
+        * `dC/dt` is the amount the capacitor will recharge per second
+        * `Cx` is the current amount of energy in the capacitor
+        * `Cmax` is the total amount of energy in a fully-charged capacitor
+        * `tau` is a constant that's either t/5 or t/4.8 where t is the recharge rate in seconds. (I chose 5) 
 
         Source: <http://wiki.eveonline.com/en/wiki/Capacitor_recharge_rate>
+
+        @property peakRecharge {Number}
+        @readOnly
         */
         Object.defineProperty(CapacitorProto, 'peakRecharge', {
             writeable: false,
@@ -90,13 +137,20 @@
 // --- HP Pool --------------------------------------------------------------
 //
 
-        function getResistanceFn(type) {
-            return function() { return 1 - this[type + 'Resonance']; };
-        };
+        var HpPool, HpPoolProto,
 
-        var HpPool, HpPoolProto;
+            getResistanceFn = function(type) {
+                return function() { return 1 - this[type + 'Resonance']; };         
+            };
 
+        /**
+        Represents one of the three HP 'pools' on a ship: shields, armor, and structure (hull)
+        
+        @class HpPool
+        @constructor
+        **/
         HpPool = function() {};
+        
         HpPoolProto = HpPool.prototype;
 
         HpPoolProto.hp                 = 0;
@@ -115,16 +169,20 @@
             kineticResistance   : { writeable: false, get: getResistanceFn('kinetic')   },
             thermalResistance   : { writeable: false, get: getResistanceFn('thermal')   },
             
-            strength: {
+            /**
+            The effective hit points of this damage pool, calculated by:
+            
+            `EHP = HP / (1-RST)`
+            
+            Source: <http://community.eveonline.com/ingameboard.asp?a=topic&threadID=780756>
+            
+            @property ehp
+            @readOnly
+            **/
+            ehp: {
                 writeable: false,
                 get: function() {
-                    var avgResist = (
-                        this.emResistance +
-                        this.explosiveResistance +
-                        this.kineticResistance + 
-                        this.thermalResistance ) / 4
-                        
-                    return this.hp + this.hp * avgResist;
+                    return this.hp / (1 - NS.DamageProfile(this));
                 }
             }
         });
@@ -138,21 +196,28 @@
 
         var Shield, ShieldProto;
 
+        /**
+        @class Shield
+        @extends HpPool
+        **/
         Shield = function() {};
 
-        ShieldProto = Shield.prototype = new HpPool(); // Inherits frmo HpPool
+        ShieldProto = Shield.prototype = new HpPool(); // Inherit from HpPool
 
         ShieldProto.constructor  = Shield;
         ShieldProto.rechargeRate = 0;
 
         /*
-        The peak recharge of a shield is defined by:
+        The peak recharge rate of a shield is defined by:
 
-            R = 2.4 * S / R
+        `R = 2.4 * S / R`
 
         Where R is the recharge rate, S is the maximum shield size, and R is the recharge rate in seconds.
 
         Source: <http://wiki.eveonline.com/en/wiki/Shield_recharge>
+        
+        @property peakRecharge {Number}
+        @readOnly
         */
         Object.defineProperty(ShieldProto, 'peakRecharge', {
             writeable: false,
@@ -170,6 +235,11 @@
 
         var Ship, ShipProto;
 
+        /*
+        @class Ship
+        @constructor
+        @param shipData {Object} An object literal describing a ship.
+        */
         Ship = function(shipData) {
             this.sensors         = {};
             this.slots           = {};
@@ -207,6 +277,7 @@
         ShipProto.armor           = null;
         ShipProto.shield          = null;
 
+
         Object.defineProperties(ShipProto, {
             resolved: {
                 writeable: false,
@@ -236,6 +307,12 @@
         NS.Ship = Ship;
     };
 
+
+    /*
+    This code implicitly examines the environment and determines if it has been loaded from nodejs or YUI. If it's been
+    loaded from nodejs, it attaches itself to the `exports` constant. Otherwise, it generates a YUI module plugged into
+    the `Y.esc` namespace.
+    */
     if(typeof YUI === 'undefined') {
         defineModel(exports);
     } else {
