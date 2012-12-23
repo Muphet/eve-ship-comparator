@@ -7,7 +7,7 @@ var ItemDB = require('./lib/db').ItemDB,
     ship = new ShipService(db);
     
 
-ship.getByName('rorqual').then(function(ships) {
+ship.getByName('pun').then(function(ships) {
     console.log();
     console.log();
     console.log(ships[0]);
