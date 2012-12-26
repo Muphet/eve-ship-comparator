@@ -12,6 +12,7 @@
     "dependencies": {
         "node-static": "0.6.5",
         "q": "0.8.11",
-        "sqlite3": "2.1.5"
+        "sqlite3": "2.1.5",
+        "xml2js": "*"
     }
 }

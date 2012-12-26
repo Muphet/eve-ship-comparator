@@ -1,5 +1,28 @@
 (function(NS, isNode) {
 
+    var Skill, SkillProto;
+    
+    Skill = function(s) {
+        this.id           = s && s.id           ? s.id           : null;
+        this.name         = s && s.name         ? s.name         : null;
+        this.description  = s && s.description  ? s.description  : null;
+        this.group        = s && s.group        ? s.group        : null;
+        this.rank         = s && s.rank         ? s.rank         : null;
+        this.requirements = s && s.requirements ? s.requirements : [];
+    };
+    
+    SkillProto = Skill.prototype;
+    
+    SkillProto.id = null;
+    SkillProto.name = null;
+    SkillProto.description = null;
+    SkillProto.group = null;
+    SkillProto.rank = null;
+    SkillProto.requirements = null;
+    
+    
+    NS.Skill = Skill;
+    
 //
 // --- Skill ----------------------------------------------------------------
 //
@@ -15,6 +38,9 @@
     
     SkillRequirementProto.id = null;
     SkillRequirementProto.level = null;
+    
+    
+    NS.SkillRequirement = SkillRequirement;
 
 //
 // --- Skill Requirements ---------------------------------------------------
