@@ -3,7 +3,7 @@
 var ItemDB = require('./lib/db').ItemDB,
     ShipService = require('./lib/ship').ShipService,
     
-    db   = new ItemDB('data/database.sqlite'),
+    db   = new ItemDB('data/463858/database.sqlite'),
     ship = new ShipService(db);
     
 
