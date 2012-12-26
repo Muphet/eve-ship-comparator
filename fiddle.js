@@ -8,10 +8,7 @@ var ItemDB = require('./lib/db').ItemDB,
     
 
 ship.getByName(process.argv[2] || "Punisher").then(function(ships) {
-    console.log(JSON.stringify(ships, null, '\t'));
-    
-    console.log();
-    console.log(ships[0].description);
+    console.log(JSON.stringify(ships, null, '\t'));    
 }, function(fail) {
     console.log(fail);
 });
