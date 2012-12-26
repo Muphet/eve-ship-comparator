@@ -18,7 +18,7 @@
         this.slots             = {};
         this.capacitor         = new Capacitor();
         this.drones            = {};
-        this.heatAttenuation   = {};
+        this.heat              = {};
         this.hull              = new HpPool();
         this.armor             = new HpPool();
         this.shield            = new Shield();
@@ -58,7 +58,7 @@
     ShipProto.slots               = null;
     ShipProto.capacitor           = null;
     ShipProto.drones              = null;
-    ShipProto.heatAttenuation     = null;
+    ShipProto.heat                = null;
     ShipProto.hull                = null;
     ShipProto.armor               = null;
     ShipProto.shield              = null;
