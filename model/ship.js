@@ -94,4 +94,4 @@
 
     NS.Ship = Ship;
     
-}(typeof exports === 'undefined' ? win.esc || (win.esc = {}) : exports, typeof exports !== 'undefined'));
+}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));

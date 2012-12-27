@@ -1,5 +1,5 @@
 var express = require('express'),
-    ship = require('./controllers/ship').shipController,
+    ship = require('./controllers/ship'),
     app = express();
     
 app.use(express.static(__dirname + '/assets'));

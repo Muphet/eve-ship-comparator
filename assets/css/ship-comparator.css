@@ -3,10 +3,28 @@ html {
     font-family: Helvetica;
     background-color: #222225;
     color: #ddddc5;
+    
+    -webkit-font-smoothing: antialiased;
 }
 
 body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0;
+}
+
+.compare-columns {
+    font-size: 13px;
+}
+
+.compare-columns .ship {
+    float: left;
+    width: 25%;
+}
+
+.ship {
+    box-sizing: border-box;
+    padding: 0 5px;
+}
+.ship .ship-name {
 }
