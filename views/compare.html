@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Compare Ship</title>
+        <link id="main-styles" rel="stylesheet" href="/css/ship-comparator.css" />
+    </head>
+    <body class="compare-ship">
+        
+        <div class="compare-columns">
+            <% ships.forEach(function(ship) { %>
+            <%    include partials/ship.html %>
+            <% }) %>
+        </div>
+        
+        
+        <script src="capacitor.js" type="text/javascript"></script>
+        <script src="hpPool.js" type="text/javascript"></script>
+        <script src="skill.js" type="text/javascript"></script>
+        <script src="ship.js" type="text/javascript"></script>
+        
+        <script src="js/ship-comparator.js" type="text/javascript"></script>
+    </body>
+</html>
