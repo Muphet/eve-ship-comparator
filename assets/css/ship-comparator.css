@@ -10,7 +10,7 @@ html {
 body {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0;
+    padding: 20px 0;
 }
 
 .compare-columns {
@@ -26,5 +26,21 @@ body {
     box-sizing: border-box;
     padding: 0 5px;
 }
+
+.ship .ship-masthead {
+    position: relative;
+}
+
+.ship .ship-image {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
 .ship .ship-name {
+    position: absolute;
+    bottom: 0;
+    padding: 10px;
+    margin: 0;
+    text-shadow: 0 -1px #000;
 }

@@ -1,9 +1,10 @@
 
 
 <div class="ship">
-    <img src="/img/ships/<%=ship.id %>.png" />
-    
-    <h3 class="ship-name"><%=ship.name %></h3>
+    <div class="ship-masthead">
+        <img class="ship-image" src="/img/ships.new/<%=ship.id %>.png" />
+        <h2 class="ship-name"><%=ship.name %></h2>
+    </div>
     <div class="ship-description">
         <%- ship.description %>
     </div>
