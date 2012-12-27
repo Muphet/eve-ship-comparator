@@ -11,9 +11,11 @@ exports.compare = function(req, res, next) {
     var ships = Object.keys(req.query),
         i, l;
         
-        
-    ShipService.getByName(ships).then(function(s) {
-        
-        res.render('compare', { ships: s });
-    });
+    if(ships.length) {
+        ShipService.getByNameOrType(ships).then(function(s) {
+            res.render('compare', { ships: s });
+        });
+    } else {
+        res.render('compare', { ships: [] });
+    }
 };

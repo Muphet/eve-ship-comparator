@@ -7,8 +7,11 @@
     <body class="compare-ship">
         
         <div class="compare-columns">
-            <% ships.forEach(function(ship) { %>
+            <% ships.forEach(function(ship, i) { %>
             <%    include partials/ship.html %>
+            <% if(i%4 == 3) { %>
+            <div style="clear:both; border-top: 1px solid #ddddc5; padding: 0 0 10px"></div>
+            <% } %>
             <% }) %>
         </div>
         
