@@ -7,20 +7,21 @@
     <body class="compare-ship">
         
         <div class="compare-columns">
-            <% ships.forEach(function(ship, i) { %>
-            <%    include partials/ship.html %>
-            <% if(i%4 == 3) { %>
-            <div style="clear:both; border-top: 1px solid #ddddc5; padding: 0 0 10px"></div>
-            <% } %>
-            <% }) %>
+            <% this.ships.forEach(function(ship, i) { %>
+                <%== this.include('/views/shared/ship', ship) %>
+                <% if(i%4 == 3) { %>
+                    <div style="clear:both; border-top: 1px solid #ddddc5; padding: 0 0 10px"></div>
+                <% } %>
+            <% }, this) %>
         </div>
         
+        <script src="capacitor.js"></script>
+        <script src="hpPool.js"></script>
+        <script src="skill.js"></script>
+        <script src="ship.js"></script>
+        <script src="templates.js"></script>
         
-        <script src="capacitor.js" type="text/javascript"></script>
-        <script src="hpPool.js" type="text/javascript"></script>
-        <script src="skill.js" type="text/javascript"></script>
-        <script src="ship.js" type="text/javascript"></script>
-        
-        <script src="js/ship-comparator.js" type="text/javascript"></script>
+        <script src="js/micro-template.js"></script>
+        <script src="js/ship-comparator.js"></script>
     </body>
 </html>
