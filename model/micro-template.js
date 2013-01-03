@@ -1,4 +1,3 @@
-// TODO: unify this code with the micro-template.js in /lib
 (function(NS) {
     
     var MicroTemplate = {};
@@ -37,9 +36,7 @@
         return MicroTemplate.compile(text)(data);
     };
 
-    MicroTemplate.include = function(path, options) {
-        return MicroTemplate.revive(NS.tmpl[path])(options);
-    };
+    MicroTemplate.include = function(path, options) { /* NO-OP */ };
 
     MicroTemplate.compile = function(text, precompile) {
         var blocks     = [],
@@ -89,9 +86,9 @@
         
         // If compile() was called from precompile(), return precompiled source.
         if (precompile) {
-            return "function ($e, data) {\n" + source + "\n}";
+            return "function ($, $e, data) {\n" + source + "\n}";
         } else {
-            return MicroTemplate.revive(new Function('$e', 'data', source));        
+            return MicroTemplate.revive(new Function('$', '$e', 'data', source));
         }
     };
 
@@ -105,10 +102,10 @@
         
             data.include = MicroTemplate.include;
         
-            return precompiled.call(data, MicroTemplate.escape, data);
+            return precompiled.call(data, MicroTemplate.include, MicroTemplate.escape, data);
         }
     };
     
     NS.MicroTemplate = MicroTemplate;
     
-}(window.esc || (window.esc = {}) ))
+}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));

@@ -4,12 +4,12 @@
         <h2 class="ship-name"><%=this.name %></h2>
     </div>
     <div class="ship-hitpoints">
-        <%== this.include('/views/shared/hp', this.hull) %>
+        <%== $('/views/shared/hp', this.hull) %>
     </div>
     <div class="ship-hitpoints">
-        <%== this.include('/views/shared/hp', this.armor) %>
+        <%== $('/views/shared/hp', this.armor) %>
     </div>
     <div class="ship-hitpoints">
-        <%== this.include('/views/shared/hp', this.shield) %>
+        <%== $('/views/shared/hp', this.shield) %>
     </div>
 </div>

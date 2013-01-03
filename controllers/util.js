@@ -1,7 +1,7 @@
 
 var fs = require('fs'),
     Q  = require('q'),
-    MicroTemplate = require('../lib/micro-template');
+    MicroTemplate = require('../model/micro-template').MicroTemplate;
 
 
 var TMPL_CACHE; // TODO: figure out somewhere better / some way better to do this
@@ -61,6 +61,11 @@ exports.tmpl = function(req, res, next) {
         tmpls.forEach(function(t) {
             out.push('window.esc.tmpl["' + t.path + '"] = ' + t.template);
         });
+        
+        out.push([
+            'window.esc.MicroTemplate.include = function(path, options) {',
+            '\treturn window.esc.MicroTemplate.revive(window.esc.tmpl[path])(options);',
+        '}'].join('\n'));
         
         res.send(out.join('\n'));
         
