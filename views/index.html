@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Compare Ship</title>
+        <link id="main-styles" rel="stylesheet" href="/css/ship-comparator.css" />
+    </head>
+    <body class="compare-ship yui3-skin-night">
+        
+        <input id="ship-picker" placeholder="Ship name or type..." autofocus />
+
+        <div id="empty-table">Empty Table</div>
+        <div id="ship-display"></div>
+        
+        <script src="capacitor.js"></script>
+        <script src="hpPool.js"></script>
+        <script src="skill.js"></script>
+        <script src="ship.js"></script>
+        <script src="micro-template.js"></script>
+        <script src="templates.js"></script>
+
+        <script>
+        (function(NS) {
+            
+            NS.model = <%== JSON.stringify(this, null, '\t') %>
+            
+        }( window.esc || (window.esc = {}) ));
+        </script>
+        <script src="http://yui.yahooapis.com/3.8.0/build/yui/yui-debug.js"></script>
+        <script src="js/index.js"></script>
+
+    </body>
+</html>

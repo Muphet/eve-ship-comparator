@@ -1,5 +1,13 @@
 (function(NS, isNode) {
 
+    function each(objOrArray, fn) {
+        for(var k in objOrArray) {
+            if(objOrArray.hasOwnProperty(k)) {
+                fn(objOrArray[k], k);
+            }
+        }
+    };
+
     var HpPool            = (isNode) ? require('./hpPool').HpPool           : NS.HpPool,
         Shield            = (isNode) ? require('./hpPool').Shield           : NS.Shield,
         Capacitor         = (isNode) ? require('./capacitor').Capacitor     : NS.Capacitor,
@@ -76,7 +84,7 @@
 
     ShipProto.fromShip = function(ship) {
         function propagate(sourceObj, destObj) {
-            NS.each(sourceObj, function(sourceVal, sourceKey) {
+            each(sourceObj, function(sourceVal, sourceKey) {
                 if(typeof sourceVal === 'object' && destObj[sourceKey]) {
                     propagate(sourceVal, destObj[sourceKey]);
                 } else if(!destObj[sourceKey]) {

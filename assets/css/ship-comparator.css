@@ -13,6 +13,43 @@ body {
     padding: 20px 0;
 }
 
+#ship-display {
+    clear: both;
+    margin: 20px 0;
+}
+
+#ship-display table {
+    width: 100%;
+}
+
+#empty-table {
+    background-color: #444448;
+    padding: 12px;
+    text-align: right;
+    float: right;
+    margin: 20px 0;
+    cursor: pointer;
+}
+
+#ship-picker {
+    margin: 50px auto 0;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 150%;
+    background-color: #444448;
+    padding: 12px;
+    border: 0;
+    color: #fff;
+}
+#ship-picker:focus {
+    outline: 2px solid #ddddc5;
+}
+#ship-picker::-webkit-input-placeholder {
+    color: #ddddc5;
+}
+
+
 .compare-columns {
     font-size: 13px;
 }
@@ -68,4 +105,44 @@ body {
 
 .ship .ship-hitpoints .resistances {
 
+}
+
+
+
+.yui3-aclist .yui3-aclist-list {
+    color: #ddddc5;
+}
+
+.yui3-aclist .yui3-aclist-item {
+    position: relative;
+    padding: 4px;
+}
+.yui3-aclist .yui3-aclist-item .ship-result-image {
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+}
+
+.yui3-aclist .yui3-aclist-item .ship-result-name {
+    display: inline-block;
+    line-height: 48px;
+    font-size: 24px;
+    vertical-align: middle;
+    padding-left: 16px;
+}
+
+.yui3-aclist .yui3-aclist-item .ship-result-type {
+    position: absolute;
+    right: 4px;
+    top: 6px;
+    opacity: 0.8;
+    line-height: 1;
+}
+
+.yui3-aclist .yui3-aclist-item .ship-faction-name {
+    position: absolute;
+    right: 4px;
+    bottom: 6px;
+    opacity: 0.8;
+    line-height: 1;
 }
