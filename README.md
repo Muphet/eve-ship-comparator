@@ -32,6 +32,17 @@ render everything client-side for pushstate-style page updates.
     └── views                
         ├── compare.html     
         ├── index.html       
-        └── shared            - Shared clinet-server templates
+        └── shared            - Shared client-server templates
             ├── hp.html
             └── ship.html
+            
+### Templates
+
+The template engine is extremely simple and based off of the YUI Template.Micro
+utility that @rgrove wrote for 3.8.0. I tore it apart and rebuilt it to work
+without YUI and to support subtemplate inclusion natively with the special `$`
+character. `$('/my/inner/template', { 'with': "DATA" })` would include the
+template at that path (either on the file system for nodejs, or attached to
+a global templates object on the client) with a set of data. Templates are
+provided by a synthetic memoized URL that collects everything in the `shared`
+directory and precompiles them into runnable JS template code.
