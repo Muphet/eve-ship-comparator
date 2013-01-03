@@ -11,7 +11,7 @@ var TMPL_PATH = '/views/shared/';
 function getTemplates() {
     var d = Q.defer();
     
-    if(TMPL_CACHE) {
+    if(TMPL_CACHE && process.env !== 'development') {
         d.resolve(TMPL_CACHE);
     } else {
         TMPL_CACHE = {};
