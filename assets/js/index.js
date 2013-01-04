@@ -72,9 +72,14 @@ YUI({
                 label: "Ship Name"
             },
             {
-                label: "EHP",
+                label: "EHP ( Hull / Armor / Shield )",
                 formatter: function(o) {
-                    return Math.round(getDurability(o.data));
+                    var dur = Math.round(getDurability(o.data));
+                    
+                    return dur + ' ( ' + [
+                        o.data.hull.ehp.toFixed(0),
+                        o.data.armor.ehp.toFixed(0),
+                        o.data.shield.ehp.toFixed(0)].join(' / ') + ' )'
                 },
                 sortFn: function(a, b, desc) {
                     var da = getDurability(a.getAttrs()),
@@ -84,38 +89,35 @@ YUI({
                 }
             },
             {
-                key: "hull",
-                label: "Hull EHP",
-                formatter: function(o) { return Math.round(o.value.ehp); },
-                sortFn: sortNested('hull.ehp')
-            },
-            {
-                key: "armor",
-                label: "Armor EHP",
-                formatter: function(o) { return Math.round(o.value.ehp); },
-                sortFn: sortNested('armor.ehp')
-            },
-            {
                 key: "shield",
-                label: "Shield EHP",
-                formatter: function(o) { return Math.round(o.value.ehp); },
-                sortFn: sortNested('shield.ehp')
-            },
-            {
-                key: "shield",
-                label: "Shield Recharge",
+                label: "Sh Rchg",
                 formatter: function(o) { return o.value.peakRecharge.toFixed(2); },
                 sortFn: sortNested('shield.peakRecharge')
             },
             {
                 key: "capacitor",
-                label: "Cap Recharge",
+                label: "Cap Rchg",
                 formatter: function(o) { return o.value.peakRecharge.toFixed(2); },
                 sortFn: sortNested('capacitor.peakRecharge')
             },
             {
+                key: "sensors",
+                label: "Sensors",
+                formatter: function(o) {
+                    var str = o.value.strength;
+
+                    return  o.value.resolution + ' @ ' + o.value.range/1000 + 'km / ' + str;
+                },
+                sortFn: function(a, b, desc) {
+                    var as = a.get('sensors'),
+                        bs = b.get('sensors');
+                    
+                    return (as.resolution * as.range - bs.resolution * bs.range) * (desc ? -1 : 1);
+                }
+            },
+            {
                 key: "slots",
-                label: "Slots (H/M/L)",
+                label: "(H/M/L)",
                 formatter: function(o) { return [o.value.high,o.value.medium,o.value.low].join(' / ') },
                 sortFn: function(a, b, desc) {
                     var as = a.get('slots'),

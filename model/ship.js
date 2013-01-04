@@ -13,6 +13,30 @@
         Capacitor         = (isNode) ? require('./capacitor').Capacitor     : NS.Capacitor,
         SkillRequirements = (isNode) ? require('./skill').SkillRequirements : NS.SkillRequirements;
 
+
+    var Sensors, SensorsProto;
+    
+    Sensors = function() {};
+    
+    SensorsProto = Sensors.prototype;
+    
+    SensorsProto.gravimetricStrength   = null;
+    SensorsProto.magnetometricStrength = null;
+    SensorsProto.ladarStrength         = null;
+    SensorsProto.radarStrength         = null;
+    SensorsProto.range                 = null;
+    SensorsProto.resolution            = null;
+    SensorsProto.lockedTargets         = null;
+    
+    Object.defineProperty(SensorsProto, 'strength', {
+        writeable: false,
+        get: function() {
+            return this.gravimetricStrength || this.magnetometricStrength || this.ladarStrength || this.radarStrength;
+        }
+    });
+
+
+
     var Ship, ShipProto;
 
     /*
@@ -22,7 +46,7 @@
     */
     Ship = function(shipData) {
         this.capacity          = {};
-        this.sensors           = {};
+        this.sensors           = new Sensors();
         this.slots             = {};
         this.capacitor         = new Capacitor();
         this.drones            = {};
