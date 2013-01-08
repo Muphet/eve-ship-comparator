@@ -24,8 +24,7 @@ render everything client-side for pushstate-style page updates.
     │   │   ├── ship.js
     │   │   └── util.js
     │   ├── data                     - the sqlite database
-    │   │   └── 463858
-    │   │       └── database.sqlite
+    │   │   └── database.sqlite
     │   └── lib                      - service layer
     │       ├── db.js                - db service
     │       ├── micro-template.js    - express-compatible template library
