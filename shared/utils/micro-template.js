@@ -48,7 +48,7 @@
         // Parse the input text into a string of JavaScript code, with placeholders
         // for code blocks. Text outside of code blocks will be escaped for safe
         // usage within a double-quoted string literal.
-        source = "var $b='',$t='" +
+        source = "\tvar $b='',$t='" +
  
             // U+FFFE and U+FFFF are guaranteed to represent non-characters, so no
             // valid UTF-8 string should ever contain them. That means we can freely
@@ -59,15 +59,15 @@
             text.replace(/\ufffe|\uffff/g, '')
  
             .replace(options.rawOutput, function (match, code) {
-                return tokenOpen + (blocks.push("'+\n((" + code + ")||$b)+\n'") - 1) + tokenClose;
+                return tokenOpen + (blocks.push("'+\n\t((" + code + ")||$b)+\n\t'") - 1) + tokenClose;
             })
  
             .replace(options.escapedOutput, function (match, code) {
-                return tokenOpen + (blocks.push("'+\n$e((" + code + ")||$b)+\n'") - 1) + tokenClose;
+                return tokenOpen + (blocks.push("'+\n\t$e((" + code + ")||$b)+\n\t'") - 1) + tokenClose;
             })
  
             .replace(options.code, function (match, code) {
-                return tokenOpen + (blocks.push("';\n" + code + "\n$t+='") - 1) + tokenClose;
+                return tokenOpen + (blocks.push("';\n\t" + code + "\n\t$t+='") - 1) + tokenClose;
             })
  
             .replace(options.stringEscape, function(match) {
@@ -82,7 +82,7 @@
             // Remove noop string concatenations that have been left behind.
             .replace(/\n\$t\+='';\n/g, '\n') +
  
-            "';\nreturn $t;";
+            "';\n\treturn $t;";
         
         // If compile() was called from precompile(), return precompiled source.
         if (precompile) {

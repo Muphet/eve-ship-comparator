@@ -6,7 +6,7 @@ var express = require('express'),
 app.use(express.static(__dirname + '/shared/'));
 app.use(express.static(__dirname + '/client/'));
 
-app.get('/templates.js', util.tmpl);
+app.get('/js/templates.js', util.tmpl);
 
 app.engine('html', require('./server/lib/micro-template'));
 

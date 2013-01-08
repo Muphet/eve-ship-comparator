@@ -22,7 +22,7 @@
         var a = slice.call(arguments),
             fn = a.shift();
         
-        if(setImmediate) {
+        if(typeof setImmediate !== 'undefined') {
             setImmediate(function() {
                 fn.apply(undefined, a);
             });
@@ -45,6 +45,8 @@
         
         fn.call(resolver, bind('fulfill', resolver), bind('reject', resolver));
     };
+    
+    PromiseProto = Promise.prototype;
 
     PromiseProto.then = function() {
         return this._resolver.then.apply(this._resolver, arguments);
@@ -78,7 +80,7 @@
             this._result = value;
             this._notify(this._subs.resolve, this._result);
             this._subs = { resolve: [] };
-            this._status = 'resolve';
+            this._status = 'resolved';
             return this;
         };
         
@@ -163,7 +165,7 @@
         rejectSubs.push(  typeof errback === 'function'  ? wrap(errback)  : thenReject   );
 
         if (this._status === 'resolved') {
-            this.resolve(this._result);
+            this.fulfill(this._result);
         } else if (this._status === 'rejected') {
             this.reject(this._result);
         }

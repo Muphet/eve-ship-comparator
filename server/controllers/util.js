@@ -1,54 +1,63 @@
 
-var fs = require('fs'),
-    Q  = require('q'),
-    findit = require('findit'),
-    MicroTemplate = require('../../shared/model/micro-template').MicroTemplate;
+var fs            = require('fs'),
+    path          = require('path'),
+    findit        = require('findit'),
 
-
-var TMPL_CACHE; // TODO: figure out somewhere better / some way better to do this
-
-function getTemplates() {
-    var d = Q.defer();
+    Promise       = require('../../shared/utils/promise').Promise,
+    MicroTemplate = require('../../shared/utils/micro-template').MicroTemplate,
     
-    if(TMPL_CACHE && process.env.NODE_ENV === 'production') {
-        d.resolve(TMPL_CACHE);
-    } else {
-        TMPL_CACHE = {};
-        fs.readdir(__dirname + '/../../shared/views/', function(err, files) {
-            if(err) {
-                throw err;
-            } else {            
-                Q.all(files.map(function(f) { return getTemplate(f) })).then(function(tmpls) {
-                    TMPL_CACHE = tmpls;
+    TEMPLATES_DIR = path.join(__dirname, '..', '..', 'shared', 'views');
 
-                    d.resolve(TMPL_CACHE);
-                });
-            }
-        });
-    }
-    
-    return d.promise;
-}
 
-function getTemplate(f) {
-    var d = Q.defer();
-    
-    fs.readFile(__dirname + '/../../shared/views/' + f, 'utf8', function(err, file) {
-        if(!err) {
-            d.resolve({
-                path: f.split('.')[0],
-                template: MicroTemplate.precompile(file)
+var getTemplates = function(resolve, reject) {
+    var finder = findit.find(TEMPLATES_DIR),
+        foundAllFiles = false,
+        filesToRead = 0,
+        files = [],
+        timeout = setTimeout(reject, 500, 'Timeout');
+        
+    finder.on('file', function(file, stat) {
+        if(path.extname(file) === '.html') {
+            filesToRead += 1;
+            
+            fs.readFile(file, 'utf8', function(err, data) {
+                if(err) {
+                    reject(err);
+                } else {
+                    filesToRead -= 1;
+                    
+                    files.push({
+                        path: file.replace(TEMPLATES_DIR + '/', '').replace('.html', ''),
+                        template: MicroTemplate.precompile(data)
+                    });
+
+                    if(filesToRead === 0 && foundAllFiles) {
+                        clearTimeout(timeout);
+                        resolve(files);
+                    }
+                }
             });
-        } else {
-            throw err;
         }
     });
     
-    return d.promise;
-}
+    finder.on('end', function() {
+        foundAllFiles = true;
+        
+        if(filesToRead === 0) {
+            clearTimeout(timeout);
+            resolve(files);
+        }
+    });
+};
+
 
 exports.tmpl = function(req, res, next) {
-    getTemplates().then(function(tmpls) {
+    // Resolve it the first time we hit this route
+    if(!(getTemplates instanceof Promise)) {
+        getTemplates = new Promise(getTemplates);
+    }
+    
+    getTemplates.then(function(tmpls) {
         res.set('Content-Type', 'text/javascript');
         
         var out = [
@@ -58,17 +67,22 @@ exports.tmpl = function(req, res, next) {
         
         
         tmpls.forEach(function(t) {
-            out.push('window.esc.tmpl["' + t.path + '"] = ' + t.template);
+            out.push('window.esc.tmpl["' + t.path + '"] = ' + t.template + ';');
+            out.push('');
         });
         
         out.push([
-            'window.esc.MicroTemplate.include = function(path, options) {',
-            '\treturn window.esc.MicroTemplate.revive(window.esc.tmpl[path])(options);',
-        '}'].join('\n'));
+            '(function(NS) {',
+            '    if(!NS.MicroTemplate) { return; }',
+            '    NS.MicroTemplate.include = function(path, options) {',
+            '        return window.esc.MicroTemplate.revive(window.esc.tmpl[path])(options);',
+            '    };',
+            '}(window.esc ? window.esc : (window.esc = {})));'
+        ].join('\n'));
         
         res.send(out.join('\n'));
         
-    }).fail(function() {
-        console.log(arguments);
+    }, function(err) {
+        console.log(err);
     });
 };

@@ -1,6 +1,6 @@
 
 var fs = require('fs'),
-    MicroTemplate = require('../../shared/lib/micro-template').MicroTemplate;
+    MicroTemplate = require('../../shared/utils/micro-template').MicroTemplate;
 
 
 MicroTemplate.include = function(path, options) {
@@ -8,8 +8,6 @@ MicroTemplate.include = function(path, options) {
 };
 
 module.exports = function(path, options, fn) {
-    
-    console.log(__dirname);
     
     if(typeof options === 'function') {
         fn = options;
