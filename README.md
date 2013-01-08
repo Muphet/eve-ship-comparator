@@ -11,30 +11,42 @@ render everything client-side for pushstate-style page updates.
 ### Directory structure
 
     .
-    ├── Procfile              - heroku configuration
-    ├── comparator.js         - the main startup server file
-    ├── data                  - the data that powers the system
-    ├── controllers           - utility files for URL routing
-    │   ├── ship.js          
-    │   └── util.js          
-    ├── lib                  
-    │   ├── db.js             - the interaction layer with the SQLite DB
-    │   ├── micro-template.js - A shared super-simple templating engine
-    │   ├── ship-service.js   - Provides methods to query for ships
-    │   └── skill-service.js  - Provides methods for querying for skills
-    ├── model                 - The shared JS object model files
-    │   ├── capacitor.js     
-    │   ├── hpPool.js        
-    │   ├── micro-template.js
-    │   ├── ship.js          
-    │   └── skill.js         
-    ├── assets                - Client-side assets
-    └── views                
-        ├── compare.html     
-        ├── index.html       
-        └── shared            - Shared client-server templates
+    ├── Procfile                     - heroku configuration
+    ├── client                       - resources available to the client only
+    │   ├── css
+    │   ├── favicon.ico
+    │   ├── img
+    │   └── js
+    ├── comparator.js                - startup server file
+    ├── package.json
+    ├── server                       - files available only to the server
+    │   ├── controllers
+    │   │   ├── ship.js
+    │   │   └── util.js
+    │   ├── data                     - the sqlite database
+    │   │   └── 463858
+    │   │       └── database.sqlite
+    │   └── lib                      - service layer
+    │       ├── db.js                - db service
+    │       ├── micro-template.js    - express-compatible template library
+    │       ├── ship-service.js      - query ships from the sqlite database
+    │       └── skill-service.js     - query the skill tree for skill info
+    └── shared                       - files that both the server and client can make use of
+        ├── model                    - the data model shared between client and server
+        │   ├── capacitor.js
+        │   ├── hpPool.js
+        │   ├── ship.js
+        │   └── skill.js
+        ├── utils                    - utilities that aren't part of the data model
+        │   ├── micro-template.js
+        │   └── promise.js
+        └── views                    - view markup
+            ├── compare.html
             ├── hp.html
+            ├── index.html
+            ├── main.html
             └── ship.html
+
             
 ### Templates
 

@@ -1,6 +1,6 @@
 
 var fs = require('fs'),
-    MicroTemplate = require('../../shared/model/micro-template').MicroTemplate;
+    MicroTemplate = require('../../shared/lib/micro-template').MicroTemplate;
 
 
 MicroTemplate.include = function(path, options) {
