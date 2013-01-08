@@ -8,6 +8,7 @@ var fs            = require('fs'),
     
     TEMPLATES_DIR = path.join(__dirname, '..', '..', 'shared', 'views');
 
+var templatesPromise;
 
 var getTemplates = function(resolve, reject) {
     var finder = findit.find(TEMPLATES_DIR),
@@ -52,12 +53,12 @@ var getTemplates = function(resolve, reject) {
 
 
 exports.tmpl = function(req, res, next) {
-    // Resolve it the first time we hit this route
-    if(!(getTemplates instanceof Promise)) {
-        getTemplates = new Promise(getTemplates);
+    // Regenerate the templates every time
+    if(process.env.NODE_ENV !== 'production' || !templatesPromise) {
+        templatesPromise = new Promise(getTemplates);
     }
     
-    getTemplates.then(function(tmpls) {
+    templatesPromise.then(function(tmpls) {
         res.set('Content-Type', 'text/javascript');
         
         var out = [
