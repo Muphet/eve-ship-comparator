@@ -15,7 +15,7 @@ var getTemplates = function(resolve, reject) {
         foundAllFiles = false,
         filesToRead = 0,
         files = [],
-        timeout = setTimeout(reject, 500, 'Timeout');
+        timeout = setTimeout(reject, 2000, 'timeout');
         
     finder.on('file', function(file, stat) {
         if(path.extname(file) === '.html') {
@@ -50,7 +50,6 @@ var getTemplates = function(resolve, reject) {
         }
     });
 };
-
 
 exports.tmpl = function(req, res, next) {
     // Regenerate the templates every time
