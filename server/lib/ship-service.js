@@ -1,7 +1,7 @@
 
 var fs         = require('fs'),
 
-    Ship       = require('../model/ship').Ship,
+    Ship       = require('../../shared/model/ship').Ship,
     Select     = require('./db').Select,
     markdown   = require("node-markdown").Markdown,
     toMarkdown = require('to-markdown').toMarkdown,

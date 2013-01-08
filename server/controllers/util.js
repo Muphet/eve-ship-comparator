@@ -1,12 +1,10 @@
 
 var fs = require('fs'),
     Q  = require('q'),
-    MicroTemplate = require('../model/micro-template').MicroTemplate;
+    MicroTemplate = require('../../shared/model/micro-template').MicroTemplate;
 
 
 var TMPL_CACHE; // TODO: figure out somewhere better / some way better to do this
-
-var TMPL_PATH = '/views/shared/';
 
 function getTemplates() {
     var d = Q.defer();
@@ -15,7 +13,7 @@ function getTemplates() {
         d.resolve(TMPL_CACHE);
     } else {
         TMPL_CACHE = {};
-        fs.readdir('.' + TMPL_PATH, function(err, files) {
+        fs.readdir(__dirname + '/../../shared/views/', function(err, files) {
             if(err) {
                 throw err;
             } else {            
@@ -34,10 +32,10 @@ function getTemplates() {
 function getTemplate(f) {
     var d = Q.defer();
     
-    fs.readFile('.' + TMPL_PATH + f, 'utf8', function(err, file) {
+    fs.readFile(__dirname + '/../../shared/views/' + f, 'utf8', function(err, file) {
         if(!err) {
             d.resolve({
-                path: TMPL_PATH + f.split('.')[0],
+                path: f.split('.')[0],
                 template: MicroTemplate.precompile(file)
             });
         } else {

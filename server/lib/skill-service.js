@@ -1,8 +1,8 @@
 var Q = require('q'),
     https = require('https'),
     xml2js = require('xml2js'),
-    Skill = require('../model/skill').Skill,
-    SkillRequirement = require('../model/skill').SkillRequirement;
+    Skill = require('../../shared/model/skill').Skill,
+    SkillRequirement = require('../../shared/model/skill').SkillRequirement;
 
 var SkillService, SkillServiceProto;
 

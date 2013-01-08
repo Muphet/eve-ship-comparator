@@ -1,17 +1,17 @@
 var express = require('express'),
-    ship = require('./controllers/ship'),
-    util = require('./controllers/util'),
+    ship = require('./server/controllers/ship'),
+    util = require('./server/controllers/util'),
     app = express();
     
-app.use(express.static(__dirname + '/assets'));
-app.use(express.static(__dirname + '/model'));
+app.use(express.static(__dirname + '/shared/'));
+app.use(express.static(__dirname + '/client/'));
+
 app.get('/templates.js', util.tmpl);
 
-
-app.engine('html', require('./lib/micro-template'));
+app.engine('html', require('./server/lib/micro-template'));
 
 app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/shared/views');
 
 app.get('/', ship.index);
 app.get('/compare?', ship.compare);

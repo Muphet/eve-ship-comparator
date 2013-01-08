@@ -19,7 +19,7 @@ var serviceMap = {
 };
 
 function render(res, bodyTemplate, title, model) {
-    res.render('layout/main', {
+    res.render('main', {
         page: {
             template: bodyTemplate,
             title: title,
