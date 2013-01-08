@@ -4,7 +4,7 @@ var fs = require('fs'),
 
 
 MicroTemplate.include = function(path, options) {
-    return MicroTemplate.render(fs.readFileSync(__dirname + '/../' + path + '.html', 'utf8'), options);
+    return MicroTemplate.render(fs.readFileSync(__dirname + '/../views/' + path + '.html', 'utf8'), options);
 };
 
 module.exports = function(path, options, fn) {

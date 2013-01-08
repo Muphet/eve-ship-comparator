@@ -1,0 +1,9 @@
+
+<div style="cursor: pointer; padding: 12px; border: 1px solid white; margin: 12px 0; clear: both" class="rebuild-table">Rebuild table client side</div>
+        
+<div class="compare-columns">
+    <% this.ships.forEach(function(ship, i) { %>
+        <%== this.include('shared/ship', ship) %>
+    <% }, this) %>
+</div>
+        

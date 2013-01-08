@@ -6,7 +6,8 @@ var serviceMap = {
     'ship': {
         service: ShipService,
         methods: {
-            'getByNameOrType': true
+            'getByNameOrType': true,
+            'getByNameOrTypeOrId': true,
         }
     },
     'skill': {
@@ -17,17 +18,26 @@ var serviceMap = {
     }
 };
 
+function render(res, bodyTemplate, title, model) {
+    res.render('layout/main', {
+        page: {
+            template: bodyTemplate,
+            title: title,
+            model: model
+        }
+    });
+}
 
 exports.index = function(req, res, next) {        
     var ships = Object.keys(req.query),
         i, l;
         
     if(ships.length) {
-        ShipService.getByNameOrType(ships).then(function(s) {
-            res.render('index', { ships: s });
+        ShipService.getByNameOrTypeOrId(ships).then(function(s) {
+            render(res, 'index', null, { ships: s });
         });
     } else {
-        res.render('index', { ships: [] });
+        render(res, 'index', null, { ships: [] });
     }
 };
     
@@ -50,7 +60,11 @@ exports.data = function(req, res, next) {
         service = svcCfg.service,
         method  = (svcCfg.methods[p.method] && svcCfg.service[p.method]) ? svcCfg.service[p.method] : false;
     
-    method.call(service, Object.keys(req.query)).then(function(f) {
-        res.send(f);
-    });
+    if(method) {
+        method.call(service, Object.keys(req.query)).then(function(f) {
+            res.send(f);
+        });        
+    } else {
+        res.send({});
+    }
 };

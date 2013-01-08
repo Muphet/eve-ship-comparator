@@ -127,6 +127,27 @@ ShipService.BY_NAME_OR_TYPE_QUERY = new Select(ShipService.COLUMNS).
         }).join(' OR ') + ' )';
         return o;
     });
+    
+
+ShipService.BY_NAME_OR_TYPE_OR_ID_QUERY = new Select(ShipService.COLUMNS).
+    where('invGroups.categoryID == 6').
+    andWhere('invTypes.published == 1').
+    andWhere('invTypes.marketGroupID == invmarketgroups.marketGroupID').
+    andWhere('invTypes.groupID == invGroups.groupID').
+    andWhere(function(v) {
+        var s = Array.isArray(v.name) ? v.name : [ v.name ];
+
+        var o = '( ' + s.map(function(t) {
+            if(isNaN(parseInt(t,10))) {
+                return "invTypes.typeName LIKE '%" + t + "%' OR invGroups.groupName LIKE '%" + t + "%'";
+            } else {
+                return "invTypes.typeID == " + parseInt(t,10);
+            }
+        }).join(' OR ') + ' )';
+            
+        return o;
+    });
+
 
 //
 // -- INSTANCE VALUES -------------------------------------
@@ -152,6 +173,15 @@ ShipServiceProto.getByNameOrType = function(nameOrType) {
 
     return d.then(ShipServiceProto._resolve.bind(this));
 }
+
+ShipServiceProto.getByNameOrTypeOrId = function(nameOrType) {
+    var d = this.db.all(ShipService.BY_NAME_OR_TYPE_OR_ID_QUERY.eval({ name: nameOrType }));
+
+   d = d.then(ShipServiceProto._cleanDescription.bind(this));
+
+    return d.then(ShipServiceProto._resolve.bind(this));
+}
+
 
 ShipServiceProto.getById = function(id) {
     var d = this.db.one(ShipService.BY_ID_QUERY.eval({ id: id })).then(ShipServiceProto._cleanDescription.bind(this));

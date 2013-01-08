@@ -1,32 +1,30 @@
 <!doctype html>
 <html>
     <head>
-        <title>Compare Ship</title>
+        <title><%= this.page.title || "Compare Ships" %></title>
         <link id="main-styles" rel="stylesheet" href="/css/ship-comparator.css" />
     </head>
-    <body class="compare-ship yui3-skin-night">
+    <body id="eve-ship-comparator" class="yui3-skin-night yui3-app">
         
-        <input id="ship-picker" placeholder="Ship name or type..." autofocus />
-
-        <div id="empty-table">Empty Table</div>
-        <div id="ship-display"></div>
+        <div class="yui3-app-views">
+            <!-- Body content -->
+            <div class="server-rendered-view">
+                <%== $(this.page.template, this.page.model) %>
+            </div>
+        </div>
         
+        <!-- Model assets -->
         <script src="capacitor.js"></script>
         <script src="hpPool.js"></script>
         <script src="skill.js"></script>
         <script src="ship.js"></script>
         <script src="micro-template.js"></script>
         <script src="templates.js"></script>
-
-        <script>
-        (function(NS) {
-            
-            NS.model = <%== JSON.stringify(this, null, '\t') %>
-            
-        }( window.esc || (window.esc = {}) ));
-        </script>
+        
         <script src="http://yui.yahooapis.com/3.8.0/build/yui/yui-min.js"></script>
-        <script src="js/index.js"></script>
+        <script src="js/views/index.js"></script>
+        
+        <script src="js/app.js"></script>
 
     </body>
 </html>
