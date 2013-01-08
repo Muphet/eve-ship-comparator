@@ -41,11 +41,6 @@ render everything client-side for pushstate-style page updates.
         │   ├── micro-template.js
         │   └── promise.js
         └── views                    - view markup
-            ├── compare.html
-            ├── hp.html
-            ├── index.html
-            ├── main.html
-            └── ship.html
 
             
 ### Templates
