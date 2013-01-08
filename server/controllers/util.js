@@ -1,6 +1,7 @@
 
 var fs = require('fs'),
     Q  = require('q'),
+    findit = require('findit'),
     MicroTemplate = require('../../shared/model/micro-template').MicroTemplate;
 
 
