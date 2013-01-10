@@ -1,4 +1,4 @@
-(function(NS, isNode) {
+Poi.add('skill', function(NS) {
 
     var Skill, SkillProto;
     
@@ -87,4 +87,4 @@
     
     NS.SkillRequirements = SkillRequirements;
     
-}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));
+});

@@ -1,4 +1,4 @@
-(function(NS, isNode) {
+Poi.add('capacitor', function(NS) {
 
 //
 // --- Capacitor ------------------------------------------------------------
@@ -45,4 +45,4 @@
 
     NS.Capacitor = Capacitor;
 
-}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));
+});

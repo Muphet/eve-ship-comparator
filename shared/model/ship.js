@@ -1,4 +1,4 @@
-(function(NS, isNode) {
+Poi.add('ship', function(NS) {
 
     function each(objOrArray, fn) {
         for(var k in objOrArray) {
@@ -8,10 +8,10 @@
         }
     };
 
-    var HpPool            = (isNode) ? require('./hpPool').HpPool           : NS.HpPool,
-        Shield            = (isNode) ? require('./hpPool').Shield           : NS.Shield,
-        Capacitor         = (isNode) ? require('./capacitor').Capacitor     : NS.Capacitor,
-        SkillRequirements = (isNode) ? require('./skill').SkillRequirements : NS.SkillRequirements;
+    var HpPool            = NS.HpPool,
+        Shield            = NS.Shield,
+        Capacitor         = NS.Capacitor,
+        SkillRequirements = NS.SkillRequirements;
 
 
     var Sensors, SensorsProto;
@@ -126,4 +126,4 @@
 
     NS.Ship = Ship;
     
-}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));
+}, [ 'capacitor', 'hpPool', 'skill' ]);

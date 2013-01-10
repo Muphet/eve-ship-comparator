@@ -1,4 +1,4 @@
-(function(NS, isNode) {
+Poi.add('hpPool', function(NS) {
 
 //
 // --- Damage Profile -------------------------------------------------------
@@ -127,4 +127,4 @@
 
     NS.Shield = Shield;
 
-}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));
+});
