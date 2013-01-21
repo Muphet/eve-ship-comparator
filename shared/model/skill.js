@@ -1,14 +1,13 @@
-Poi.add('skill', function(NS) {
+YUI.add('esc-skill', function(Y) {
+
+    var NS = Y.namespace('esc');
 
     var Skill, SkillProto;
     
-    Skill = function(s) {
-        this.id           = s && s.id           ? s.id           : null;
-        this.name         = s && s.name         ? s.name         : null;
-        this.description  = s && s.description  ? s.description  : null;
-        this.group        = s && s.group        ? s.group        : null;
-        this.rank         = s && s.rank         ? s.rank         : null;
-        this.requirements = s && s.requirements ? s.requirements : [];
+    Skill = function(cfg) {
+        Y.mix(this, cfg || {}, true, Object.keys(Skill.prototype));
+        
+        if(!this.requirements) { this.requirements = []; }
     };
     
     SkillProto = Skill.prototype;
@@ -18,8 +17,7 @@ Poi.add('skill', function(NS) {
     SkillProto.description = null;
     SkillProto.group = null;
     SkillProto.rank = null;
-    SkillProto.requirements = null;
-    
+    SkillProto.requirements = null;    
     
     NS.Skill = Skill;
     
@@ -29,9 +27,8 @@ Poi.add('skill', function(NS) {
 
     var SkillRequirement, SkillRequirementProto;
     
-    SkillRequirement = function(sr) {
-        this.id    = sr && sr.id    ? sr.id    : null;
-        this.level = sr && sr.level ? sr.level : null;
+    SkillRequirement = function(cfg) {
+        Y.mix(this, cfg || {}, true, Object.keys(SkillRequirement.prototype));
     };
     
     SkillRequirementProto = SkillRequirement.prototype;

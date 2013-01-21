@@ -1,28 +1,31 @@
 
 
-var Poi = require('./shared/poi').Poi;
+var YUI = require('yui').YUI,
+    path = require('path');
 
-Poi({
-    load: function(path, success, fail) {
-        var fs = require('fs'),
-            vm = require('vm'),
-            p  = require('path');
-    
-        fs.readFile(p.resolve(path), 'utf8', function(err, file) {
-            try {
-                console.log(Poi);
-                success(vm.runInThisContext(file, p.resolve(path)));
-            } catch (e) {
-                fail(e);
+
+YUI({
+    groups: {
+        shared: {
+            base: path.join(__dirname, './shared/model/'),
+            modules: {
+                'esc-ship-properties' : { path: 'ship-properties.js' },
+                'esc-hp-pool'   : { path: 'hp-pool.js' },
+                'esc-skill'     : { path: 'skill.js' },
+                'esc-ship'      : { path: 'ship.js',
+                    requires: [
+                        'esc-hp-pool',
+                        'esc-skill',
+                        'esc-ship-properties'
+                    ]
+                }
             }
-        });
-    },
-    mapper: function(m) { return './shared/model/' + m + '.js'; }
-
-}).use('capacitor', 'ship', 'skill').then(function(P) {
-
-
-}, function(err) {
-    console.error(err);
-    console.log(err.stack);
+        }
+    }
+}).use('esc-hp-pool', function(Y) {
+    console.log(Y.esc);
+    
+    var e = Y.esc;
+    
+    
 });

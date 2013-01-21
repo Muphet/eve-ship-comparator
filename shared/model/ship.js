@@ -1,129 +1,73 @@
-Poi.add('ship', function(NS) {
+YUI.add('esc-ship', function(Y) {
 
-    function each(objOrArray, fn) {
-        for(var k in objOrArray) {
-            if(objOrArray.hasOwnProperty(k)) {
-                fn(objOrArray[k], k);
-            }
-        }
-    };
+    var NS = Y.namespace('esc');
 
-    var HpPool            = NS.HpPool,
+    var Capacitor         = NS.Capacitor,
+        Capacity          = NS.Capacity,
+        Drones            = NS.Drone,
+        HpPool            = NS.HpPool,
+        JumpDrive         = NS.JumpDrive,
+        Sensors           = NS.Sensors,
         Shield            = NS.Shield,
-        Capacitor         = NS.Capacitor,
-        SkillRequirements = NS.SkillRequirements;
-
-
-    var Sensors, SensorsProto;
-    
-    Sensors = function() {};
-    
-    SensorsProto = Sensors.prototype;
-    
-    SensorsProto.gravimetricStrength   = null;
-    SensorsProto.magnetometricStrength = null;
-    SensorsProto.ladarStrength         = null;
-    SensorsProto.radarStrength         = null;
-    SensorsProto.range                 = null;
-    SensorsProto.resolution            = null;
-    SensorsProto.lockedTargets         = null;
-    
-    Object.defineProperty(SensorsProto, 'strength', {
-        writeable: false,
-        get: function() {
-            return this.gravimetricStrength || this.magnetometricStrength || this.ladarStrength || this.radarStrength;
-        }
-    });
-
-
-
-    var Ship, ShipProto;
+        SkillRequirements = NS.SkillRequirements,
+        Slots             = NS.Slots;
 
     /*
     @class Ship
     @constructor
     @param shipData {Object} An object literal describing a ship.
     */
-    Ship = function(shipData) {
-        this.capacity          = {};
-        this.sensors           = new Sensors();
-        this.slots             = {};
-        this.capacitor         = new Capacitor();
-        this.drones            = {};
-        this.heat              = {};
-        this.hull              = new HpPool();
-        this.armor             = new HpPool();
-        this.shield            = new Shield();
-        this.jumpDrive         = {};
-        this.skillRequirements = new SkillRequirements();
-
-        if(shipData) {
-            this.fromShip(shipData);
-        }
+    var Ship = function(cfg) {
+        cfg = cfg || {};
+        
+        Y.mix(this, cfg, true, Object.keys(Ship.prototype));
+        
+        this.capacity          = new Capacity(cfg.capacity);
+        this.sensors           = new Sensors(cfg.sensors);
+        this.slots             = new Slots(cfg.slots);
+        this.capacitor         = new Capacitor(cfg.capacitor);
+        this.drones            = new Drones(cfg.drones);
+        this.heat              = new Heat(cfg.heat);
+        this.hull              = new HpPool(cfg.hull);
+        this.armor             = new HpPool(cfg.armor);
+        this.shield            = new Shield(cfg.shield);
+        this.jumpDrive         = new JumpDrive(cfg.jumpDrive);
+        this.skillRequirements = new SkillRequirements(cfg.skillRequirements);
     };
 
     Ship.NOT_RESOLVED_ID = 0;
 
-    ShipProto = Ship.prototype;
+    Y.mix(Ship.prototype, {
+        id                  : Ship.NOT_RESOLVED_ID;
+        name                : null,
 
-    ShipProto.id                  = Ship.NOT_RESOLVED_ID;
-    ShipProto.name                = null;
-        
-    ShipProto.type                = null;
-    ShipProto.description         = null;
-    ShipProto.race                = null;
+        type                : null,
+        description         : null,
+        race                : null,
 
-    ShipProto.meta                = null;
-    ShipProto.techLevel           = null;
-        
-    ShipProto.signature           = null;
-    ShipProto.agility             = null;
-    ShipProto.velocity            = null;
-    ShipProto.warpSpeed           = null;
-    ShipProto.warpSpeedMultiplier = null;
+        meta                : null,
+        techLevel           : null,
 
-    ShipProto.cpu                 = null;
-    ShipProto.powerGrid           = null;
-                                      
-    ShipProto.capacity            = null;
-    ShipProto.sensors             = null;
-    ShipProto.slots               = null;
-    ShipProto.capacitor           = null;
-    ShipProto.drones              = null;
-    ShipProto.heat                = null;
-    ShipProto.hull                = null;
-    ShipProto.armor               = null;
-    ShipProto.shield              = null;
-    ShipProto.jumpDrive           = null;
+        signature           : null,
+        agility             : null,
+        velocity            : null,
+        warpSpeed           : null,
+        warpSpeedMultiplier : null,
 
-    ShipProto.skillRequirements   = null;
+        cpu                 : null,
+        powerGrid           : null
+    });
 
 
-    Object.defineProperties(ShipProto, {
+    Object.defineProperties(Ship.prototype, {
         resolved: {
             writeable: false,
             get: function() { return this.id === Ship.NOT_RESOLVED_ID; }
         }
     });
 
-    ShipProto.fromShip = function(ship) {
-        function propagate(sourceObj, destObj) {
-            each(sourceObj, function(sourceVal, sourceKey) {
-                if(typeof sourceVal === 'object' && destObj[sourceKey]) {
-                    propagate(sourceVal, destObj[sourceKey]);
-                } else if(!destObj[sourceKey]) {
-                    destObj[sourceKey] = sourceVal;
-                }
-            });
-        }
-
-        propagate(ship, this);
-
-        return this;
-    };
-
-    ShipProto.toString = function() { return '[object Ship]'; };
-
     NS.Ship = Ship;
     
-}, [ 'capacitor', 'hpPool', 'skill' ]);
+}, '', {
+    requires: [ 'esc-hp-pool', 'esc-skill', 'esc-ship-properties' ]
+});
