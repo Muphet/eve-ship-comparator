@@ -1,3 +1,101 @@
+YUI.add('esc-ship-service', function(Y) {
+    
+    var NS = Y.namespace('esc'),
+        Select = NS.Select;
+    
+    var ShipService;
+    
+    ShipSet = function() {
+        ShipSet.superclass.constructor.apply(this,arguments);
+    };
+    
+    Y.extend(ShipSet, NS.Promise, {
+        clean: function() {
+            return this.then
+        }
+    });
+    
+    ShipService = function(database) {
+        var db = database;
+        
+        if(!(database instanceof NS.Database)) { throw new TypeError("Expected Database"); }
+        
+        this.one = function() {
+            return db.one.apply(db, arguments).then(this.getAttributes.bind(this)).then(this.clean);
+        };
+        this.all = function() {
+            return db.all.apply(db, arguments).then(this.getAttributes.bind(this)).then(this.clean);
+        };
+    };
+    
+    Y.mix(ShipService.prototype, {
+        clean: function(ships) {
+            var i, l, ship, desc;
+                
+            ships = (Array.isArray(ships)) ? ships : [ships];
+                
+            for(i = 0, l = ships.length; i < l; i += 1) {
+                ship = ships[i];
+
+                if(!ship.description) {
+                    continue; // NOTE CONTINUE
+                }
+
+                // Fix the newline horribleness, 
+                desc = ship.description.
+                    replace(/\\n\\n/g, '\n\n'). // replace stupid /r/n with double newline (that seems to be the intent)
+                    replace(/(\\r){0,1}\\n/g, '  \n'). // replace single newlines with markdown-style brs
+                    replace(/\\u([A-Fa-f0-9]{4})/g, '&#x$1;'). // replace unicode characters with html entities
+                    replace(/<a[^>]+>/ig, ''). // strip any inline links, since they're Eve-specific
+                    replace(/\n[^\n\S]+/g,'\n'). // strip leading whitespace to prevent preformatted markdown text
+                    replace(/\n-/, '\n&mdash;'); // replace leading dash with an emdash for strategic cruiser text (not perfect)
+
+                // Convert the remaining html to markdown
+                desc = toMarkdown(desc);
+        
+                // Strip out any remaining markup that can't be represented by markdown
+                desc = desc.replace(/(<([^>]+)>)/ig, '');
+        
+                // Convert the markdown to HTML.
+                ship.description = markdown(desc);
+            }
+
+            return ships.length === 1 ? ships[0] : ships;
+        },
+        
+        getByName: function(name) {
+            return this.all(ShipService.BY_NAME_QUERY.eval({ name: name }));
+        },
+        
+        getByNameOrType: function(nameOrType) {
+            return this.all(ShipService.BY_NAME_OR_TYPE_QUERY.eval({ nameOrType: nameOrType }));
+        },
+        
+        getByNameOrTypeOrId: function(nameOrTypeOrId) {
+            return this.all(ShipService.BY_NAME_OR_TYPE_OR_ID_QUERY.eval({ nameOrTypeOrId: nameOrTypeOrId }));
+        },
+        
+        getById: function(id) {
+            return this.one()
+        },
+        
+        getAttributes: function(ships) {
+            ships = (Array.isArray(ships)) ? ships : [ships];
+            
+            var ids = ships.map(function(s) { return typeof s === 'object' ? s.id : s; });
+            
+            return this.all(ShipService.ATTRIBUTE_QUERY.eval({ shipIds: ids })).then(function(attrs) {
+                var i, l, attr;
+                
+                for()
+            });
+        }
+    });
+    
+}, '', {
+    requires: [ 'esc-ship', 'esc-promise', 'esc-database' ]
+});
+
 
 var fs         = require('fs'),
 

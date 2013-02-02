@@ -8,6 +8,7 @@ app.use(express.static(__dirname + '/client/'));
 
 app.get('/js/templates.js', util.tmpl);
 
+// TODO: swap this for a composed function
 app.engine('html', require('./server/lib/micro-template'));
 
 app.set('view engine', 'html');

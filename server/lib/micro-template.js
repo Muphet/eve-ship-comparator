@@ -1,4 +1,4 @@
-
+// @DEPRECATED
 var fs = require('fs'),
     MicroTemplate = require('../../shared/utils/micro-template').MicroTemplate;
 

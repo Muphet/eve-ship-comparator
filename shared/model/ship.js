@@ -1,3 +1,7 @@
+/**
+@module esc-ship
+@namespace esc
+**/
 YUI.add('esc-ship', function(Y) {
 
     var NS = Y.namespace('esc');
@@ -15,7 +19,7 @@ YUI.add('esc-ship', function(Y) {
     /*
     @class Ship
     @constructor
-    @param shipData {Object} An object literal describing a ship.
+    @param cfg {Object} An object literal describing a ship.
     */
     var Ship = function(cfg) {
         cfg = cfg || {};

@@ -1,12 +1,14 @@
-(function(NS) {
+YUI.add('esc-micro-template', function(Y) {
+    
+    var NS = Y.namespace('esc');
     
     var MicroTemplate = {};
 
     MicroTemplate.OPTIONS = {
-        code         : /<%([\s\S]+?)%>/g,
-        escapedOutput: /<%=([\s\S]+?)%>/g,
-        rawOutput    : /<%==([\s\S]+?)%>/g,
-        stringEscape : /('|\r|\n|\t|\u2028|\u2029|\\)/g
+        code          : /<%([\s\S]+?)%>/g,
+        escapedOutput : /<%=([\s\S]+?)%>/g,
+        rawOutput     : /<%==([\s\S]+?)%>/g,
+        stringEscape  : /('|\r|\n|\t|\u2028|\u2029|\\)/g
     };
 
     MicroTemplate.TEMPLATE_ESCAPE = {
@@ -107,5 +109,5 @@
     };
     
     NS.MicroTemplate = MicroTemplate;
-    
-}(typeof exports === 'undefined' ? window.esc || (window.esc = {}) : exports, (typeof exports !== 'undefined')));
+
+});

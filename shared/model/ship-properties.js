@@ -1,3 +1,7 @@
+/**
+@module esc-ship-properties
+@namespace esc
+**/
 YUI.add('esc-ship-properties', function(Y) {
     var NS = Y.namespace('esc');
 
@@ -5,9 +9,11 @@ YUI.add('esc-ship-properties', function(Y) {
 // --- Sensors --------------------------------------------------------------
 //
     
-    var Sensors, SensorsProto;
-    
-    Sensors = function(cfg) {
+    /**
+    @class Sensors
+    @constructor
+    **/
+    var Sensors = function(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Sensors.prototype));
     };
     
@@ -21,6 +27,12 @@ YUI.add('esc-ship-properties', function(Y) {
         lockedTargets         : null
     });
     
+    /**
+    Returns the highest of the radar strengths, since each ship really only has one radar strength type.
+    
+    @property strength
+    @readOnly
+    **/
     Object.defineProperty(Sensors.prototype, 'strength', {
         writeable: false,
         get: function() {
@@ -34,6 +46,10 @@ YUI.add('esc-ship-properties', function(Y) {
 // --- Heat --------------------------------------------------------------
 //
 
+    /**
+    @class Heat
+    @constructor
+    **/
     var Heat = function(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Heat.prototype));
     };
@@ -56,6 +72,14 @@ YUI.add('esc-ship-properties', function(Y) {
     
     NS.Heat = Heat;
     
+//
+// --- Capacity --------------------------------------------------------------
+//
+    
+    /**
+    @class Capacity
+    @constructor
+    **/
     var Capacity = function(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Capacity.prototype));
     };
@@ -74,6 +98,10 @@ YUI.add('esc-ship-properties', function(Y) {
 // --- Slots --------------------------------------------------------------
 //
 
+    /**
+    @class Slots
+    @constructor
+    **/
     var Slots = function(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Slots.prototype));
     };
@@ -94,6 +122,12 @@ YUI.add('esc-ship-properties', function(Y) {
 // --- Drones --------------------------------------------------------------
 //
     
+    /**
+    A set of properties related to ship drone capacity and bandwidth.
+    
+    @class Drones
+    @constructor
+    **/
     var Drones = function(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Drones.prototype));
     };
@@ -109,6 +143,12 @@ YUI.add('esc-ship-properties', function(Y) {
 // --- JumpDrive --------------------------------------------------------------
 //
 
+    /**
+    A set of properties related to ship Jump Drives.
+    
+    @class JumpDrive
+    @constructor
+    **/
     var JumpDrive = function(cfg) {
         if(cfg) {cfg.canJump = !!cfg.canJump; } // coerce to boolean
         
@@ -129,13 +169,11 @@ YUI.add('esc-ship-properties', function(Y) {
 // --- Capacitor ------------------------------------------------------------
 //
 
-    var Capacitor, CapacitorProto;
-
     /**
     @class Capacitor
     @constructor
     **/
-    Capacitor = function(cfg) {
+    var Capacitor = function(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Capacitor.prototype));
     };
     
@@ -144,7 +182,7 @@ YUI.add('esc-ship-properties', function(Y) {
         recharge : 0
     });
     
-    /*
+    /**
     A read-only synthetic property that's the peak recharge rate of a capacitor.
         
     The peak recharge of a capacitor appears to happen on or near the 25% mark and is defined by:
@@ -162,7 +200,7 @@ YUI.add('esc-ship-properties', function(Y) {
 
     @property peakRecharge {Number}
     @readOnly
-    */
+    **/
     Object.defineProperty(Capacitor.prototype, 'peakRecharge', {
         writeable: false,
         get: function() { return (Math.sqrt(0.25) - 0.25) * 2 * this.capacity / (this.recharge / 5000); }

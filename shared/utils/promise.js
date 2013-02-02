@@ -1,6 +1,8 @@
-(function(NS, isNode) {
+YUI.add('esc-promise', function(Y) {
     
     // Stolen from juan dopazo
+    
+    var NS = Y.namespace('esc');
     
     var slice = [].slice;
     
@@ -193,7 +195,5 @@
     
     NS.Promise = Promise;
     NS.Promise.Resolver = Resolver;
-    
-}(typeof exports === 'undefined' ? window : exports, (typeof exports !== 'undefined')));
 
-
+});
