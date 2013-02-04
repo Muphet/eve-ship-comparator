@@ -48,7 +48,7 @@ YUI({
     var shipService = new Y.esc.ShipService(Y.esc.Database.open('./server/data/database.sqlite'));
 
     
-    shipService.search('Avatar').then(function(r) {
+    shipService.search('Arbitrator').then(function(r) {
         console.log(JSON.stringify(r, null, '\t'));
     }, function(e) {
         console.log("ERROR", e);

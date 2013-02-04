@@ -6,8 +6,7 @@ YUI.add('esc-ship-service', function(Y) {
         markdown = YUI.require("node-markdown").Markdown,
         toMarkdown = YUI.require('to-markdown').toMarkdown,
         
-        select = NS.Select,
-        where  = NS.Criteria;
+        select = NS.Select;
         
         
     function setValue(o, path, val) {
@@ -216,7 +215,7 @@ YUI.add('esc-ship-service', function(Y) {
                     if(!attrMap[item.typeID]) {
                         attrMap[item.typeID] = {};
                     }
-                    
+
                     attrMap[item.typeID][item.attributeName] = item.value;
                 }
                 
@@ -255,27 +254,25 @@ YUI.add('esc-ship-service', function(Y) {
 
                 // Convert the remaining html to markdown
                 desc = toMarkdown(desc);
-        
+
                 // Strip out any remaining markup that can't be represented by markdown
                 desc = desc.replace(/(<([^>]+)>)/ig, '');
-        
+
                 // Convert the markdown to HTML.
                 ship.description = markdown(desc);
             }
-            
+
             return ships.length === 1 ? ships[0] : ships;
         },
         
         mapResultsToShips: function(ships) {
             ships = Array.isArray(ships) ? ships : [ ships ];
 
-            // console.log(ships);
-            
             for(var i = 0, l = ships.length; i < l; i += 1) {
                 ships[i] = new NS.Ship(this.mapDatabaseRowToShip(ships[i]));
             }
-            
-            
+
+
             return ships.length === 1 ? ships[0] : ships;
         },
         
@@ -297,9 +294,6 @@ YUI.add('esc-ship-service', function(Y) {
                 }
             }
             
-            // console.log(ship);
-            
-
             return ship;
         }
     });
