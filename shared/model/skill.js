@@ -46,6 +46,10 @@ YUI.add('esc-skill', function(Y) {
         
     SkillRequirements = function(sr) {
         this.skills = sr && sr.skills ? sr.skills.slice(0) : [];
+        
+        this.primary = sr.primary || this.primary;
+        this.secondary = sr.secondary || this.secondary;
+        this.tertiary = sr.tertiary || this.tertiary;
     };
         
     SkillRequirementsProto = SkillRequirements.prototype;

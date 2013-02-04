@@ -8,8 +8,9 @@ YUI.add('esc-ship', function(Y) {
 
     var Capacitor         = NS.Capacitor,
         Capacity          = NS.Capacity,
-        Drones            = NS.Drone,
+        Drones            = NS.Drones,
         HpPool            = NS.HpPool,
+        Heat              = NS.Heat,
         JumpDrive         = NS.JumpDrive,
         Sensors           = NS.Sensors,
         Shield            = NS.Shield,
@@ -42,7 +43,7 @@ YUI.add('esc-ship', function(Y) {
     Ship.NOT_RESOLVED_ID = 0;
 
     Y.mix(Ship.prototype, {
-        id                  : Ship.NOT_RESOLVED_ID;
+        id                  : Ship.NOT_RESOLVED_ID,
         name                : null,
 
         type                : null,

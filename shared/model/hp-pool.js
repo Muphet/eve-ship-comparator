@@ -334,10 +334,9 @@ YUI.add('esc-hp-pool', function(Y) {
     Shield = function(cfg) {
         HpPool.apply(this, arguments); // Generate HpPool's constructor behavior
         Y.mix(this, cfg || {}, true, Object.keys(Shield.prototype));
-        
     };
 
-    ShieldProto = Shield.prototype = Object.create(HpPoolProto); // Inherit hpPool's methods and properties
+    ShieldProto = Shield.prototype = Object.create(HpPool.prototype); // Inherit hpPool's methods and properties
 
     ShieldProto.constructor  = Shield; // Fix constructor
     

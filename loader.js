@@ -11,7 +11,14 @@ YUI({
             modules: {
                 // LIB:
                 'esc-sqlite'        : { path: 'lib/sqlite.js',        requires: [ 'esc-promise', 'oop' ] },
-                'esc-ship-service'  : { path: 'lib/ship-service.js',  requires: [ 'esc-promise', 'esc-sqlite' ] },
+                'esc-select'        : { path: 'lib/select.js',        requires: [] },
+                'esc-ship-service'  : { path: 'lib/ship-service.js', 
+                    requires: [
+                        'esc-sqlite',
+                        'esc-select',
+                        'esc-ship'
+                    ]
+                },
                 'esc-skill-service' : { path: 'lib/skill-service.js', requires: [ 'esc-promise', 'esc-sqlite' ] }
             }
         },
@@ -37,22 +44,15 @@ YUI({
             }
         }
     }
-}).use('esc-sqlite', function(Y) {
-    var db = Y.esc.Database,
-        DBFILE = './server/data/database.sqlite',
+}).use('esc-ship-service', function(Y) {
+    var shipService = new Y.esc.ShipService(Y.esc.Database.open('./server/data/database.sqlite'));
+
     
-        QUERY = [
-            "select * from invTypes, invGroups",
-            "where invGroups.groupName like '%titan%'",
-            "and invTypes.groupID == invGroups.groupID",
-            "and invGroups.categoryID == 6" ].join(' ');
-    
-    
-    db.open(DBFILE).all(QUERY)
-        .map(function(s) { return s.mass })
-        .reduce(function(p,c,i,a) { return p + (c / a.length); }, 0).then(function(r) {
-            console.log("Average mass: " + (r / 1000000).toFixed(2) + " million kilograms");
-        });
-    
+    shipService.search('Avatar').then(function(r) {
+        console.log(JSON.stringify(r, null, '\t'));
+    }, function(e) {
+        console.log("ERROR", e);
+    });
+
     
 });

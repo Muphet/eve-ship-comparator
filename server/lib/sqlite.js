@@ -1,18 +1,17 @@
 
 YUI.add('esc-sqlite', function(Y) {
-    
+        
     var NS = Y.namespace('esc');
     
     var sqlite3 = YUI.require('sqlite3').verbose(),
-        SqliteDatabase = sqlite3.Database;
+        SqliteDatabase = sqlite3.Database,
+        Promise = NS.Promise;
 
     function slice(a) { return [].slice.call(a); }
     
     //
     // --- Database Connector --------------------------------------------------------------
     //
-    
-    var Promise = NS.Promise;
 
     /**
     @class Query
@@ -114,7 +113,7 @@ YUI.add('esc-sqlite', function(Y) {
             
             return new Query(function(fulfill, reject) {
                 self.then(function(db) {
-                    db.get(query, function(e, r) {
+                    db.get(select, function(e, r) {
                         if(e) {
                             reject(e);
                         } else {
@@ -136,7 +135,7 @@ YUI.add('esc-sqlite', function(Y) {
             
             return new Query(function(fulfill, reject) {
                 self.then(function(db) {
-                    db.all(query, function(e, r) {
+                    db.all(select, function(e, r) {
                         if(e) {
                             reject(e);
                         } else {
