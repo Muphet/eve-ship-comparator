@@ -2,6 +2,8 @@
 
 See it live [here](http://eve-ship-comparator.herokuapp.com/?frigate).
 
+API documentation (in progress) can be found [here](http://nhusher.github.com/eve-ship-comparator/apidocs/).
+
 A ship comparison tool for Eve Online. This is mostly an exploration of sharing code between a nodejs server and a
 javascript-enabled client. The client and server share the same object model and many of the same templates. I 
 anticipate sharing more template code as the project progresses, eventually being able to render everything client-side
