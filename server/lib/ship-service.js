@@ -242,7 +242,7 @@ YUI.add('esc-ship-service', function(Y) {
         search: function(query) {
             var d = this.db;
             
-            return this.db.all(ShipService.SEARCH_QUERY.eval(query))
+            return this.db.all(ShipService.SEARCH_QUERY.exec(query))
                 .then(this.cleanDescription.bind(this))
                 .then(this.queryAttributes.bind(this))
                 .then(this.querySkills.bind(this))
@@ -295,7 +295,7 @@ YUI.add('esc-ship-service', function(Y) {
             var ids = ships.map(function(s) { return s.typeID });
             
             
-            return this.db.all(ShipService.ATTRIBUTE_QUERY.eval(ids)).then(function(attrs) {
+            return this.db.all(ShipService.ATTRIBUTE_QUERY.exec(ids)).then(function(attrs) {
                 var attrMap = {},
                     item, i, l;
 
@@ -328,7 +328,7 @@ YUI.add('esc-ship-service', function(Y) {
             
             var ids = ships.map(function(s) { return s.typeID });
             
-            return this.db.all(ShipService.SKILL_QUERY.eval(ids)).then(function(skills) {
+            return this.db.all(ShipService.SKILL_QUERY.exec(ids)).then(function(skills) {
                 var skillMap = {},
                     item, i, l, attrs;
                 

@@ -1,9 +1,14 @@
-
+/*global YUI*/
+/**
+@module esc-sqlite
+@namespace esc
+ */
 YUI.add('esc-sqlite', function(Y, NAME) {
-        
-    var NS = Y.namespace('esc');
-    
-    var sqlite3 = YUI.require('sqlite3').verbose(),
+    "use strict";
+
+    var NS = Y.namespace('esc'),
+
+        sqlite3 = YUI.require('sqlite3').verbose(),
         SqliteDatabase = sqlite3.Database,
         Promise = NS.Promise;
 
@@ -18,11 +23,11 @@ YUI.add('esc-sqlite', function(Y, NAME) {
     @constructor
     @extends esc.Promise
     **/
-    var Query = function(resolver) {
+    function Query(resolver) {
         Query.superclass.constructor.apply(this, arguments);
-    };
+    }
     
-    var arrayMethod = function(method) {
+    function arrayMethod(method) {
         return function() {
             var a = slice(arguments);
             
@@ -34,7 +39,7 @@ YUI.add('esc-sqlite', function(Y, NAME) {
                 return r[method].apply(r, a);
             });
         };
-    };
+    }
     
     Y.extend(Query, Promise, {
         /**
@@ -78,13 +83,9 @@ YUI.add('esc-sqlite', function(Y, NAME) {
     @constructor
     @extends esc.Promise
     **/
-    var Database = function(resolver) {
-        if(typeof resolver === 'string') {
-            return Database.open(resolver);
-        } else {
-            Database.superclass.constructor.apply(this, arguments);
-        }
-    };
+    function Database(resolver) {
+        Database.superclass.constructor.apply(this, arguments);
+    }
     
     /**
     @method open
