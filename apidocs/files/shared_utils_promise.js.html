@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>shared&#x2F;utils&#x2F;promise.js - Eve Ship Comparator API</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="..&#x2F;assets/favicon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.8.0pr2&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..&#x2F;assets/css/logo.png" title="Eve Ship Comparator API"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="..&#x2F;classes/esc.Capacitor.html">esc.Capacitor</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Capacity.html">esc.Capacity</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Criteria.html">esc.Criteria</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.DamageProfile.html">esc.DamageProfile</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Database.html">esc.Database</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Drones.html">esc.Drones</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Heat.html">esc.Heat</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.HpPool.html">esc.HpPool</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.JumpDrive.html">esc.JumpDrive</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.MicroTemplate.html">esc.MicroTemplate</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Promise.html">esc.Promise</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Promise.Resolver.html">esc.Promise.Resolver</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Query.html">esc.Query</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Select.html">esc.Select</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Sensors.html">esc.Sensors</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Shield.html">esc.Shield</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Ship.html">esc.Ship</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Skill.html">esc.Skill</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirement.html">esc.SkillRequirement</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirements.html">esc.SkillRequirements</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Slots.html">esc.Slots</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="..&#x2F;modules/esc-hp-pool.html">esc-hp-pool</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-micro-template.html">esc-micro-template</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-promise.html">esc-promise</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-select.html">esc-select</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-ship.html">esc-ship</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-ship-properties.html">esc-ship-properties</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-skill.html">esc-skill</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-sqlite.html">esc-sqlite</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: shared&#x2F;utils&#x2F;promise.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*global YUI*&#x2F;
+YUI.add(&#x27;esc-promise&#x27;, function (Y) {
+    &quot;use strict&quot;;
+
+    var NS = Y.namespace(&#x27;esc&#x27;);
+
+    function soon() {
+        var a = [].slice.call(arguments),
+            fn = a.shift(),
+            soonFn = Y.config.global.setImmediate || Y.config.global.setTimeout;
+
+
+        soonFn(function () {
+            fn.apply(undefined, a);
+        }, 0);
+    }
+
+
+    &#x2F;**
+     Wraps the execution of asynchronous operations, providing a promise object that
+     can be used to subscribe to the various ways the operation may terminate.
+
+     When the operation completes successfully, call the Resolver&#x27;s &#x60;fulfill()&#x60;
+     method, passing any relevant response data for subscribers.  If the operation
+     encounters an error or is unsuccessful in some way, call &#x60;reject()&#x60;, again
+     passing any relevant data for subscribers.
+
+     The Resolver object should be shared only with the code resposible for
+     resolving or rejecting it. Public access for the Resolver is through its
+     _promise_, which is returned from the Resolver&#x27;s &#x60;promise&#x60; property. While both
+     Resolver and promise allow subscriptions to the Resolver&#x27;s state changes, the
+     promise may be exposed to non-controlling code. It is the preferable interface
+     for adding subscriptions.
+
+     Subscribe to state changes in the Resolver with the promise&#x27;s
+     &#x60;then(callback, errback)&#x60; method.  &#x60;then()&#x60; wraps the passed callbacks in a
+     new Resolver and returns the corresponding promise, allowing chaining of
+     asynchronous or synchronous operations. E.g.
+     &#x60;promise.then(someAsyncFunc).then(anotherAsyncFunc)&#x60;
+
+     @module esc-promise
+     @namespace esc
+     **&#x2F;
+
+    &#x2F;**
+     The public API for a Resolver. Used to subscribe to the notification events for
+     resolution or progress of the operation represented by the Resolver.
+
+     @class Promise
+     @constructor
+     @param {Function} fn A function where to insert the logic that resolves this
+     promise. Receives &#x60;fulfill&#x60; and &#x60;reject&#x60; functions as parameters
+     **&#x2F;
+    function Promise(fn) {
+        if (!(this instanceof Promise)) {
+            return new Promise(fn);
+        }
+
+        var resolver = new Promise.Resolver(this);
+
+        &#x2F;**
+         Schedule execution of a callback to either or both of &quot;fulfill&quot; and
+         &quot;reject&quot; resolutions for this promise. The callbacks are wrapped in a new
+         promise and that promise is returned.  This allows operation chaining ala
+         &#x60;functionA().then(functionB).then(functionC)&#x60; where &#x60;functionA&#x60; returns
+         a promise, and &#x60;functionB&#x60; and &#x60;functionC&#x60; _may_ return promises.
+
+         Asynchronicity of the callbacks is guaranteed.
+
+         @method then
+         @param {Function} [callback] function to execute if the promise
+         resolves successfully
+         @param {Function} [errback] function to execute if the promise
+         resolves unsuccessfully
+         @return {Promise} A promise wrapping the resolution of either &quot;resolve&quot; or
+         &quot;reject&quot; callback
+         **&#x2F;
+        this.then = function () {
+            return resolver.then.apply(resolver, arguments);
+        };
+
+        &#x2F;**
+         Returns the current status of the operation. Possible results are
+         &quot;pending&quot;, &quot;fulfilled&quot;, and &quot;rejected&quot;.
+
+         @method getStatus
+         @return {String}
+         **&#x2F;
+        this.getStatus = function () {
+            return resolver.getStatus.apply(resolver, arguments);
+        };
+
+        fn.call(this, Y.bind(&#x27;fulfill&#x27;, resolver), Y.bind(&#x27;reject&#x27;, resolver));
+    }
+
+    &#x2F;**
+     Checks if an object or value is a promise. This is cross-implementation
+     compatible, so promises returned from other libraries or native components
+     that are compatible with the Promises A+ spec should be recognized by this
+     method.
+
+     @method isPromise
+     @param {Any} obj The object to test
+     @return {Boolean} Whether the object is a promise or not
+     @static
+     **&#x2F;
+    Promise.isPromise = function (obj) {
+        return Y.Lang.isObject(obj) &amp;&amp; typeof obj.then === &#x27;function&#x27;;
+    };
+
+    NS.Promise = Promise;
+
+    &#x2F;**
+     Represents an asynchronous operation. Provides a
+     standard API for subscribing to the moment that the operation completes either
+     successfully (&#x60;fulfill()&#x60;) or unsuccessfully (&#x60;reject()&#x60;).
+
+     @class Promise.Resolver
+     @constructor
+     @param {Promise} promise The promise instance this resolver will be handling
+     **&#x2F;
+    function Resolver(promise) {
+        this._fulfillSubs = [];
+        this._rejectSubs = [];
+
+        &#x2F;**
+         The promise for this Resolver.
+
+         @property promise
+         @type Promise
+         **&#x2F;
+        this.promise = promise;
+
+        &#x2F;**
+         The status of the operation.
+
+         @property _status
+         @type String
+         @private
+         **&#x2F;
+        this._status = &#x27;pending&#x27;;
+    }
+
+    Y.mix(Resolver.prototype, {
+        &#x2F;**
+         Resolves the promise, signaling successful completion of the
+         represented operation. All &quot;onFulfilled&quot; subscriptions are executed and passed
+         the value provided to this method. After calling &#x60;fulfill()&#x60;, &#x60;reject()&#x60; and
+         &#x60;notify()&#x60; are disabled.
+
+         @method fulfill
+         @param {Any} value Value to pass along to the &quot;onFulfilled&quot; subscribers
+         **&#x2F;
+        fulfill: function (value) {
+            if (this._status === &#x27;pending&#x27;) {
+                this._result = value;
+            }
+
+            if (this._status !== &#x27;rejected&#x27;) {
+                this._notify(this._fulfillSubs, this._result);
+
+                this._fulfillSubs = [];
+                this._rejectSubs = null;
+
+                this._status = &#x27;fulfilled&#x27;;
+            }
+        },
+
+        &#x2F;**
+         Resolves the promise, signaling *un*successful completion of the
+         represented operation. All &quot;onRejected&quot; subscriptions are executed with
+         the value provided to this method. After calling &#x60;reject()&#x60;, &#x60;resolve()&#x60;
+         and &#x60;notify()&#x60; are disabled.
+
+         @method reject
+         @param {Any} value Value to pass along to the &quot;reject&quot; subscribers
+         **&#x2F;
+        reject: function (reason) {
+            if (this._status === &#x27;pending&#x27;) {
+                this._result = reason;
+            }
+
+            if (this._status !== &#x27;fulfilled&#x27;) {
+                this._notify(this._rejectSubs, this._result);
+
+                this._fulfillSubs = null;
+                this._rejectSubs = [];
+
+                this._status = &#x27;rejected&#x27;;
+            }
+        },
+
+        &#x2F;**
+         Schedule execution of a callback to either or both of &quot;resolve&quot; and
+         &quot;reject&quot; resolutions for the Resolver.  The callbacks
+         are wrapped in a new Resolver and that Resolver&#x27;s corresponding promise
+         is returned.  This allows operation chaining ala
+         &#x60;functionA().then(functionB).then(functionC)&#x60; where &#x60;functionA&#x60; returns
+         a promise, and &#x60;functionB&#x60; and &#x60;functionC&#x60; _may_ return promises.
+
+         @method then
+         @param {Function} [callback] function to execute if the Resolver
+         resolves successfully
+         @param {Function} [errback] function to execute if the Resolver
+         resolves unsuccessfully
+         @return {Promise} The promise of a new Resolver wrapping the resolution
+         of either &quot;resolve&quot; or &quot;reject&quot; callback
+         **&#x2F;
+        then: function (callback, errback) {
+            &#x2F;&#x2F; When the current promise is fulfilled or rejected, either the
+            &#x2F;&#x2F; callback or errback will be executed via the function pushed onto
+            &#x2F;&#x2F; this._subs.resolve or this._sub.reject.  However, to allow then()
+            &#x2F;&#x2F; chaining, the execution of either function needs to be represented
+            &#x2F;&#x2F; by a Resolver (the same Resolver can represent both flow paths), and
+            &#x2F;&#x2F; its promise returned.
+
+            var promise = this.promise,
+                thenFullfill,
+                thenReject,
+
+            &#x2F;&#x2F; using promise constructor allows for customized promises to be
+            &#x2F;&#x2F; returned instead of plain ones
+                then = new promise.constructor(function (fulfill, reject) {
+                    thenFullfill = fulfill;
+                    thenReject = reject;
+                }),
+
+                resolveSubs = this._fulfillSubs || [],
+                rejectSubs  = this._rejectSubs  || [];
+
+            &#x2F;&#x2F; Because the callback and errback are represented by a Resolver, it
+            &#x2F;&#x2F; must be fulfilled or rejected to propagate through the then() chain.
+            &#x2F;&#x2F; The same logic applies to resolve() and reject() for fulfillment.
+            function wrap(fn) {
+                return function () {
+                    &#x2F;&#x2F; The args coming in to the callback&#x2F;errback from the
+                    &#x2F;&#x2F; resolution of the parent promise.
+                    var args = arguments;
+
+                    &#x2F;&#x2F; Wrapping all callbacks in Y.soon to guarantee
+                    &#x2F;&#x2F; asynchronicity. Because setTimeout can cause unnecessary
+                    &#x2F;&#x2F; delays that *can* become noticeable in some situations
+                    &#x2F;&#x2F; (especially in Node.js)
+                    soon(function () {
+                        &#x2F;&#x2F; Call the callback&#x2F;errback with promise as &#x60;this&#x60; to
+                        &#x2F;&#x2F; preserve the contract that access to the deferred is
+                        &#x2F;&#x2F; only for code that may resolve&#x2F;reject it.
+                        &#x2F;&#x2F; Another option would be call the function from the
+                        &#x2F;&#x2F; global context, but it seemed less useful.
+                        var result;
+
+                        &#x2F;&#x2F; Promises model exception handling through callbacks
+                        &#x2F;&#x2F; making both synchronous and asynchronous errors behave
+                        &#x2F;&#x2F; the same way
+                        try {
+                            result = fn.apply(promise, args);
+                        } catch (e) {
+                            return thenReject(e);
+                        }
+
+                        &#x2F;&#x2F; Returning a promise from a callback makes the current
+                        &#x2F;&#x2F; promise sync up with the returned promise
+                        if (Promise.isPromise(result)) {
+                            result.then(thenFullfill, thenReject);
+                        } else {
+                            &#x2F;&#x2F; Non-promise return values always trigger resolve()
+                            &#x2F;&#x2F; because callback is affirmative, and errback is
+                            &#x2F;&#x2F; recovery.  To continue on the rejection path, errbacks
+                            &#x2F;&#x2F; must return rejected promises or throw.
+                            thenFullfill(result);
+                        }
+                    });
+                };
+            }
+
+            resolveSubs.push(typeof callback === &#x27;function&#x27; ? wrap(callback) : thenFullfill);
+            rejectSubs.push(typeof errback === &#x27;function&#x27; ? wrap(errback) : thenReject);
+
+            if (this._status === &#x27;fulfilled&#x27;) {
+                this.fulfill(this._result);
+            } else if (this._status === &#x27;rejected&#x27;) {
+                this.reject(this._result);
+            }
+
+            return then;
+        },
+
+        &#x2F;**
+         Returns the current status of the Resolver as a string &quot;pending&quot;,
+         &quot;fulfilled&quot;, or &quot;rejected&quot;.
+
+         @method getStatus
+         @return {String}
+         **&#x2F;
+        getStatus: function () {
+            return this._status;
+        },
+
+        &#x2F;**
+         Returns the result of the Resolver.  Use &#x60;getStatus()&#x60; to test that the
+         promise is fulfilled before calling this.
+
+         @method getResult
+         @return {Any} Value passed to &#x60;resolve()&#x60; or &#x60;reject()&#x60;
+         **&#x2F;
+        getResult: function () {
+            return this._result;
+        },
+
+        &#x2F;**
+         Executes an array of callbacks from a specified context, passing a set of
+         arguments.
+
+         @method _notify
+         @param {Function[]} subs The array of subscriber callbacks
+         @param {Any} result Value to pass the callbacks
+         @protected
+         **&#x2F;
+        _notify: function (subs, result) {
+            var i, len;
+
+            if (subs) {
+                for (i = 0, len = subs.length; i &lt; len; i += 1) {
+                    subs[i](result);
+                }
+            }
+        }
+
+    }, true);
+
+    NS.Promise.Resolver = Resolver;
+
+});
+
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="..&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="..&#x2F;assets/js/yui-prettify.js"></script>
+<script src="..&#x2F;assets/../api.js"></script>
+<script src="..&#x2F;assets/js/api-filter.js"></script>
+<script src="..&#x2F;assets/js/api-list.js"></script>
+<script src="..&#x2F;assets/js/api-search.js"></script>
+<script src="..&#x2F;assets/js/apidocs.js"></script>
+</body>
+</html>

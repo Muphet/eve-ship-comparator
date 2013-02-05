@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>esc.HpPool - Eve Ship Comparator API</title>
+    <title>esc.Query - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -138,21 +138,25 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>esc.HpPool Class</h1>
+                        <h1>esc.Query Class</h1>
 <div class="box meta">
     
 
     
+        <div class="extends">
+            Extends <a href="../classes/esc.Promise.html" class="crosslink">esc.Promise</a>
+        </div>
+    
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l233"><code>shared&#x2F;model&#x2F;hp-pool.js:233</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l21"><code>server&#x2F;lib&#x2F;sqlite.js:21</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/esc-hp-pool.html">esc-hp-pool</a>
+            Module: <a href="../modules/esc-sqlite.html">esc-sqlite</a>
         
     
 
@@ -162,14 +166,14 @@
 
 
 <div class="box intro">
-    <p>Represents one of the three HP 'pools' on a ship: shields, armor, and structure (hull)</p>
+    
 </div>
 
 
     <div class="constructor">
         <h2>Constructor</h2>
-        <div id="method_esc.HpPool" class="method item">
-    <h3 class="name"><code>esc.HpPool</code></h3>
+        <div id="method_esc.Query" class="method item">
+    <h3 class="name"><code>esc.Query</code></h3>
 
     
         <span class="paren">()</span>
@@ -200,7 +204,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l233"><code>shared&#x2F;model&#x2F;hp-pool.js:233</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l21"><code>server&#x2F;lib&#x2F;sqlite.js:21</code></a>
         
         </p>
 
@@ -229,8 +233,8 @@
         <li class="api-class-tab index"><a href="#index">Index</a></li>
 
         
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
         
-            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
         
         
         
@@ -241,85 +245,69 @@
             <h2 class="off-left">Item Index</h2>
 
             
+                <div class="index-section methods">
+                    <h3>Methods</h3>
 
-            
-                <div class="index-section properties">
-                    <h3>Properties</h3>
-
-                    <ul class="index-list properties">
+                    <ul class="index-list methods extends">
                         
-                            <li class="index-item property">
-                                <a href="#property_damageProfile">damageProfile</a>
+                            <li class="index-item method">
+                                <a href="#method_each">each</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_ehp">ehp</a>
+                            <li class="index-item method">
+                                <a href="#method_every">every</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_emResistance">emResistance</a>
+                            <li class="index-item method">
+                                <a href="#method_filter">filter</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_emResonance">emResonance</a>
+                            <li class="index-item method inherited">
+                                <a href="#method_getStatus">getStatus</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_explosiveResistance">explosiveResistance</a>
+                            <li class="index-item method">
+                                <a href="#method_map">map</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_explosiveResonance">explosiveResonance</a>
+                            <li class="index-item method">
+                                <a href="#method_reduce">reduce</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_hp">hp</a>
+                            <li class="index-item method">
+                                <a href="#method_reduceRight">reduceRight</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_kineticResistance">kineticResistance</a>
+                            <li class="index-item method">
+                                <a href="#method_some">some</a>
 
                                 
                                 
                             </li>
                         
-                            <li class="index-item property">
-                                <a href="#property_kineticResonance">kineticResonance</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_thermalResistance">thermalResistance</a>
-
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item property">
-                                <a href="#property_thermalResonance">thermalResonance</a>
+                            <li class="index-item method inherited">
+                                <a href="#method_then">then</a>
 
                                 
                                 
@@ -332,18 +320,27 @@
             
 
             
+
+            
         </div>
 
         
-
-        
-            <div id="properties" class="api-class-tabpanel">
-                <h2 class="off-left">Properties</h2>
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="property_damageProfile" class="property item">
-    <h3 class="name"><code>damageProfile</code></h3>
-    <span class="type"><a href="../classes/esc.DamageProfile.html" class="crosslink">esc.DamageProfile</a></span>
+                    <div id="method_each" class="method item">
+    <h3 class="name"><code>each</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -364,105 +361,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l269"><code>shared&#x2F;model&#x2F;hp-pool.js:269</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l45"><code>server&#x2F;lib&#x2F;sqlite.js:45</code></a>
         
         </p>
 
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <p><strong>Default:</strong> null</p>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_ehp" class="property item">
-    <h3 class="name"><code>ehp</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l304"><code>shared&#x2F;model&#x2F;hp-pool.js:304</code></a>
-        
-        </p>
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        <p>The effective hit points of this damage pool, typically calculated by:</p>
-
-<p><code>EHP = HP / (1-RST)</code></p>
-
-<p>Where 'HP<code>is the pool size and</code>RST` is the average damage resistance against the four damage types.</p>
-
-<p>Source: <a href="http://community.eveonline.com/ingameboard.asp?a=topic&amp;threadID=780756">http://community.eveonline.com/ingameboard.asp?a=topic&amp;threadID=780756</a></p>
-    </div>
-
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="property_emResistance" class="property item">
-    <h3 class="name"><code>emResistance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l280"><code>shared&#x2F;model&#x2F;hp-pool.js:280</code></a>
-        
-        </p>
 
         
 
@@ -481,9 +383,18 @@
 </div>
 
                 
-                    <div id="property_emResonance" class="property item">
-    <h3 class="name"><code>emResonance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_every" class="method item">
+    <h3 class="name"><code>every</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -504,9 +415,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l249"><code>shared&#x2F;model&#x2F;hp-pool.js:249</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l50"><code>server&#x2F;lib&#x2F;sqlite.js:50</code></a>
         
         </p>
+
 
         
 
@@ -525,9 +437,18 @@
 </div>
 
                 
-                    <div id="property_explosiveResistance" class="property item">
-    <h3 class="name"><code>explosiveResistance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_filter" class="method item">
+    <h3 class="name"><code>filter</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -548,9 +469,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l286"><code>shared&#x2F;model&#x2F;hp-pool.js:286</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l60"><code>server&#x2F;lib&#x2F;sqlite.js:60</code></a>
         
         </p>
+
 
         
 
@@ -569,9 +491,86 @@
 </div>
 
                 
-                    <div id="property_explosiveResonance" class="property item">
-    <h3 class="name"><code>explosiveResonance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_getStatus" class="method item inherited">
+    <h3 class="name"><code>getStatus</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                <p>Inherited from
+                <a href="..&#x2F;classes&#x2F;esc.Promise.html#method_getStatus">esc.Promise</a>:
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_utils_promise.js.html#l82"><code>shared&#x2F;utils&#x2F;promise.js:82</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>Returns the current status of the operation. Possible results are
+"pending", "fulfilled", and "rejected".</p>
+    </div>
+
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_map" class="method item">
+    <h3 class="name"><code>map</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -592,9 +591,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l254"><code>shared&#x2F;model&#x2F;hp-pool.js:254</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l65"><code>server&#x2F;lib&#x2F;sqlite.js:65</code></a>
         
         </p>
+
 
         
 
@@ -613,9 +613,18 @@
 </div>
 
                 
-                    <div id="property_hp" class="property item">
-    <h3 class="name"><code>hp</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_reduce" class="method item">
+    <h3 class="name"><code>reduce</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -636,9 +645,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l244"><code>shared&#x2F;model&#x2F;hp-pool.js:244</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l70"><code>server&#x2F;lib&#x2F;sqlite.js:70</code></a>
         
         </p>
+
 
         
 
@@ -657,9 +667,18 @@
 </div>
 
                 
-                    <div id="property_kineticResistance" class="property item">
-    <h3 class="name"><code>kineticResistance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_reduceRight" class="method item">
+    <h3 class="name"><code>reduceRight</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -680,9 +699,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l292"><code>shared&#x2F;model&#x2F;hp-pool.js:292</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l75"><code>server&#x2F;lib&#x2F;sqlite.js:75</code></a>
         
         </p>
+
 
         
 
@@ -701,9 +721,18 @@
 </div>
 
                 
-                    <div id="property_kineticResonance" class="property item">
-    <h3 class="name"><code>kineticResonance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_some" class="method item">
+    <h3 class="name"><code>some</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
 
     
 
@@ -724,9 +753,10 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l259"><code>shared&#x2F;model&#x2F;hp-pool.js:259</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_sqlite.js.html#l55"><code>server&#x2F;lib&#x2F;sqlite.js:55</code></a>
         
         </p>
+
 
         
 
@@ -745,9 +775,38 @@
 </div>
 
                 
-                    <div id="property_thermalResistance" class="property item">
-    <h3 class="name"><code>thermalResistance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+                    <div id="method_then" class="method item inherited">
+    <h3 class="name"><code>then</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code class="optional">[callback]</code>
+                    
+                </li>
+            
+                <li class="arg">
+                    
+                        <code class="optional">[errback]</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">Promise</span>
+        </span>
+    
+
+    
+
+    
 
     
 
@@ -760,17 +819,15 @@
     <div class="meta">
         
             
-                
-                <p>
-                
-                Defined in
-                
+                <p>Inherited from
+                <a href="..&#x2F;classes&#x2F;esc.Promise.html#method_then">esc.Promise</a>:
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l298"><code>shared&#x2F;model&#x2F;hp-pool.js:298</code></a>
+        <a href="..&#x2F;files&#x2F;shared_utils_promise.js.html#l61"><code>shared&#x2F;utils&#x2F;promise.js:61</code></a>
         
         </p>
+
 
         
 
@@ -778,55 +835,73 @@
     </div>
 
     <div class="description">
-        
+        <p>Schedule execution of a callback to either or both of "fulfill" and
+"reject" resolutions for this promise. The callbacks are wrapped in a new
+promise and that promise is returned.  This allows operation chaining ala
+<code>functionA().then(functionB).then(functionC)</code> where <code>functionA</code> returns
+a promise, and <code>functionB</code> and <code>functionC</code> <em>may</em> return promises.</p>
+
+<p>Asynchronicity of the callbacks is guaranteed.</p>
     </div>
 
     
+        <div class="params">
+            <h4>Parameters:</h4>
 
-    
-
-    
-</div>
-
-                
-                    <div id="property_thermalResonance" class="property item">
-    <h3 class="name"><code>thermalResonance</code></h3>
-    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
-
-    
-
-    
-
-    
-
-    
-
-    <div class="meta">
-        
+            <ul class="params-list">
             
-                
-                <p>
-                
-                Defined in
-                
+                <li class="param">
+                    
+                        <code class="param-name optional">[callback]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>function to execute if the promise
+resolves successfully</p>
+                    </div>
+
+                    
+                </li>
             
-        
-        
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l264"><code>shared&#x2F;model&#x2F;hp-pool.js:264</code></a>
-        
-        </p>
+                <li class="param">
+                    
+                        <code class="param-name optional">[errback]</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+                        <span class="flag optional" title="This parameter is optional.">optional</span>
+                    
 
-        
+                    
 
-        
-    </div>
+                    <div class="param-description">
+                        <p>function to execute if the promise
+resolves unsuccessfully</p>
+                    </div>
 
-    <div class="description">
-        
-    </div>
-
+                    
+                </li>
+            
+            </ul>
+        </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">Promise</span>:
+                    
+                    A promise wrapping the resolution of either "resolve" or
+"reject" callback
+                
+            </div>
+        </div>
     
 
     
@@ -834,6 +909,8 @@
 
                 
             </div>
+        
+
         
 
         

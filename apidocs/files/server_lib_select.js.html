@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>shared&#x2F;model&#x2F;skill.js - Eve Ship Comparator API</title>
+    <title>server&#x2F;lib&#x2F;select.js - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -138,198 +138,251 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: shared&#x2F;model&#x2F;skill.js</h1>
+                        <h1 class="file-heading">File: server&#x2F;lib&#x2F;select.js</h1>
 
 <div class="file">
     <pre class="code prettyprint linenums">
 &#x2F;*global YUI*&#x2F;
 &#x2F;**
- Classes and objects having to do with skill requirements for ships.
+ A tool to make it easier to build complex SQL queries.
 
- @module esc-skill
+ @module esc-select
  @namespace esc
- *&#x2F;
-YUI.add(&#x27;esc-skill&#x27;, function (Y) {
+ **&#x2F;
+YUI.add(&#x27;esc-select&#x27;, function (Y) {
     &quot;use strict&quot;;
 
     var NS = Y.namespace(&#x27;esc&#x27;);
 
-    &#x2F;&#x2F;
-    &#x2F;&#x2F; --- Skill ----------------------------------------------------------------
-    &#x2F;&#x2F;
-
     &#x2F;**
-     A representation of a skill in the Eve skill tree. Matains a list of skills that are required to train this skill, as well as things like group, rank, and description.
-
-     @class Skill
+     @class Criteria
      @constructor
-     *&#x2F;
-    function Skill(cfg) {
-        Y.mix(this, cfg || {}, true, Object.keys(Skill.prototype));
+     **&#x2F;
+    function Criteria(criteria, parentCriteria, selectStatement) {
+        if (!this instanceof Criteria) {
+            return new Criteria(criteria, parentCriteria, selectStatement);
+        }
 
-        if (!this.requirements) {
-            this.requirements = [];
+        this.parent = parentCriteria;
+        this.parentSelect = selectStatement;
+
+        if (criteria instanceof Criteria) {
+            criteria.parent = this;
+            criteria.select = this.parentSelect;
+
+            this.criteria = criteria;
+        } else if (typeof criteria === &#x27;string&#x27;) {
+            this.criteria = { column : criteria };
+        } else if (typeof criteria === &#x27;function&#x27;) {
+            this.criteria = criteria;
         }
     }
 
-    Y.mix(Skill.prototype, {
+    Y.mix(Criteria.prototype, {
         &#x2F;**
-         The ID of the skill in the Eve database.
+         The parent criteria for this instance.
 
-         @property id {Number}
+         @property parent {esc.Criteria}
          *&#x2F;
-        id           : null,
-
-        &#x2F;**
-         The name of the skill.
-
-         @property name {String}
-         *&#x2F;
-        name         : null,
+        parent : null,
 
         &#x2F;**
-         The description of the skill.
+         The child criteria for this instance.
 
-         @property description {String}
+         @property child {esc.Criteria}
          *&#x2F;
-        description  : null,
+        child : null,
 
         &#x2F;**
-         The group this skill belongs to.
+         The parent select statement.
 
-         @property group {String}
+         @property parentSelect {esc.Select}
          *&#x2F;
-        group        : null,
+        parentSelect : null,
 
         &#x2F;**
-         The rank of the skill.
+         Returns the select statement that this criteria is a part of, if one exists. If this Critiera doesn&#x27;t know what select statement it is a part of, it will traverse the criteria tree until it finds it.
 
-         @property rank {Number}
+         @method select
+         @returns {esc.Select} The parent select object, if any.
          *&#x2F;
-        rank         : null,
+        select : function () {
+            var out, p;
+            if (this.parentSelect) {
+                out = this.parentSelect;
+            } else {
+                p = this.parent;
 
-        &#x2F;**
-         The prereqs for this skill.
-
-         @property requirements {Array}
-         *&#x2F;
-        requirements : null
-    });
-
-    NS.Skill = Skill;
-
-    &#x2F;**
-     A representation of a required skill, either to fly a ship or as a prereq for a skill to fly a ship.
-
-     @class SkillRequirement
-     @constructor
-     *&#x2F;
-    function SkillRequirement(cfg) {
-        Y.mix(this, cfg || {}, true, Object.keys(SkillRequirement.prototype));
-    }
-
-    Y.mix(SkillRequirement.prototype, {
-        &#x2F;**
-         The ID of the skill that is required.
-
-         @property id {Number}
-         *&#x2F;
-        id : null,
-
-        &#x2F;**
-         The level of the skill that is required.
-         @property level {Number}
-         *&#x2F;
-        level : null,
-
-        &#x2F;**
-         The resolved skill that is required.
-
-         @property skill {esc.Skill}
-         *&#x2F;
-        skill : null
-    });
-
-    NS.SkillRequirement = SkillRequirement;
-
-&#x2F;&#x2F;
-&#x2F;&#x2F; --- Skill Requirements ---------------------------------------------------
-&#x2F;&#x2F;
-    &#x2F;**
-     @class SkillRequirements
-     @constructor
-     *&#x2F;
-    function SkillRequirements(sr) {
-        this.skills = sr &amp;&amp; sr.skills ? sr.skills.slice(0) : [];
-
-        if (sr &amp;&amp; sr.primary) {
-            this.primary = sr.primary;
-        }
-        if (sr &amp;&amp; sr.secondary) {
-            this.secondary = sr.secondary;
-        }
-        if (sr &amp;&amp; sr.tertiary) {
-            this.tertiary = sr.tertiary;
-        }
-    }
-
-    Y.mix(SkillRequirements.prototype, {
-        &#x2F;**
-         @property skills {Array}
-         *&#x2F;
-        skills : null
-    });
-
-    Object.defineProperties(SkillRequirements.prototype, {
-
-        &#x2F;**
-         @property primary {esc.SkillRequirement}
-         *&#x2F;
-        primary : {
-            get : function () {
-                if (!this.skills[0]) {
-                    this.skills[0] = new SkillRequirement();
+                while (p.parent) {
+                    p = p.parent;
                 }
-                return this.skills[0];
-            },
-            set : function (val) {
-                this.skills[0] = val;
+
+                if (p.select) {
+                    out = p.select;
+                } else {
+                    out = null;
+                }
             }
+            return out;
         },
 
-        &#x2F;**
-         @property secondary {esc.SkillRequirement}
-         *&#x2F;
-        secondary : {
-            get : function () {
-                if (!this.skills[1]) {
-                    this.skills[1] = new SkillRequirement();
-                }
-                return this.skills[1];
-            },
-            set : function (val) {
-                this.skills[1] = val;
-            }
+        addChildCriteria : function (join, columnOrCriteria) {
+            var childCriteria = new Criteria(columnOrCriteria, this, this.parentSelect);
+
+            this.child = { criteria : childCriteria, join : join };
+
+            return childCriteria;
         },
 
-        &#x2F;**
-         @property tertiary {esc.SkillRequirement}
-         *&#x2F;
-        tertiary : {
-            get : function () {
-                if (!this.skills[2]) {
-                    this.skills[2] = new SkillRequirement();
-                }
-                return this.skills[2];
-            },
-            set : function (val) {
-                this.skills[2] = val;
+        and : function (columnOrCriteria) {
+            return this.addChildCriteria(&#x27;AND&#x27;, columnOrCriteria);
+        },
+        or  : function (columnOrCriteria) {
+            return this.addChildCriteria(&#x27;OR&#x27;, columnOrCriteria);
+        },
+
+        addPredicate : function (join, value) {
+            var criteria = this.criteria;
+
+            if (criteria instanceof Criteria) {
+                throw &quot;Can&#x27;t add predicate to Criteria instance.&quot;;
             }
+
+            criteria.value = value;
+            criteria.join = join;
+
+            return this;
+        },
+
+        like : function (value) {
+            value = value.replace(&#x2F;(\&#x27;)&#x2F;g, &#x27;\\$1&#x27;);
+
+            return this.addPredicate(&#x27;LIKE&#x27;, &quot;&#x27;&quot; + value + &quot;&#x27; ESCAPE &#x27;\\&#x27;&quot;);
+        },
+        is   : function (value) {
+            return this.addPredicate(&#x27;==&#x27;, value);
+        },
+        gt   : function (value) {
+            return this.addPredicate(&#x27;&gt;&#x27;, value);
+        },
+        lt   : function (value) {
+            return this.addPredicate(&#x27;&lt;&#x27;, value);
+        },
+
+        orderBy : function () {
+            var sel = this.select();
+            return sel.orderBy.apply(sel, arguments);
+        },
+        limit   : function () {
+            var sel = this.select();
+            return sel.limit.apply(sel, arguments);
+        },
+
+        exec : function (a, force) {
+            var criteria = this.criteria,
+                sel,
+                out;
+
+            if (force) {
+                if (criteria instanceof Criteria) {
+                    out = [ &#x27;(&#x27;, criteria.exec(a, true), &#x27;)&#x27; ].join(&#x27; &#x27;);
+                } else if (typeof criteria === &#x27;function&#x27;) {
+                    out = criteria.call(this, a);
+                } else {
+                    out = [ criteria.column, criteria.join, Y.Lang.sub(criteria.value, a) ].join(&#x27; &#x27;);
+                }
+
+                if (this.child) {
+                    out = [ out, this.child.join, this.child.criteria.exec(a, true) ].join(&#x27; &#x27;);
+                }
+
+            } else {
+                sel = this.select();
+                out = sel.exec.apply(sel, arguments);
+            }
+
+            return out;
         }
     });
 
-    NS.SkillRequirements = SkillRequirements;
-});
+    NS.Criteria = Criteria;
+
+    &#x2F;**
+     @class Select
+     @constructor
+     *&#x2F;
+    function Select(tablesAndFields) {
+        var table, fields, field, i, l;
+
+        this.tables = {};
+        this.fields = {};
+
+        for (table in tablesAndFields) {
+            if (tablesAndFields.hasOwnProperty(table)) {
+                fields = tablesAndFields[table];
+
+                this.tables[table] = true;
+
+                if ((&#x2F;\s+AS\s+&#x2F;).test(table)) {
+                    table = (&#x2F;\s+AS\s+([\w\W]+)&#x2F;).exec(table)[1];
+                }
+
+                for (i = 0, l = fields.length; i &lt; l; i += 1) {
+                    field = fields[i];
+
+                    this.fields[table + &#x27;.&#x27; + field] = true;
+                }
+            }
+        }
+
+        this.tables = Object.keys(this.tables);
+        this.fields = Object.keys(this.fields);
+    }
+
+    Select.from = function (tablesAndFields) {
+        return new Select(tablesAndFields);
+    };
+
+    Y.mix(Select.prototype, {
+        tables   : null,
+        fields   : null,
+        criteria : null,
+
+        where : function (columnOrCriteria) {
+            var c = new Criteria(columnOrCriteria, null, this);
+
+            this.criteria = c;
+            return c;
+        },
+
+        limit : function () {
+
+            return this;
+        },
+
+        orderBy : function () {
+
+            return this;
+        },
+
+        exec : function (a) {
+            var sel = [
+                &#x27;SELECT&#x27;, this.fields.join(&#x27;, &#x27;),
+                &#x27;FROM&#x27;, this.tables.join(&#x27;, &#x27;)
+            ];
+
+            if (this.criteria) {
+                sel.push(&#x27;WHERE&#x27;);
+                sel.push(this.criteria.exec(a, true));
+            }
+
+            return sel.join(&#x27; &#x27;);
+        }
+    });
+
+    NS.Select = Select;
+
+}, &#x27;&#x27;, {});
     </pre>
 </div>
 

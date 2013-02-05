@@ -6,6 +6,34 @@
         "url": "http://eve-ship-comparator.herokuapp.com"
     },
     "files": {
+        "server/lib/select.js": {
+            "name": "server/lib/select.js",
+            "modules": {
+                "esc-select": 1
+            },
+            "classes": {
+                "esc.Criteria": 1,
+                "esc.Select": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
+        "server/lib/sqlite.js": {
+            "name": "server/lib/sqlite.js",
+            "modules": {
+                "esc-sqlite": 1
+            },
+            "classes": {
+                "esc.Query": 1,
+                "esc.Database": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
         "shared/model/hp-pool.js": {
             "name": "shared/model/hp-pool.js",
             "modules": {
@@ -67,9 +95,67 @@
             "namespaces": {
                 "esc": 1
             }
+        },
+        "shared/utils/micro-template.js": {
+            "name": "shared/utils/micro-template.js",
+            "modules": {
+                "esc-micro-template": 1
+            },
+            "classes": {
+                "esc.MicroTemplate": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
+        "shared/utils/promise.js": {
+            "name": "shared/utils/promise.js",
+            "modules": {
+                "esc-promise": 1
+            },
+            "classes": {
+                "esc.Promise": 1,
+                "esc.Promise.Resolver": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
         }
     },
     "modules": {
+        "esc-select": {
+            "name": "esc-select",
+            "submodules": {},
+            "classes": {
+                "esc.Criteria": 1,
+                "esc.Select": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "server/lib/select.js",
+            "line": 166,
+            "description": "A tool to make it easier to build complex SQL queries."
+        },
+        "esc-sqlite": {
+            "name": "esc-sqlite",
+            "submodules": {},
+            "classes": {
+                "esc.Query": 1,
+                "esc.Database": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "server/lib/sqlite.js",
+            "line": 81
+        },
         "esc-hp-pool": {
             "name": "esc-hp-pool",
             "submodules": {},
@@ -137,9 +223,97 @@
             "file": "shared/model/skill.js",
             "line": 114,
             "description": "Classes and objects having to do with skill requirements for ships."
+        },
+        "esc-micro-template": {
+            "name": "esc-micro-template",
+            "submodules": {},
+            "classes": {
+                "esc.MicroTemplate": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "shared/utils/micro-template.js",
+            "line": 13
+        },
+        "esc-promise": {
+            "name": "esc-promise",
+            "submodules": {},
+            "classes": {
+                "esc.Promise": 1,
+                "esc.Promise.Resolver": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "shared/utils/promise.js",
+            "line": 113,
+            "description": "Wraps the execution of asynchronous operations, providing a promise object that\ncan be used to subscribe to the various ways the operation may terminate.\n\nWhen the operation completes successfully, call the Resolver's `fulfill()`\nmethod, passing any relevant response data for subscribers.  If the operation\nencounters an error or is unsuccessful in some way, call `reject()`, again\npassing any relevant data for subscribers.\n\nThe Resolver object should be shared only with the code resposible for\nresolving or rejecting it. Public access for the Resolver is through its\n_promise_, which is returned from the Resolver's `promise` property. While both\nResolver and promise allow subscriptions to the Resolver's state changes, the\npromise may be exposed to non-controlling code. It is the preferable interface\nfor adding subscriptions.\n\nSubscribe to state changes in the Resolver with the promise's\n`then(callback, errback)` method.  `then()` wraps the passed callbacks in a\nnew Resolver and returns the corresponding promise, allowing chaining of\nasynchronous or synchronous operations. E.g.\n`promise.then(someAsyncFunc).then(anotherAsyncFunc)`"
         }
     },
     "classes": {
+        "esc.Criteria": {
+            "name": "esc.Criteria",
+            "shortname": "Criteria",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-select",
+            "namespace": "esc",
+            "file": "server/lib/select.js",
+            "line": 13,
+            "is_constructor": 1
+        },
+        "esc.Select": {
+            "name": "esc.Select",
+            "shortname": "Select",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-select",
+            "namespace": "esc",
+            "file": "server/lib/select.js",
+            "line": 166,
+            "is_constructor": 1
+        },
+        "esc.Query": {
+            "name": "esc.Query",
+            "shortname": "Query",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-sqlite",
+            "namespace": "esc",
+            "file": "server/lib/sqlite.js",
+            "line": 21,
+            "is_constructor": 1,
+            "extends": "esc.Promise"
+        },
+        "esc.Database": {
+            "name": "esc.Database",
+            "shortname": "Database",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-sqlite",
+            "namespace": "esc",
+            "file": "server/lib/sqlite.js",
+            "line": 81,
+            "is_constructor": 1,
+            "extends": "esc.Promise"
+        },
         "esc.DamageProfile": {
             "name": "esc.DamageProfile",
             "shortname": "DamageProfile",
@@ -362,9 +536,239 @@
             "file": "shared/model/skill.js",
             "line": 114,
             "is_constructor": 1
+        },
+        "esc.MicroTemplate": {
+            "name": "esc.MicroTemplate",
+            "shortname": "MicroTemplate",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-micro-template",
+            "namespace": "esc",
+            "file": "shared/utils/micro-template.js",
+            "line": 13
+        },
+        "esc.Promise": {
+            "name": "esc.Promise",
+            "shortname": "Promise",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-promise",
+            "namespace": "esc",
+            "file": "shared/utils/promise.js",
+            "line": 45,
+            "description": "The public API for a Resolver. Used to subscribe to the notification events for\nresolution or progress of the operation represented by the Resolver.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "fn",
+                    "description": "A function where to insert the logic that resolves this\npromise. Receives `fulfill` and `reject` functions as parameters",
+                    "type": "Function"
+                }
+            ]
+        },
+        "esc.Promise.Resolver": {
+            "name": "esc.Promise.Resolver",
+            "shortname": "Promise.Resolver",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-promise",
+            "namespace": "esc",
+            "file": "shared/utils/promise.js",
+            "line": 113,
+            "description": "Represents an asynchronous operation. Provides a\nstandard API for subscribing to the moment that the operation completes either\nsuccessfully (`fulfill()`) or unsuccessfully (`reject()`).",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "promise",
+                    "description": "The promise instance this resolver will be handling",
+                    "type": "Promise"
+                }
+            ]
         }
     },
     "classitems": [
+        {
+            "file": "server/lib/select.js",
+            "line": 38,
+            "description": "The parent criteria for this instance.",
+            "itemtype": "property",
+            "name": "parent",
+            "type": "esc.Criteria",
+            "class": "esc.Criteria",
+            "module": "esc-select",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 45,
+            "description": "The child criteria for this instance.",
+            "itemtype": "property",
+            "name": "child",
+            "type": "esc.Criteria",
+            "class": "esc.Criteria",
+            "module": "esc-select",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 52,
+            "description": "The parent select statement.",
+            "itemtype": "property",
+            "name": "parentSelect",
+            "type": "esc.Select",
+            "class": "esc.Criteria",
+            "module": "esc-select",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 59,
+            "description": "Returns the select statement that this criteria is a part of, if one exists. If this Critiera doesn't know what select statement it is a part of, it will traverse the criteria tree until it finds it.",
+            "itemtype": "method",
+            "name": "select",
+            "return": {
+                "description": "The parent select object, if any.",
+                "type": "esc.Select"
+            },
+            "class": "esc.Criteria",
+            "module": "esc-select",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 45,
+            "itemtype": "method",
+            "name": "each",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 50,
+            "itemtype": "method",
+            "name": "every",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 55,
+            "itemtype": "method",
+            "name": "some",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 60,
+            "itemtype": "method",
+            "name": "filter",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 65,
+            "itemtype": "method",
+            "name": "map",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 70,
+            "itemtype": "method",
+            "name": "reduce",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 75,
+            "itemtype": "method",
+            "name": "reduceRight",
+            "class": "esc.Query",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 90,
+            "itemtype": "method",
+            "name": "open",
+            "static": 1,
+            "class": "esc.Database",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 107,
+            "itemtype": "method",
+            "name": "one",
+            "params": [
+                {
+                    "name": "select",
+                    "description": "",
+                    "type": "esc.Select | String"
+                }
+            ],
+            "return": {
+                "description": "A query promise hooked to this instance's db.",
+                "type": "esc.Query"
+            },
+            "class": "esc.Database",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 131,
+            "itemtype": "method",
+            "name": "all",
+            "params": [
+                {
+                    "name": "select",
+                    "description": "",
+                    "type": "esc.Select | String"
+                }
+            ],
+            "return": {
+                "description": "A query promise hooked to this instance's db.",
+                "type": "esc.Query"
+            },
+            "class": "esc.Database",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/sqlite.js",
+            "line": 155,
+            "itemtype": "method",
+            "name": "close",
+            "return": {
+                "description": "promise chain.",
+                "type": "esc.Database"
+            },
+            "class": "esc.Database",
+            "module": "esc-sqlite",
+            "namespace": "esc"
+        },
         {
             "file": "shared/model/hp-pool.js",
             "line": 51,
@@ -1213,7 +1617,386 @@
             "class": "esc.SkillRequirements",
             "module": "esc-skill",
             "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 17,
+            "itemtype": "property",
+            "name": "OPTIONS",
+            "static": 1,
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 28,
+            "itemtype": "property",
+            "name": "TEMPLATE_ESCAPE",
+            "static": 1,
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 41,
+            "itemtype": "property",
+            "name": "STRING_ESCAPE",
+            "static": 1,
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 55,
+            "itemtype": "method",
+            "name": "escape",
+            "static": 1,
+            "params": [
+                {
+                    "name": "s",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 67,
+            "itemtype": "method",
+            "name": "render",
+            "static": 1,
+            "params": [
+                {
+                    "name": "text",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 78,
+            "itemtype": "method",
+            "name": "include",
+            "static": 1,
+            "params": [
+                {
+                    "name": "path",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "data",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 88,
+            "itemtype": "method",
+            "name": "compile",
+            "static": 1,
+            "params": [
+                {
+                    "name": "text",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "precompile",
+                    "description": "",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String|Function"
+            },
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 154,
+            "itemtype": "method",
+            "name": "precompile",
+            "static": 1,
+            "params": [
+                {
+                    "name": "text",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/micro-template.js",
+            "line": 164,
+            "itemtype": "method",
+            "name": "revive",
+            "static": 1,
+            "params": [
+                {
+                    "name": "precompiled",
+                    "description": "",
+                    "type": "Function"
+                },
+                {
+                    "name": "UNKNOWN",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "esc.MicroTemplate",
+            "module": "esc-micro-template",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 61,
+            "description": "Schedule execution of a callback to either or both of \"fulfill\" and\n\"reject\" resolutions for this promise. The callbacks are wrapped in a new\npromise and that promise is returned.  This allows operation chaining ala\n`functionA().then(functionB).then(functionC)` where `functionA` returns\na promise, and `functionB` and `functionC` _may_ return promises.\n\nAsynchronicity of the callbacks is guaranteed.",
+            "itemtype": "method",
+            "name": "then",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "function to execute if the promise\nresolves successfully",
+                    "type": "Function",
+                    "optional": true
+                },
+                {
+                    "name": "errback",
+                    "description": "function to execute if the promise\nresolves unsuccessfully",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "A promise wrapping the resolution of either \"resolve\" or\n\"reject\" callback",
+                "type": "Promise"
+            },
+            "class": "esc.Promise",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 82,
+            "description": "Returns the current status of the operation. Possible results are\n\"pending\", \"fulfilled\", and \"rejected\".",
+            "itemtype": "method",
+            "name": "getStatus",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "esc.Promise",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 96,
+            "description": "Checks if an object or value is a promise. This is cross-implementation\ncompatible, so promises returned from other libraries or native components\nthat are compatible with the Promises A+ spec should be recognized by this\nmethod.",
+            "itemtype": "method",
+            "name": "isPromise",
+            "params": [
+                {
+                    "name": "obj",
+                    "description": "The object to test",
+                    "type": "Any"
+                }
+            ],
+            "return": {
+                "description": "Whether the object is a promise or not",
+                "type": "Boolean"
+            },
+            "static": 1,
+            "class": "esc.Promise",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 126,
+            "description": "The promise for this Resolver.",
+            "itemtype": "property",
+            "name": "promise",
+            "type": "Promise",
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 134,
+            "description": "The status of the operation.",
+            "itemtype": "property",
+            "name": "_status",
+            "type": "String",
+            "access": "private",
+            "tagname": "",
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 145,
+            "description": "Resolves the promise, signaling successful completion of the\nrepresented operation. All \"onFulfilled\" subscriptions are executed and passed\nthe value provided to this method. After calling `fulfill()`, `reject()` and\n`notify()` are disabled.",
+            "itemtype": "method",
+            "name": "fulfill",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "Value to pass along to the \"onFulfilled\" subscribers",
+                    "type": "Any"
+                }
+            ],
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 169,
+            "description": "Resolves the promise, signaling *un*successful completion of the\nrepresented operation. All \"onRejected\" subscriptions are executed with\nthe value provided to this method. After calling `reject()`, `resolve()`\nand `notify()` are disabled.",
+            "itemtype": "method",
+            "name": "reject",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "Value to pass along to the \"reject\" subscribers",
+                    "type": "Any"
+                }
+            ],
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 193,
+            "description": "Schedule execution of a callback to either or both of \"resolve\" and\n\"reject\" resolutions for the Resolver.  The callbacks\nare wrapped in a new Resolver and that Resolver's corresponding promise\nis returned.  This allows operation chaining ala\n`functionA().then(functionB).then(functionC)` where `functionA` returns\na promise, and `functionB` and `functionC` _may_ return promises.",
+            "itemtype": "method",
+            "name": "then",
+            "params": [
+                {
+                    "name": "callback",
+                    "description": "function to execute if the Resolver\nresolves successfully",
+                    "type": "Function",
+                    "optional": true
+                },
+                {
+                    "name": "errback",
+                    "description": "function to execute if the Resolver\nresolves unsuccessfully",
+                    "type": "Function",
+                    "optional": true
+                }
+            ],
+            "return": {
+                "description": "The promise of a new Resolver wrapping the resolution\nof either \"resolve\" or \"reject\" callback",
+                "type": "Promise"
+            },
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 288,
+            "description": "Returns the current status of the Resolver as a string \"pending\",\n\"fulfilled\", or \"rejected\".",
+            "itemtype": "method",
+            "name": "getStatus",
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 299,
+            "description": "Returns the result of the Resolver.  Use `getStatus()` to test that the\npromise is fulfilled before calling this.",
+            "itemtype": "method",
+            "name": "getResult",
+            "return": {
+                "description": "Value passed to `resolve()` or `reject()`",
+                "type": "Any"
+            },
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/utils/promise.js",
+            "line": 310,
+            "description": "Executes an array of callbacks from a specified context, passing a set of\narguments.",
+            "itemtype": "method",
+            "name": "_notify",
+            "params": [
+                {
+                    "name": "subs",
+                    "description": "The array of subscriber callbacks",
+                    "type": "Function[]"
+                },
+                {
+                    "name": "result",
+                    "description": "Value to pass the callbacks",
+                    "type": "Any"
+                }
+            ],
+            "access": "protected",
+            "tagname": "",
+            "class": "esc.Promise.Resolver",
+            "module": "esc-promise",
+            "namespace": "esc"
         }
     ],
-    "warnings": []
+    "warnings": [
+        {
+            "message": "replacing incorrect tag: returns with return",
+            "line": " server/lib/select.js:59"
+        },
+        {
+            "message": "param name missing: {String}",
+            "line": " shared/utils/micro-template.js:164"
+        }
+    ]
 }
