@@ -1,22 +1,27 @@
+/*global YUI */
 /**
 @module esc-ship-properties
 @namespace esc
 **/
-YUI.add('esc-ship-properties', function(Y) {
+YUI.add('esc-ship-properties', function (Y) {
+    "use strict";
+
     var NS = Y.namespace('esc');
 
 //
 // --- Sensors --------------------------------------------------------------
 //
-    
+
     /**
+    A set of properties related to sensor strength, range, and max locked targets.
+
     @class Sensors
     @constructor
     **/
-    var Sensors = function(cfg) {
+    function Sensors(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Sensors.prototype));
-    };
-    
+    }
+
     Y.mix(Sensors.prototype, {
         gravimetricStrength   : null,
         magnetometricStrength : null,
@@ -26,7 +31,7 @@ YUI.add('esc-ship-properties', function(Y) {
         resolution            : null,
         lockedTargets         : null
     });
-    
+
     /**
     Returns the highest of the radar strengths, since each ship really only has one radar strength type.
     
@@ -35,55 +40,59 @@ YUI.add('esc-ship-properties', function(Y) {
     **/
     Object.defineProperty(Sensors.prototype, 'strength', {
         writeable: false,
-        get: function() {
+        get: function () {
             return this.gravimetricStrength || this.magnetometricStrength || this.ladarStrength || this.radarStrength;
         }
     });
-    
+
     NS.Sensors = Sensors;
-    
+
 //
 // --- Heat --------------------------------------------------------------
 //
 
     /**
+    Properties related to how a ship generates and sheds heat.
+
     @class Heat
     @constructor
     **/
-    var Heat = function(cfg) {
+    function Heat(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Heat.prototype));
-    };
-    
+    }
+
     Y.mix(Heat.prototype, {
         generationMultiplier: 0,
-        
+
         highAttenuation: 0,
         mediumAttenuation: 0,
         lowAttenuation: 0,
-        
+
         highDissipation: 0,
         mediumDissipation: 0,
         lowDissipation: 0,
-        
+
         highCapacity: 0,
         mediumCapacity: 0,
         lowCapacity: 0
     });
-    
+
     NS.Heat = Heat;
-    
+
 //
 // --- Capacity --------------------------------------------------------------
 //
-    
+
     /**
+    Properties related to how much junk a ship can hold.
+
     @class Capacity
     @constructor
     **/
-    var Capacity = function(cfg) {
+    function Capacity(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Capacity.prototype));
-    };
-    
+    }
+
     Y.mix(Capacity.prototype, {
         cargo: 0,
         fleetHangar: 0,
@@ -91,21 +100,23 @@ YUI.add('esc-ship-properties', function(Y) {
         fuel: 0,
         ore: 0
     });
-    
+
     NS.Capacity = Capacity;
-    
+
 //
 // --- Slots --------------------------------------------------------------
 //
 
     /**
+    Properties related to how many modules a ship can be fitted with.
+
     @class Slots
     @constructor
     **/
-    var Slots = function(cfg) {
+    function Slots(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Slots.prototype));
-    };
-    
+    }
+
     Y.mix(Slots.prototype, {
         high: 0,
         medium: 0,
@@ -115,28 +126,28 @@ YUI.add('esc-ship-properties', function(Y) {
         turrets: 0,
         launchers: 0
     });
-    
+
     NS.Slots = Slots;
-    
+
 //
 // --- Drones --------------------------------------------------------------
 //
-    
+
     /**
     A set of properties related to ship drone capacity and bandwidth.
     
     @class Drones
     @constructor
     **/
-    var Drones = function(cfg) {
+    function Drones(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Drones.prototype));
-    };
-    
+    }
+
     Y.mix(Drones.prototype, {
         bandwidth: 0,
         capacity: 0
     });
-    
+
     NS.Drones = Drones;
 
 //
@@ -149,12 +160,12 @@ YUI.add('esc-ship-properties', function(Y) {
     @class JumpDrive
     @constructor
     **/
-    var JumpDrive = function(cfg) {
-        if(cfg) {cfg.canJump = !!cfg.canJump; } // coerce to boolean
-        
+    function JumpDrive(cfg) {
+        if (cfg) {cfg.canJump = !!cfg.canJump; } // coerce to boolean
+
         Y.mix(this, cfg || {}, true, Object.keys(JumpDrive.prototype));
-    };
-    
+    }
+
     Y.mix(JumpDrive.prototype, {
         canJump: false,
         fuelType: 0,
@@ -162,7 +173,7 @@ YUI.add('esc-ship-properties', function(Y) {
         fuelConsumption: 0,
         capacitorNeed: 0
     });
-    
+
     NS.JumpDrive = JumpDrive;
 
 //
@@ -170,18 +181,28 @@ YUI.add('esc-ship-properties', function(Y) {
 //
 
     /**
+    A set of properties related to the size and charge rate of the capacitor.
+
     @class Capacitor
     @constructor
     **/
-    var Capacitor = function(cfg) {
+    function Capacitor(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Capacitor.prototype));
-    };
-    
+    }
+
     Y.mix(Capacitor.prototype, {
+        /**
+         The maximum amount of charge the capacitor can hold.
+         @property capacity {Number}
+         **/
+        /**
+         The time it takes to go from fully discharged to fully charged in seconds.
+         @property recharge {Number}
+         **/
         capacity : 0,
         recharge : 0
     });
-    
+
     /**
     A read-only synthetic property that's the peak recharge rate of a capacitor.
         
@@ -203,9 +224,9 @@ YUI.add('esc-ship-properties', function(Y) {
     **/
     Object.defineProperty(Capacitor.prototype, 'peakRecharge', {
         writeable: false,
-        get: function() { return (Math.sqrt(0.25) - 0.25) * 2 * this.capacity / (this.recharge / 5000); }
+        get: function () { return (Math.sqrt(0.25) - 0.25) * 2 * this.capacity / (this.recharge / 5000); }
     });
 
     NS.Capacitor = Capacitor;
-    
+
 });

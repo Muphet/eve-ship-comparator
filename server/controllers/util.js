@@ -63,24 +63,23 @@ exports.tmpl = function(req, res, next) {
             res.set('Content-Type', 'text/javascript');
         
             var out = [
-                'window.esc = window.esc || {};',
-                'window.esc.tmpl = {};'
+                'YUI.add("esc-templates", function(Y, NAME) {',
+                'var NS = Y.namespace("esc.templates");'
             ];
-        
-        
+            
             tmpls.forEach(function(t) {
-                out.push('window.esc.tmpl["' + t.path + '"] = ' + t.template + ';');
-                out.push('');
+                out.push('NS["' + t.path + '"] = ' + t.template + ';');
             });
         
             out.push([
-                '(function(NS) {',
-                '    if(!NS.MicroTemplate) { return; }',
-                '    NS.MicroTemplate.include = function(path, options) {',
-                '        return window.esc.MicroTemplate.revive(window.esc.tmpl[path])(options);',
+                'if(Y.esc.MicroTemplate) {',
+                '    Y.esc.MicroTemplate.include = function(path, options) {',
+                '        return Y.esc.MicroTemplate.revive(NS[path])(options);',
                 '    };',
-                '}(window.esc ? window.esc : (window.esc = {})));'
+                '}'
             ].join('\n'));
+        
+            out.push('}, "", { requires: [ "esc-micro-template" ] });');
         
             res.send(out.join('\n'));
         

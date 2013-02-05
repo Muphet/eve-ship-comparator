@@ -37,5 +37,23 @@ Y.mix(config.server, {
     }
 }, true);
 
+Y.mix(config.client, {
+    debug: NODE_ENV !== 'production',
+    filter: FILTER,
+    
+    groups: {
+        client: {
+            base: '/js/',
+            filter: FILTER,
+            modules: clone(config.yui.modules.client)
+        },
+        shared: {
+            base: '/shared/',
+            filter: FILTER,
+            modules: clone(config.yui.modules.shared)
+        }
+    }
+});
+
 
 module.exports = config;

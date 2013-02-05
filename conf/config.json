@@ -15,26 +15,12 @@
     
     "server": {
         "useSync": true,
-        "combine": false,
-        
-        "groups": {
-            "server": {},
-            "shared": {
-                "base": "shared/"
-            }
-        }
+        "combine": false
     },
     
     "client": {
         "allowRollup": false,
-        "groups": {
-            "client": {
-                
-            },
-            "shared": {
-                
-            }
-        }
+        "combine": false
     },
     
     "yui": {
@@ -68,7 +54,7 @@
                 "esc-micro-template"  : { "path": "utils/micro-template.js" },
                 "esc-promise"         : { "path": "utils/promise.js" },
                 "esc-ship-properties" : { "path": "model/ship-properties.js" },
-                "esc-hp-pool"         : { "path": "model/hp-pool.js" },
+                "esc-hp-pool"         : { "path": "model/hp-pool.js",         "requires": [ "oop" ] },
                 "esc-skill"           : { "path": "model/skill.js" },
                 "esc-ship"            : { "path": "model/ship.js",
                     "requires": [

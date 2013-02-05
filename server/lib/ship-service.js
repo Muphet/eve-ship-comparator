@@ -217,7 +217,7 @@ YUI.add('esc-ship-service', function(Y) {
         'attributes.shieldExplosiveDamageResonance' : 'shield.explosiveResonance',
         'attributes.shieldKineticDamageResonance'   : 'shield.kineticResonance',
         'attributes.shieldThermalDamageResonance'   : 'shield.thermalResonance',
-        'attributes.shieldRechargeRate'             : 'shield.rechargeRate',
+        'attributes.shieldRechargeRate'             : 'shield.recharge',
     
         // Jump Drive
         'attributes.canJump'                        : 'jumpDrive.canJump',
