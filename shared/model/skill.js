@@ -35,8 +35,8 @@ YUI.add('esc-skill', function(Y) {
     
     SkillRequirementProto.id = null;
     SkillRequirementProto.level = null;
-    
-    
+    SkillRequirementProto.skill = null;
+
     NS.SkillRequirement = SkillRequirement;
 
 //
@@ -47,9 +47,15 @@ YUI.add('esc-skill', function(Y) {
     SkillRequirements = function(sr) {
         this.skills = sr && sr.skills ? sr.skills.slice(0) : [];
         
-        this.primary = sr.primary || this.primary;
-        this.secondary = sr.secondary || this.secondary;
-        this.tertiary = sr.tertiary || this.tertiary;
+        if(sr.primary) {
+            this.primary = sr.primary;
+        }
+        if(sr.secondary) {
+            this.secondary = sr.secondary;
+        }
+        if(sr.tertiary) {
+            this.tertiary = sr.tertiary;
+        }
     };
         
     SkillRequirementsProto = SkillRequirements.prototype;

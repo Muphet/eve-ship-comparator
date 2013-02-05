@@ -1,0 +1,9 @@
+
+<ul>
+<% Y.Array.each(this.ships, function(ship) { %>
+    <li>
+        <%=ship.toString() %>
+        <%=ship.jumpDrive.canJump %>
+    </li>
+<% }) %>
+</ul>

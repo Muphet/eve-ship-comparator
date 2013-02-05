@@ -104,7 +104,7 @@ YUI.add('esc-select', function(Y) {
                     out;
 
                 if(criteria instanceof Criteria) {
-                    out = criteria.eval(a, true);
+                    out = [ '(', criteria.eval(a, true), ')' ].join(' ');
                 } else if(typeof criteria === 'function') {
                     out = criteria.call(this, a);
                 } else {
@@ -136,9 +136,13 @@ YUI.add('esc-select', function(Y) {
         for(table in tablesAndFields) {
              if(tablesAndFields.hasOwnProperty(table)) {
                  fields = tablesAndFields[table];
-            
+
                  this.tables[table] = true;
-            
+                 
+                 if((/\s+AS\s+/).test(table)) {
+                     table = (/\s+AS\s+(.+)/).exec(table)[1];
+                 }
+
                  for(i = 0, l = fields.length; i < l; i += 1) {
                      field = fields[i];
                 

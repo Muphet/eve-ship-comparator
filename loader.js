@@ -19,7 +19,13 @@ YUI({
                         'esc-ship'
                     ]
                 },
-                'esc-skill-service' : { path: 'lib/skill-service.js', requires: [ 'esc-promise', 'esc-sqlite' ] }
+                'esc-skill-service' : { path: 'lib/skill-service.js',
+                    requires: [
+                        'esc-promise',
+                        'esc-skill',
+                        'oop'
+                    ]
+                }
             }
         },
         
@@ -44,15 +50,16 @@ YUI({
             }
         }
     }
-}).use('esc-ship-service', function(Y) {
-    var shipService = new Y.esc.ShipService(Y.esc.Database.open('./server/data/database.sqlite'));
-
+}).use('esc-skill-service', 'esc-ship-service', function(Y) {
+    var db = Y.esc.Database.open('./server/data/database.sqlite')
+        skillService = Y.esc.SkillService.retrieve('https://api.eveonline.com/eve/SkillTree.xml.aspx'),
+        shipService  = new Y.esc.ShipService(db, skillService);
     
-    shipService.search('Arbitrator').then(function(r) {
-        console.log(JSON.stringify(r, null, '\t'));
-    }, function(e) {
-        console.log("ERROR", e);
+    
+    shipService.search('Oracle').then(function(ships) {
+
+       console.log(JSON.stringify(ships, null, '  '));
+
     });
 
-    
 });

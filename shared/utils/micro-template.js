@@ -88,9 +88,10 @@ YUI.add('esc-micro-template', function(Y) {
         
         // If compile() was called from precompile(), return precompiled source.
         if (precompile) {
-            return "function ($, $e, data) {\n" + source + "\n}";
+            return "function (Y, $, $e, data) {\n" + source + "\n}";
         } else {
-            return MicroTemplate.revive(new Function('$', '$e', 'data', source));
+            // TODO: try/catch this
+            return MicroTemplate.revive(new Function('Y', '$', '$e', 'data', source));
         }
     };
 
@@ -104,7 +105,7 @@ YUI.add('esc-micro-template', function(Y) {
         
             data.include = MicroTemplate.include;
         
-            return precompiled.call(data, MicroTemplate.include, MicroTemplate.escape, data);
+            return precompiled.call(data, Y, MicroTemplate.include, MicroTemplate.escape, data);
         }
     };
     

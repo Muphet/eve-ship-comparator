@@ -1,22 +1,63 @@
+
 var express = require('express'),
-    ship = require('./server/controllers/ship'),
-    util = require('./server/controllers/util'),
-    app = express();
+    fs      = require('fs'),
+    YUI     = require('yui'),
+    config  = require('./conf/config'),
+    Y       = YUI.getInstance(),
+    app     = express();
+
+Y.applyConfig(config.server);
+
+Y.use('esc-micro-template', 'esc-ship-service', 'esc-skill-service', function(Y) {
+    var MicroTemplate = Y.esc.MicroTemplate;
     
+    MicroTemplate.include = function(path, options) {
+        return MicroTemplate.render(fs.readFileSync(__dirname + '/shared/views/' + path + '.html', 'utf8'), options);
+    };
+    
+    app.engine('html', function(path, options, fn) {
+        if(typeof options === 'function') {
+            fn = options;
+            options - {};
+        }
+        
+        options.filename = path;
+        
+        fs.readFile(path, 'utf8', function(err, file) {
+            if(err) {
+                fn(err);
+            } else {
+                fn(null, MicroTemplate.render(file, options));
+            }
+        });
+    });
+    
+    
+    app.set('db', Y.esc.Database.open(config.datasources.database));
+    app.set('skillService', Y.esc.SkillService.retrieve(config.datasources.skilltree));
+    app.set('shipService', new Y.esc.ShipService(app.get('db') /*, app.get('skillService') */));
+    
+});
+
+app.set('name', config.name);
+app.set('env',  config.env);
+app.set('port', config.port);
+
+
+
+
 app.use(express.static(__dirname + '/shared/'));
 app.use(express.static(__dirname + '/client/'));
 
-app.get('/js/templates.js', util.tmpl);
+app.get('/js/templates.js', require('./server/controllers/util.js').tmpl);
+app.get('/compare', require('./server/controllers/ship.js').compare);
+app.get('/search', require('./server/controllers/ship.js').search);
 
-// TODO: swap this for a composed function
-app.engine('html', require('./server/lib/micro-template'));
+
+// app.engine('html', require('./server/lib/micro-template'));
 
 app.set('view engine', 'html');
-app.set('views', __dirname + '/shared/views');
+app.set('views', config.dirs.views);
 
-app.get('/', ship.index);
-app.get('/compare?', ship.compare);
 
-app.get('/data/:resource/:method?', ship.data);
-
-app.listen(process.env.PORT || 8080);
+module.exports = app;

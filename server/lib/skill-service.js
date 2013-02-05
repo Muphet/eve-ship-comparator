@@ -1,99 +1,113 @@
-var Q = require('q'),
-    https = require('https'),
-    xml2js = require('xml2js'),
-    Skill = require('../../shared/model/skill').Skill,
-    SkillRequirement = require('../../shared/model/skill').SkillRequirement;
-
-var SkillService, SkillServiceProto;
-
-SkillService = function(url) {
-    this.url = url;
-};
-
-SkillServiceProto = SkillService.prototype;
-
-SkillServiceProto.url = null;
-SkillServiceProto._skillTree = null;
-
-SkillServiceProto._getSkillTree = function() {
-    var defer = Q.defer(),
-        request,
-        that = this;
+YUI.add('esc-skill-service', function(Y) {
     
-    function buildSkillTree(data) {
-        var parser = new xml2js.Parser(),
-            skillTree = {};
+    var NS = Y.namespace('esc'),
+        Skill = NS.Skill,
+        SkillRequirement = NS.SkillRequirement,
+    
+        xml2js = YUI.require('xml2js'),
+        https = YUI.require('https');
+    
+    function SkillService(resolver) {
+        SkillService.superclass.constructor.apply(this, arguments);
+    };
         
-        parser.parseString(data, function(err, result) {
-            var groups = result.eveapi.result[0].rowset[0].row,
-                group, i, l,
-                skills, skill, ii, ll;
-                
-            for(i = 0, l = groups.length; i < l; i += 1) {
-                group = groups[i];
-                skills = group.rowset[0].row;
+    SkillService.retrieve = function(url) {
+        return new SkillService(function(fulfill, reject) {
+            var data = '';
 
-                for(ii = 0, ll = skills.length; ii < ll; ii += 1) {
-                    skill = skills[ii];
-                    
-                    if(skill['$'].published == '1') {
-                    
-                        skillTree[skill['$'].typeID] = new Skill({
-                            id           : parseFloat(skill['$'].typeID),
-                            name         : skill['$'].typeName,
-                            group        : group['$'].groupName,
-                            description  : skill.description[0],
-                            rank         : parseFloat(skill.rank[0]),
-                            requirements: skill.rowset[0].row ? skill.rowset[0].row.map(function(s) {
-                                return new SkillRequirement({
-                                    id: parseFloat(s['$'].typeID),
-                                    level: parseFloat(s['$'].skillLevel)
-                                }, that);
+            https.get(url, function(res) {
+                res.on('data', function(d) { data += d; });
+                
+                res.on('end', function() {
+                    var parser = new xml2js.Parser(),
+                        skillTree = {};
+
+                    parser.parseString(data, function(err, result) {
+                        var groups = result.eveapi.result[0].rowset[0].row,
+                            group, i, l,
+                            skills, skill, ii, ll;
+
+                        for(i = 0, l = groups.length; i < l; i += 1) {
+                            group = groups[i];
+                            skills = group.rowset[0].row;
+
+                            for(ii = 0, ll = skills.length; ii < ll; ii += 1) {
+                                skill = skills[ii];
+
+                                if(skill['$'].published == '1') {
+
+                                    skillTree[skill['$'].typeID] = new Skill({
+                                        id           : parseFloat(skill['$'].typeID),
+                                        name         : skill['$'].typeName,
+                                        group        : group['$'].groupName,
+                                        description  : skill.description[0],
+                                        rank         : parseFloat(skill.rank[0]),
+                                        requirements: skill.rowset[0].row ? skill.rowset[0].row.map(function(s) {
+                                            return new SkillRequirement({
+                                                id: parseFloat(s['$'].typeID),
+                                                level: parseFloat(s['$'].skillLevel)
+                                            });
                                 
-                            }) : []
-                        });
+                                        }) : []
+                                    });
                         
+                                }
+                            }
+                        }
+                        
+                        fulfill(skillTree);
+                    });
+                });
+            }).on('error', function(e) {
+                reject(e);
+            });
+            
+        });
+    };
+    
+    SkillService.resolveSkillsFromTree = function(ids, tree) {
+        ids = Array.isArray(ids) ? ids : [ ids ];
+        
+        var i, l, ii, iii, ll, lll, skills = [], skill, reqs;
+        
+        for(i = 0, l = ids.length; i < l; i += 1) {
+            skill = tree[ids[i]];
+            
+            // console.log(ids);
+            
+            if(skill && skill.requirements && skill.requirements.length) {
+                reqs = SkillService.resolveSkillsFromTree(skill.requirements.map(function(i) { return i.id; }), tree);
+
+                for(ii = 0, ll = reqs.length; ii < ll; ii += 1) {
+                    for(iii = 0, lll = skill.requirements.length; iii < lll; iii += 1) {
+                        if(reqs[ii].id === skill.requirements[iii].id) {
+                            skill.requirements[iii].skill = reqs[ii];
+                        }
                     }
                 }
             }
+            // console.log("*************");
+            // console.log(skill);
             
-            that._skillTree = skillTree
-            defer.resolve(skillTree);
-        });
-    }
+            skills.push(skill);
+        }
+        
+        return skills;
+    };
     
-    if(this._skillTree && Q.isPromise(this._skillTree)) {
-        return this._skillTree; // NOTE RETURN
-    } else if(this._skillTree) {
-        defer.resolve(this._skillTree);
-        return defer.promise;
-    } else {        
-        this._skillTree = defer.promise;
-        
-        request = https.get(this.url, function(res) {
-            var data = '';
-            
-            res.on('data', function(d) { data += d; });
-            
-            res.on('end', function() {
-                buildSkillTree(data);
+    Y.extend(SkillService, NS.Promise, {
+        getSkill: function(ids) {
+            return this.then(function(tree) {
+                var res = SkillService.resolveSkillsFromTree(ids, tree);
+                
+                return res.length === 1 ? res[0] : res;
             });
-        });
-        
-        return defer.promise;
-    }
-};
-
-SkillServiceProto.get = function(id) {
-    return this._getSkillTree().then(function(st) { return st[id]; });
-};
-
-SkillServiceProto._resolve = function(id) {
-    if(this._skillTree[id]) {
-        return this._skillTree[id];
-    }
-};
-
-
-
-exports.SkillService = SkillService;
+        }
+    });
+    
+    NS.SkillService = SkillService;
+    
+    
+}, '', {
+    requires: [ 'esc-promise' ]
+});

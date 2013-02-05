@@ -1,0 +1,83 @@
+{
+    "name": "Eve Ship Comparator",
+    "port": 8080,
+    
+    "datasources": {
+        "database"  : "server/data/database.sqlite",
+        "skilltree" : "https://api.eveonline.com/eve/SkillTree.xml.aspx"
+    },
+    
+    "dirs": {
+        "views": "shared/views/",
+        "serverBase": "server/",
+        "sharedBase": "shared/"
+    },
+    
+    "server": {
+        "useSync": true,
+        "combine": false,
+        
+        "groups": {
+            "server": {},
+            "shared": {
+                "base": "shared/"
+            }
+        }
+    },
+    
+    "client": {
+        "allowRollup": false,
+        "groups": {
+            "client": {
+                
+            },
+            "shared": {
+                
+            }
+        }
+    },
+    
+    "yui": {
+        "version": "3.8.1",
+        
+        "modules": {
+            "client": {
+                "modules": {}
+            },
+            
+            "server": {
+                "esc-sqlite"        : { "path": "lib/sqlite.js",       "requires": [ "esc-promise", "oop" ] },
+                "esc-select"        : { "path": "lib/select.js",       "requires": [] },
+                "esc-ship-service"  : { "path": "lib/ship-service.js", 
+                    "requires": [
+                        "esc-sqlite",
+                        "esc-select",
+                        "esc-ship"
+                    ]
+                },
+                "esc-skill-service" : { "path": "lib/skill-service.js",
+                    "requires": [
+                        "esc-promise",
+                        "esc-skill",
+                        "oop"
+                    ]
+                }
+            },
+        
+            "shared": {
+                "esc-micro-template"  : { "path": "utils/micro-template.js" },
+                "esc-promise"         : { "path": "utils/promise.js" },
+                "esc-ship-properties" : { "path": "model/ship-properties.js" },
+                "esc-hp-pool"         : { "path": "model/hp-pool.js" },
+                "esc-skill"           : { "path": "model/skill.js" },
+                "esc-ship"            : { "path": "model/ship.js",
+                    "requires": [
+                        "esc-hp-pool",
+                        "esc-skill",
+                        "esc-ship-properties"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,1 +1,1 @@
-web: node comparator.js
+web: node server.js

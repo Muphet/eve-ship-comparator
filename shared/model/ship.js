@@ -62,6 +62,14 @@ YUI.add('esc-ship', function(Y) {
         cpu                 : null,
         powerGrid           : null
     });
+    
+    Ship.prototype.toString = function() {
+        var out = [];
+
+        out.push(this.name + ' - ' + this.type + ' [' + this.id + ']');
+        
+        return out.join('\n');
+    };
 
 
     Object.defineProperties(Ship.prototype, {

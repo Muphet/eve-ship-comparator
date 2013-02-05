@@ -38,8 +38,9 @@ YUI.add('esc-ship-service', function(Y) {
         return o;
     }
     
-    function ShipService(database) {
+    function ShipService(database, skillService) {
         this.db = database;
+        this.skillService = skillService;
     };
     
     ShipService.TYPE_ID_COLUMNS = {
@@ -58,6 +59,12 @@ YUI.add('esc-ship-service', function(Y) {
         dgmAttributeTypes: [ 'attributeID', 'attributeName', 'displayName', 'published' ],
         dgmTypeAttributes: [ 'typeID', 'value' ]
     };
+    
+    ShipService.SKILL_COLUMNS = {
+        "dgmTypeAttributes AS SkillName": [ 'value AS skillId', 'typeID' ],
+        "dgmTypeAttributes AS SkillLevel": [ 'attributeId', 'value' ]
+    };
+    
     
     ShipService.SEARCH_QUERY = select.from(ShipService.TYPE_ID_COLUMNS)
         .where('invGroups.categoryID').is(6)
@@ -86,6 +93,44 @@ YUI.add('esc-ship-service', function(Y) {
         
             return '( ' + ids.map(function(id) { return 'dgmTypeAttributes.typeID == ' + id; }).join(' OR ') + ' )';
         });
+
+    ShipService.SKILL_QUERY = select.from(ShipService.SKILL_COLUMNS)
+        .where('SkillLevel.typeID').is('SkillName.typeID')
+        .and(function(ids) {
+            ids = Array.isArray(ids) ? ids : [ ids ];
+
+            var o = '( ' + ids.map(function(t) {
+                return "SkillName.typeID == " + parseInt(t,10);
+            }).join(' OR ') + ' )';
+            
+            return o;
+        })
+        .and((function() {
+            var mappings = {
+                '182'  : 277,
+                '183'  : 278,
+                '184'  : 279,
+                '1285' : 1286,
+                '1289' : 1287,
+                '1290' : 1288
+            };
+            
+            var joinCriteria, p;
+
+            Y.Object.each(mappings, function(value, key) {
+                var c = new NS.Criteria('SkillName.attributeID').is(key);
+                
+                c.and('SkillLevel.attributeID').is(value);
+                
+                if(p) {
+                    p = p.or(c);
+                } else {
+                    joinCriteria = p = new NS.Criteria(c);
+                }
+            });
+            
+            return joinCriteria;
+        }()))
 
     ShipService.ROW_PROPERTY_MAPPINGS = {
         'typeID'                                    : 'id',
@@ -191,16 +236,56 @@ YUI.add('esc-ship-service', function(Y) {
     };
 
     Y.mix(ShipService.prototype, {
+        skillService: null,
+        db: null,
+        
         search: function(query) {
             var d = this.db;
             
             return this.db.all(ShipService.SEARCH_QUERY.eval(query))
                 .then(this.cleanDescription.bind(this))
-                .then(this.resolveAttributes.bind(this))
-                .then(this.mapResultsToShips.bind(this));
+                .then(this.queryAttributes.bind(this))
+                .then(this.querySkills.bind(this))
+                .then(this.mapResultsToShips.bind(this))
+                .then(this.resolveSkills.bind(this));
         },
         
-        resolveAttributes: function(ships) {
+        resolveSkills: function(ships) {
+            
+            if(this.skillService) {
+                ships = Array.isArray(ships) ? ships : [ ships ];
+                
+                var requiredSkills = {}, i, l;
+
+                for(i = 0, l = ships.length; i < l; i += 1) {
+                    ships[i].skillRequirements.skills.forEach(function(sr) {
+                        if(sr && sr.id) {
+                            requiredSkills[sr.id] = true;
+                        }
+                    });
+                }
+
+                return this.skillService.getSkill(Object.keys(requiredSkills)).then(function(skills) {
+                    skills = Array.isArray(skills) ? skills : [ skills ];
+                    
+                    for(var i = 0, l = ships.length; i < l; i += 1) {
+                        ships[i].skillRequirements.skills.forEach(function(sr) {
+                            skills.forEach(function(sk) {
+                                if(sk.id === sr.id) {
+                                    sr.skill = sk;
+                                }
+                            });
+                        });
+                    }
+                    
+                    return ships;
+                });
+            } else {
+                return ships;
+            }
+        },
+        
+        queryAttributes: function(ships) {
             ships = Array.isArray(ships) ? ships : [ ships ];
             
             var ids = ships.map(function(s) { return s.typeID });
@@ -208,7 +293,7 @@ YUI.add('esc-ship-service', function(Y) {
             return this.db.all(ShipService.ATTRIBUTE_QUERY.eval(ids)).then(function(attrs) {
                 var attrMap = {},
                     item, i, l;
-                
+
                 for(i = 0, l = attrs.length; i < l; i += 1) {
                     item = attrs[i];
                     
@@ -227,7 +312,47 @@ YUI.add('esc-ship-service', function(Y) {
                     }
                 }
                 
-                return ships.length === 1 ? ships[0] : ships;
+                return ships;
+            });
+        },
+        
+        querySkills: function(ships) {
+            ships = Array.isArray(ships) ? ships : [ ships ];
+            
+            var ids = ships.map(function(s) { return s.typeID });
+            
+            return this.db.all(ShipService.SKILL_QUERY.eval(ids)).then(function(skills) {
+                var skillMap = {},
+                    item, i, l, attrs;
+                
+                for(i = 0, l = skills.length; i < l; i += 1) {
+                    item = skills[i];
+                    
+                    if(!skillMap[item.typeID]) {
+                        skillMap[item.typeID] = {};
+                    }
+                    
+                    skillMap[item.typeID][item.skillId] = item.value;
+                }
+                
+                for(i = 0, l = ships.length; i < l; i += 1) {
+                    item = ships[i];
+                    attrs = item.attributes;
+                                        
+                    if(skillMap[item.typeID]) {
+                        if(skillMap[item.typeID][attrs.requiredSkill1]) {
+                            attrs.requiredSkill1Level = skillMap[item.typeID][attrs.requiredSkill1];
+                        }
+                        if(skillMap[item.typeID][attrs.requiredSkill2]) {
+                            attrs.requiredSkill2Level = skillMap[item.typeID][attrs.requiredSkill2];
+                        }
+                        if(skillMap[item.typeID][attrs.requiredSkill3]) {
+                            attrs.requiredSkill2Level = skillMap[item.typeID][attrs.requiredSkill3];
+                        }
+                    }
+                }
+                                
+                return ships;
             });
         },
         
@@ -262,7 +387,7 @@ YUI.add('esc-ship-service', function(Y) {
                 ship.description = markdown(desc);
             }
 
-            return ships.length === 1 ? ships[0] : ships;
+            return ships;
         },
         
         mapResultsToShips: function(ships) {
@@ -273,7 +398,7 @@ YUI.add('esc-ship-service', function(Y) {
             }
 
 
-            return ships.length === 1 ? ships[0] : ships;
+            return ships;
         },
         
         mapDatabaseRowToShip: function(dbRow) {
