@@ -13,136 +13,59 @@ body {
     padding: 20px 0;
 }
 
-#ship-display {
-    clear: both;
-    margin: 20px 0;
-}
-
-#ship-display table {
-    width: 100%;
-}
-
-#empty-table {
-    background-color: #444448;
-    padding: 12px;
-    text-align: right;
-    float: right;
-    margin: 20px 0;
-    cursor: pointer;
-}
-
-#ship-picker {
-    margin: 50px auto 0;
-    display: block;
-    width: 100%;
+.ship-card {
+    width: 25%;
+    float: left;
+    padding: 10px;
     box-sizing: border-box;
-    font-size: 150%;
-    background-color: #444448;
-    padding: 12px;
-    border: 0;
-    color: #fff;
-}
-#ship-picker:focus {
-    outline: 2px solid #ddddc5;
-}
-#ship-picker::-webkit-input-placeholder {
-    color: #ddddc5;
 }
 
-
-.compare-columns {
-    font-size: 13px;
-}
-
-
-
-.ship {
-    box-sizing: border-box;
-    
-    display: -webkit-flex;
-    -webkit-flex-direction: row;
-    padding: 4px 0;
-}
-
-.ship > div {
-    -webkit-flex: 1;
-}
-
-.ship .ship-header {
-    white-space: nowrap;
-}
-
-.ship .ship-header .ship-image {
-    display: inline-block;
-    vertical-align: middle;
-    width: 30px;
-    height: auto;
-    
-    border-radius: 4px;
-}
-
-.ship .ship-header .ship-name {
-    display: inline-block;
-    vertical-align: middle;
-    overflow: hidden;
-    margin: 0;
-    padding: 0 0 0 10px;
-    text-overflow: ellipsis;
-    font-size: 16px;
-    line-height: 30px;
-    
-    border-radius: 0 0 4px 4px;
-}
-
-.ship .ship-hitpoints {
-    padding: 0 10px;
-    font-size: 18px;
-}
-
-.ship .ship-hitpoints .ehp {
-    font-weight: bold;
-}
-
-.ship .ship-hitpoints .resistances {
-
-}
-
-
-
-.yui3-aclist .yui3-aclist-list {
-    color: #ddddc5;
-}
-
-.yui3-aclist .yui3-aclist-item {
+.ship-icon {
     position: relative;
-    padding: 4px;
 }
-.yui3-aclist .yui3-aclist-item .ship-result-image {
-    width: 48px;
-    height: 48px;
-    vertical-align: middle;
+.ship-icon img {
+    width: 100%;
+    display: block;
 }
-
-.yui3-aclist .yui3-aclist-item .ship-result-name {
-    display: inline-block;
-    line-height: 48px;
-    font-size: 24px;
-    vertical-align: middle;
-    padding-left: 16px;
-}
-
-.yui3-aclist .yui3-aclist-item .ship-result-type {
+.ship-icon h3 {
     position: absolute;
-    right: 4px;
-    top: 6px;
-    opacity: 0.8;
-    line-height: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    text-align: right;
+    margin: 0;
+    padding: 5px;
+    text-shadow: 0 -1px rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.2);
 }
 
-.yui3-aclist .yui3-aclist-item .ship-faction-name {
+.ship-icon::after {
+    content: "";
     position: absolute;
-    right: 4px;
-    bottom: 6px;
-    opacity: 0.8;
-    line-height: 1;
+    top: 0;
+    left: 0;
+    height: 16px;
+    width: 16px;
+}
+
+.ship-icon.tech-1.meta-0::after {
+    display: block;
+    background: url(/img/badges/tech-1.png) top left no-repeat;
+}
+
+.ship-icon.tech-2.meta-5::after {
+    display: block;
+    background: url(/img/badges/tech-2.png) top left no-repeat;
+}
+
+.ship-icon.tech-3.meta-5::after {
+    display: block;
+    background: url(/img/badges/tech-3.png) top left no-repeat;
+}
+
+.ship-icon.meta-9::after,
+.ship-icon.meta-7::after,
+.ship-icon.meta-6::after {
+    display: block;
+    background: url(/img/badges/faction.png) top left no-repeat;
 }

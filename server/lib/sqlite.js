@@ -1,5 +1,5 @@
 
-YUI.add('esc-sqlite', function(Y) {
+YUI.add('esc-sqlite', function(Y, NAME) {
         
     var NS = Y.namespace('esc');
     
@@ -111,6 +111,8 @@ YUI.add('esc-sqlite', function(Y) {
         one: function(select) {
             var self = this;
             
+            Y.log(select, 'info', NAME);
+            
             return new Query(function(fulfill, reject) {
                 self.then(function(db) {
                     db.get(select, function(e, r) {
@@ -132,6 +134,8 @@ YUI.add('esc-sqlite', function(Y) {
         **/
         all: function(select) {
             var self = this;
+            
+            Y.log(select, 'info', NAME);
             
             return new Query(function(fulfill, reject) {
                 self.then(function(db) {

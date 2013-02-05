@@ -50,8 +50,8 @@ YUI.add('esc-ship', function(Y) {
         description         : null,
         race                : null,
 
-        meta                : null,
-        techLevel           : null,
+        meta                : 0,
+        techLevel           : 1,
 
         signature           : null,
         agility             : null,

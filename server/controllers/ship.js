@@ -10,6 +10,10 @@ function render(res, bodyTemplate, title, model) {
     });
 }
 
+exports.index = function(req, res, next) {
+    res.redirect('/compare?punisher&merlin&rifter&tristan');
+};
+
 exports.compare = function(req, res, next) {
     var shipService = req.app.get('shipService');
 
@@ -19,9 +23,12 @@ exports.compare = function(req, res, next) {
     if(ships.length) {
         shipService.search(ships).then(function(s) {
             render(res, 'compare', 'Compare Ships', { ships: s });
+        }, function(err) {
+            Y.log(err.stack, "error");
+            render(res, 'compare', 'Compare Ships', { ships: [] });
         });
     } else {
-        res.send([]);
+        render(res, 'compare', 'Compare Ships', { ships: [] });
     }
     
 };

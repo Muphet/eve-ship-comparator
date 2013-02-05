@@ -44,15 +44,13 @@ app.set('env',  config.env);
 app.set('port', config.port);
 
 
-
-
 app.use(express.static(__dirname + '/shared/'));
 app.use(express.static(__dirname + '/client/'));
 
 app.get('/js/templates.js', require('./server/controllers/util.js').tmpl);
 app.get('/compare', require('./server/controllers/ship.js').compare);
 app.get('/search', require('./server/controllers/ship.js').search);
-
+app.get('/', require('./server/controllers/ship.js').index);
 
 // app.engine('html', require('./server/lib/micro-template'));
 

@@ -2,67 +2,68 @@ YUI.add('esc-skill', function(Y) {
 
     var NS = Y.namespace('esc');
 
-    var Skill, SkillProto;
+    //
+    // --- Skill ----------------------------------------------------------------
+    //
     
-    Skill = function(cfg) {
+    function Skill(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Skill.prototype));
         
         if(!this.requirements) { this.requirements = []; }
     };
     
-    SkillProto = Skill.prototype;
-    
-    SkillProto.id = null;
-    SkillProto.name = null;
-    SkillProto.description = null;
-    SkillProto.group = null;
-    SkillProto.rank = null;
-    SkillProto.requirements = null;    
-    
+    Y.mix(Skill.prototype, {
+        id: null,
+        name: null,
+        description: null,
+        group: null,
+        rank: null,
+        requirements: null
+    });
+        
     NS.Skill = Skill;
     
-//
-// --- Skill ----------------------------------------------------------------
-//
-
-    var SkillRequirement, SkillRequirementProto;
-    
-    SkillRequirement = function(cfg) {
+    function SkillRequirement(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(SkillRequirement.prototype));
     };
     
-    SkillRequirementProto = SkillRequirement.prototype;
+    Y.mix(SkillRequirement.prototype, {
+        id: null,
+        level: null,
+        skill: null,
+        
+        toString: function() {
+            
+        }
+    });
     
-    SkillRequirementProto.id = null;
-    SkillRequirementProto.level = null;
-    SkillRequirementProto.skill = null;
-
     NS.SkillRequirement = SkillRequirement;
 
 //
 // --- Skill Requirements ---------------------------------------------------
 //
-    var SkillRequirements, SkillRequirementsProto;
-        
-    SkillRequirements = function(sr) {
+    function SkillRequirements(sr) {
         this.skills = sr && sr.skills ? sr.skills.slice(0) : [];
         
-        if(sr.primary) {
+        if(sr && sr.primary) {
             this.primary = sr.primary;
         }
-        if(sr.secondary) {
+        if(sr && sr.secondary) {
             this.secondary = sr.secondary;
         }
-        if(sr.tertiary) {
+        if(sr && sr.tertiary) {
             this.tertiary = sr.tertiary;
         }
     };
-        
-    SkillRequirementsProto = SkillRequirements.prototype;
-
-    SkillRequirementsProto.skills = null;
     
-    Object.defineProperties(SkillRequirementsProto, {
+    Y.mix(SkillRequirements.prototype, {
+        skills: null,
+        toString: function() {
+            
+        }
+    })
+    
+    Object.defineProperties(SkillRequirements.prototype, {
         primary: {
             get: function() {
                 if(!this.skills[0]) {

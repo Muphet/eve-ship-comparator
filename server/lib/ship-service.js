@@ -22,7 +22,7 @@ YUI.add('esc-ship-service', function(Y) {
         }
         
         ref[p[i]] = val;
-        
+
         return o;
     }
 
@@ -253,7 +253,9 @@ YUI.add('esc-ship-service', function(Y) {
         resolveSkills: function(ships) {
             
             if(this.skillService) {
-                ships = Array.isArray(ships) ? ships : [ ships ];
+                if(ships.length === 0) {
+                    return ships;
+                }
                 
                 var requiredSkills = {}, i, l;
 
@@ -286,9 +288,12 @@ YUI.add('esc-ship-service', function(Y) {
         },
         
         queryAttributes: function(ships) {
-            ships = Array.isArray(ships) ? ships : [ ships ];
-            
+            if(ships.length === 0) {
+                return ships;
+            }
+
             var ids = ships.map(function(s) { return s.typeID });
+            
             
             return this.db.all(ShipService.ATTRIBUTE_QUERY.eval(ids)).then(function(attrs) {
                 var attrMap = {},
@@ -317,7 +322,9 @@ YUI.add('esc-ship-service', function(Y) {
         },
         
         querySkills: function(ships) {
-            ships = Array.isArray(ships) ? ships : [ ships ];
+            if(ships.length === 0) {
+                return ships;
+            }
             
             var ids = ships.map(function(s) { return s.typeID });
             
@@ -358,9 +365,6 @@ YUI.add('esc-ship-service', function(Y) {
         
         cleanDescription: function(ships) {
             var i, l, ship, desc;
-                            
-            ships = (Array.isArray(ships)) ? ships : [ ships ];
-                
             for(i = 0, l = ships.length; i < l; i += 1) {
                 ship = ships[i];
 
@@ -391,8 +395,10 @@ YUI.add('esc-ship-service', function(Y) {
         },
         
         mapResultsToShips: function(ships) {
-            ships = Array.isArray(ships) ? ships : [ ships ];
-
+            if(ships.length === 0) {
+                return ships;
+            }
+            
             for(var i = 0, l = ships.length; i < l; i += 1) {
                 ships[i] = new NS.Ship(this.mapDatabaseRowToShip(ships[i]));
             }
@@ -413,7 +419,7 @@ YUI.add('esc-ship-service', function(Y) {
                     shipProperty = mappings[dbProperty];
                     dbValue = getValue(dbRow, dbProperty);
 
-                    if(dbValue) {
+                    if(dbValue !== UNDEFINED) {
                         setValue(ship, shipProperty, dbValue);
                     }
                 }
