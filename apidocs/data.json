@@ -45,7 +45,24 @@
             "modules": {
                 "esc-ship": 1
             },
-            "classes": {},
+            "classes": {
+                "esc.Ship": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
+        "shared/model/skill.js": {
+            "name": "shared/model/skill.js",
+            "modules": {
+                "esc-skill": 1
+            },
+            "classes": {
+                "esc.Skill": 1,
+                "esc.SkillRequirement": 1,
+                "esc.SkillRequirements": 1
+            },
             "fors": {},
             "namespaces": {
                 "esc": 1
@@ -67,7 +84,7 @@
             },
             "tag": "module",
             "file": "shared/model/hp-pool.js",
-            "line": 328,
+            "line": 332,
             "description": "Objects, classes, and methods related to hit point pools for ships in Eve Online. Includes calculating EHP based on a number of strategies (EFT, and CCP's own calculations) and different damage profiles (Gursita, Amarr, Serpentis, etc.)."
         },
         "esc-ship-properties": {
@@ -88,19 +105,38 @@
             },
             "tag": "module",
             "file": "shared/model/ship-properties.js",
-            "line": 172
+            "line": 183
         },
         "esc-ship": {
             "name": "esc-ship",
             "submodules": {},
-            "classes": {},
+            "classes": {
+                "esc.Ship": 1
+            },
             "fors": {},
             "namespaces": {
                 "esc": 1
             },
             "tag": "module",
             "file": "shared/model/ship.js",
-            "line": 1
+            "line": 22
+        },
+        "esc-skill": {
+            "name": "esc-skill",
+            "submodules": {},
+            "classes": {
+                "esc.Skill": 1,
+                "esc.SkillRequirement": 1,
+                "esc.SkillRequirements": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "shared/model/skill.js",
+            "line": 114,
+            "description": "Classes and objects having to do with skill requirements for ships."
         }
     },
     "classes": {
@@ -115,14 +151,13 @@
             "module": "esc-hp-pool",
             "namespace": "esc",
             "file": "shared/model/hp-pool.js",
-            "line": 15,
+            "line": 17,
             "description": "A utility class that generates an EHP based on a provided HpPool instance.",
-            "extends": "View",
             "is_constructor": 1,
             "params": [
                 {
                     "name": "cfg",
-                    "description": "A configuration object that accepts the following properties:\n\n* **em** - The proportion of EM damage.\n* **explosive** - The proportion of explosive damage.\n* **kinetic** - The proportion of kinetic damage.\n* **thermal** - The proportion of thermal damage.\n\nIf the sum of all four damage levels is greater than 1, they will all be normalized in relation to each other to enforce a total value of 1.\n\nFor example, passing `{ em: 1, explosive: 1, kinetic: 1, thermal: 1 }` will normalize each value to `0.25`.",
+                    "description": "A configuration object that accepts the following properties:\n\n* **em** - The proportion of EM damage.\n* **explosive** - The proportion of explosive damage.\n* **kinetic** - The proportion of kinetic damage.\n* **thermal** - The proportion of thermal damage.\n\nIf the sum of all four damage levels is greater than 1, they will all be normalized in relation to each other to enforce a total value of 1.\n\nFor example, passing `{ em: 1, explosive: 1, kinetic: 1, thermal: 1 }` will normalize each value to `0.25`.\n\nThe damage profiles defined as static properties on this object are taken from this site:\n<http://eve-survival.org/wikka.php?wakka=TankingGuide>",
                     "type": "Object"
                 }
             ]
@@ -138,7 +173,7 @@
             "module": "esc-hp-pool",
             "namespace": "esc",
             "file": "shared/model/hp-pool.js",
-            "line": 229,
+            "line": 233,
             "description": "Represents one of the three HP 'pools' on a ship: shields, armor, and structure (hull)",
             "is_constructor": 1
         },
@@ -153,8 +188,9 @@
             "module": "esc-hp-pool",
             "namespace": "esc",
             "file": "shared/model/hp-pool.js",
-            "line": 328,
+            "line": 332,
             "description": "A descendant of the HpPool object that has additional features related to shield rechage rates.",
+            "is_constructor": 1,
             "extends": "esc.HpPool"
         },
         "esc.Sensors": {
@@ -168,7 +204,8 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 12,
+            "line": 15,
+            "description": "A set of properties related to sensor strength, range, and max locked targets.",
             "is_constructor": 1
         },
         "esc.Heat": {
@@ -182,7 +219,8 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 49,
+            "line": 54,
+            "description": "Properties related to how a ship generates and sheds heat.",
             "is_constructor": 1
         },
         "esc.Capacity": {
@@ -196,7 +234,8 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 79,
+            "line": 86,
+            "description": "Properties related to how much junk a ship can hold.",
             "is_constructor": 1
         },
         "esc.Slots": {
@@ -210,7 +249,8 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 101,
+            "line": 110,
+            "description": "Properties related to how many modules a ship can be fitted with.",
             "is_constructor": 1
         },
         "esc.Drones": {
@@ -224,7 +264,7 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 125,
+            "line": 136,
             "description": "A set of properties related to ship drone capacity and bandwidth.",
             "is_constructor": 1
         },
@@ -239,7 +279,7 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 146,
+            "line": 157,
             "description": "A set of properties related to ship Jump Drives.",
             "is_constructor": 1
         },
@@ -254,14 +294,80 @@
             "module": "esc-ship-properties",
             "namespace": "esc",
             "file": "shared/model/ship-properties.js",
-            "line": 172,
+            "line": 183,
+            "description": "A set of properties related to the size and charge rate of the capacitor.",
+            "is_constructor": 1
+        },
+        "esc.Ship": {
+            "name": "esc.Ship",
+            "shortname": "Ship",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship",
+            "namespace": "esc",
+            "file": "shared/model/ship.js",
+            "line": 22,
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "cfg",
+                    "description": "An object literal describing a ship.",
+                    "type": "Object"
+                }
+            ]
+        },
+        "esc.Skill": {
+            "name": "esc.Skill",
+            "shortname": "Skill",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-skill",
+            "namespace": "esc",
+            "file": "shared/model/skill.js",
+            "line": 17,
+            "description": "A representation of a skill in the Eve skill tree. Matains a list of skills that are required to train this skill, as well as things like group, rank, and description.",
+            "is_constructor": 1
+        },
+        "esc.SkillRequirement": {
+            "name": "esc.SkillRequirement",
+            "shortname": "SkillRequirement",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-skill",
+            "namespace": "esc",
+            "file": "shared/model/skill.js",
+            "line": 77,
+            "description": "A representation of a required skill, either to fly a ship or as a prereq for a skill to fly a ship.",
+            "is_constructor": 1
+        },
+        "esc.SkillRequirements": {
+            "name": "esc.SkillRequirements",
+            "shortname": "SkillRequirements",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-skill",
+            "namespace": "esc",
+            "file": "shared/model/skill.js",
+            "line": 114,
             "is_constructor": 1
         }
     },
     "classitems": [
         {
             "file": "shared/model/hp-pool.js",
-            "line": 47,
+            "line": 51,
             "itemtype": "property",
             "name": "em",
             "type": "Number",
@@ -272,7 +378,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 53,
+            "line": 57,
             "itemtype": "property",
             "name": "explosive",
             "type": "Number",
@@ -283,7 +389,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 59,
+            "line": 63,
             "itemtype": "property",
             "name": "kinetic",
             "type": "Number",
@@ -294,7 +400,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 65,
+            "line": 69,
             "itemtype": "property",
             "name": "thermal",
             "type": "Number",
@@ -305,7 +411,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 71,
+            "line": 75,
             "itemtype": "method",
             "name": "ehp",
             "params": [
@@ -325,7 +431,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 92,
+            "line": 96,
             "description": "The standard even-distribution profile used by EFT.",
             "itemtype": "property",
             "name": "eft",
@@ -337,7 +443,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 100,
+            "line": 104,
             "description": "The Gurista damage profile.",
             "itemtype": "property",
             "name": "gurista",
@@ -349,7 +455,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 106,
+            "line": 110,
             "description": "The EOM damage profile.",
             "itemtype": "property",
             "name": "eom",
@@ -361,7 +467,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 115,
+            "line": 119,
             "description": "The Angel Cartell damage profile.",
             "itemtype": "property",
             "name": "angel",
@@ -373,7 +479,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 123,
+            "line": 127,
             "description": "The Sanshas Nation damage profile.",
             "itemtype": "property",
             "name": "sansha",
@@ -385,7 +491,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 129,
+            "line": 133,
             "description": "The Blood Raider Covenant damage profile.",
             "itemtype": "property",
             "name": "bloodRaider",
@@ -397,7 +503,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 135,
+            "line": 139,
             "description": "The Amarr Empire damage profile.",
             "itemtype": "property",
             "name": "amarr",
@@ -409,7 +515,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 145,
+            "line": 149,
             "description": "The Serpentis damage profile.",
             "itemtype": "property",
             "name": "serpentis",
@@ -421,7 +527,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 151,
+            "line": 155,
             "description": "The Caldari damage profile.",
             "itemtype": "property",
             "name": "caldari",
@@ -433,7 +539,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 160,
+            "line": 164,
             "description": "The Gallente Federation damage profile.",
             "itemtype": "property",
             "name": "gallente",
@@ -445,7 +551,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 168,
+            "line": 172,
             "description": "The Minmatar damage profile.",
             "itemtype": "property",
             "name": "minmatar",
@@ -457,7 +563,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 176,
+            "line": 180,
             "description": "The Mercenaries (?) damage profile.",
             "itemtype": "property",
             "name": "mercenaries",
@@ -469,7 +575,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 184,
+            "line": 188,
             "description": "The Rogue Drone damage profile.",
             "itemtype": "property",
             "name": "drones",
@@ -481,7 +587,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 193,
+            "line": 196,
             "description": "The damage profile used by the in-game fitting tool. CCP uses a different strategy, they use the weakest of a pool's four resists to generate the EHP.",
             "itemtype": "property",
             "name": "eve",
@@ -493,7 +599,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 210,
+            "line": 213,
             "description": "HpPools will fall back to this damage profile if no damageProfile is provided to the instance. Defaults to the EFT profile.",
             "itemtype": "property",
             "name": "sharedDamageProfile",
@@ -505,7 +611,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 240,
+            "line": 244,
             "itemtype": "property",
             "name": "hp",
             "type": "Number",
@@ -515,7 +621,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 245,
+            "line": 249,
             "itemtype": "property",
             "name": "emResonance",
             "type": "Number",
@@ -525,7 +631,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 250,
+            "line": 254,
             "itemtype": "property",
             "name": "explosiveResonance",
             "type": "Number",
@@ -535,7 +641,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 255,
+            "line": 259,
             "itemtype": "property",
             "name": "kineticResonance",
             "type": "Number",
@@ -545,7 +651,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 260,
+            "line": 264,
             "itemtype": "property",
             "name": "thermalResonance",
             "type": "Number",
@@ -555,7 +661,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 265,
+            "line": 269,
             "itemtype": "property",
             "name": "damageProfile",
             "type": "esc.DamageProfile",
@@ -566,7 +672,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 277,
+            "line": 280,
             "itemtype": "property",
             "name": "emResistance",
             "type": "Number",
@@ -577,7 +683,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 283,
+            "line": 286,
             "itemtype": "property",
             "name": "explosiveResistance",
             "type": "Number",
@@ -588,7 +694,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 289,
+            "line": 292,
             "itemtype": "property",
             "name": "kineticResistance",
             "type": "Number",
@@ -599,7 +705,7 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 295,
+            "line": 298,
             "itemtype": "property",
             "name": "thermalResistance",
             "type": "Number",
@@ -610,8 +716,8 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 301,
-            "description": "The effective hit points of this damage pool, calculated by:\n    \n`EHP = HP / (1-RST)`\n    \nSource: <http://community.eveonline.com/ingameboard.asp?a=topic&threadID=780756>",
+            "line": 304,
+            "description": "The effective hit points of this damage pool, typically calculated by:\n\n`EHP = HP / (1-RST)`\n\nWhere 'HP` is the pool size and `RST` is the average damage resistance against the four damage types.\n\nSource: <http://community.eveonline.com/ingameboard.asp?a=topic&threadID=780756>",
             "itemtype": "property",
             "name": "ehp",
             "type": "Number",
@@ -622,17 +728,30 @@
         },
         {
             "file": "shared/model/hp-pool.js",
-            "line": 343,
+            "line": 346,
+            "description": "The amount of time it takes for the shield to go from fully discharged to fully charged in seconds.",
             "itemtype": "property",
-            "name": "rechargeRate",
+            "name": "recharge",
             "type": "Number",
             "class": "esc.Shield",
             "module": "esc-hp-pool",
             "namespace": "esc"
         },
         {
+            "file": "shared/model/hp-pool.js",
+            "line": 354,
+            "description": "The peak recharge rate of a shield is defined by:\n\n`R = 2.4 * S / R`\n\nWhere `R` is the recharge rate, `S` is the maximum shield size, and `R` is the recharge rate in seconds.\n\nSource: <http://wiki.eveonline.com/en/wiki/Shield_recharge>",
+            "itemtype": "property",
+            "name": "peakRecharge",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.Shield",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
             "file": "shared/model/ship-properties.js",
-            "line": 30,
+            "line": 35,
             "description": "Returns the highest of the radar strengths, since each ship really only has one radar strength type.",
             "itemtype": "property",
             "name": "strength",
@@ -643,7 +762,29 @@
         },
         {
             "file": "shared/model/ship-properties.js",
-            "line": 185,
+            "line": 194,
+            "description": "The maximum amount of charge the capacitor can hold.",
+            "itemtype": "property",
+            "name": "capacity",
+            "type": "Number",
+            "class": "esc.Capacitor",
+            "module": "esc-ship-properties",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship-properties.js",
+            "line": 198,
+            "description": "The time it takes to go from fully discharged to fully charged in seconds.",
+            "itemtype": "property",
+            "name": "recharge",
+            "type": "Number",
+            "class": "esc.Capacitor",
+            "module": "esc-ship-properties",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship-properties.js",
+            "line": 206,
             "description": "A read-only synthetic property that's the peak recharge rate of a capacitor.\n    \nThe peak recharge of a capacitor appears to happen on or near the 25% mark and is defined by:\n\n`dC/dt = ( SQRT( Cx/Cmax ) - C/Cmax ) * 2 * Cmax / tau`\n\nWhere:\n\n* `dC/dt` is the amount the capacitor will recharge per second\n* `Cx` is the current amount of energy in the capacitor\n* `Cmax` is the total amount of energy in a fully-charged capacitor\n* `tau` is a constant that's either t/5 or t/4.8 where t is the recharge rate in seconds. (I chose 5) \n\nSource: <http://wiki.eveonline.com/en/wiki/Capacitor_recharge_rate>",
             "itemtype": "property",
             "name": "peakRecharge",
@@ -651,6 +792,426 @@
             "readonly": "",
             "class": "esc.Capacitor",
             "module": "esc-ship-properties",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 32,
+            "description": "The ship's capacity.",
+            "itemtype": "property",
+            "name": "capacity",
+            "type": "esc.Capacity",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 36,
+            "description": "The ship's sensors.",
+            "itemtype": "property",
+            "name": "sensors",
+            "type": "esc.Sensors",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 40,
+            "description": "The ship's hardpoint slots.",
+            "itemtype": "property",
+            "name": "slots",
+            "type": "esc.Slots",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 44,
+            "description": "The ship's capacitor propereties.",
+            "itemtype": "property",
+            "name": "capacitor",
+            "type": "esc.Capacitor",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 48,
+            "description": "The ship's drones capacity.",
+            "itemtype": "property",
+            "name": "drones",
+            "type": "esc.Drones",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 52,
+            "description": "The ship's heat capacity.",
+            "itemtype": "property",
+            "name": "heat",
+            "type": "esc.Heat",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 56,
+            "description": "The ship's hull hp and durability.",
+            "itemtype": "property",
+            "name": "hull",
+            "type": "esc.HpPool",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 60,
+            "description": "The ship's armor hp and durability.",
+            "itemtype": "property",
+            "name": "armor",
+            "type": "esc.HpPool",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 64,
+            "description": "The ship's shield hp, durability, and recharge rate.",
+            "itemtype": "property",
+            "name": "shield",
+            "type": "esc.Shield",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 68,
+            "description": "The ship's jump drive properties (if any).",
+            "itemtype": "property",
+            "name": "jumpDrive",
+            "type": "esc.JumpDrive",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 72,
+            "description": "The skill requirements to sit in the seat.",
+            "itemtype": "property",
+            "name": "skillRequirements",
+            "type": "esc.SkillRequirements",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 90,
+            "description": "The ship's asset ID in the Eve database. This is a unique identifier.",
+            "itemtype": "property",
+            "name": "id",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 97,
+            "description": "The ship's name.",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 104,
+            "description": "The ship's type (e.g. Cruiser, Assault Ship, or Titan)",
+            "itemtype": "property",
+            "name": "type",
+            "type": "String",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 111,
+            "description": "The ship's description, cleaned and normalized into a chunk of HTML.",
+            "itemtype": "property",
+            "name": "description",
+            "type": "String",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 118,
+            "description": "The faction or race the ship belongs to. This is incorrect for pirate-faction ships.",
+            "itemtype": "property",
+            "name": "race",
+            "type": "String",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 125,
+            "description": "The meta-level of the item. Here's a loose collection of values and what they mean:\n\n* 0 - Tech-level 1\n* 1-4 - \"Named\" equipment, not used for ships.\n* 5 - Tech-level 2 and 3.\n* 6 - Special edition gifts or unusual craft (e.g. the echelon or zephyr)\n* 7 - ??\n* 8 - Pirate- or Navy-faction.\n* 9 - Special",
+            "itemtype": "property",
+            "name": "meta",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 140,
+            "description": "The tech level (1, 2, or 3)",
+            "itemtype": "property",
+            "name": "techLevel",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 147,
+            "description": "The signature radius",
+            "itemtype": "property",
+            "name": "signature",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 154,
+            "itemtype": "property",
+            "name": "agility",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 159,
+            "itemtype": "property",
+            "name": "velocity",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 164,
+            "itemtype": "property",
+            "name": "warpSpeed",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 169,
+            "itemtype": "property",
+            "name": "warpSpeedMultiplier",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 174,
+            "description": "The base CPU capacity.",
+            "itemtype": "property",
+            "name": "cpu",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 181,
+            "description": "The base power grid.",
+            "itemtype": "property",
+            "name": "powerGrid",
+            "type": "Number",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship.js",
+            "line": 188,
+            "description": "Override for the toString method.",
+            "itemtype": "method",
+            "name": "toString",
+            "class": "esc.Ship",
+            "module": "esc-ship",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 32,
+            "description": "The ID of the skill in the Eve database.",
+            "itemtype": "property",
+            "name": "id",
+            "type": "Number",
+            "class": "esc.Skill",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 39,
+            "description": "The name of the skill.",
+            "itemtype": "property",
+            "name": "name",
+            "type": "String",
+            "class": "esc.Skill",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 46,
+            "description": "The description of the skill.",
+            "itemtype": "property",
+            "name": "description",
+            "type": "String",
+            "class": "esc.Skill",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 53,
+            "description": "The group this skill belongs to.",
+            "itemtype": "property",
+            "name": "group",
+            "type": "String",
+            "class": "esc.Skill",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 60,
+            "description": "The rank of the skill.",
+            "itemtype": "property",
+            "name": "rank",
+            "type": "Number",
+            "class": "esc.Skill",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 67,
+            "description": "The prereqs for this skill.",
+            "itemtype": "property",
+            "name": "requirements",
+            "type": "Array",
+            "class": "esc.Skill",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 88,
+            "description": "The ID of the skill that is required.",
+            "itemtype": "property",
+            "name": "id",
+            "type": "Number",
+            "class": "esc.SkillRequirement",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 95,
+            "description": "The level of the skill that is required.",
+            "itemtype": "property",
+            "name": "level",
+            "type": "Number",
+            "class": "esc.SkillRequirement",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 101,
+            "description": "The resolved skill that is required.",
+            "itemtype": "property",
+            "name": "skill",
+            "type": "esc.Skill",
+            "class": "esc.SkillRequirement",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 133,
+            "itemtype": "property",
+            "name": "skills",
+            "type": "Array",
+            "class": "esc.SkillRequirements",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 141,
+            "itemtype": "property",
+            "name": "primary",
+            "type": "esc.SkillRequirement",
+            "class": "esc.SkillRequirements",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 156,
+            "itemtype": "property",
+            "name": "secondary",
+            "type": "esc.SkillRequirement",
+            "class": "esc.SkillRequirements",
+            "module": "esc-skill",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/skill.js",
+            "line": 171,
+            "itemtype": "property",
+            "name": "tertiary",
+            "type": "esc.SkillRequirement",
+            "class": "esc.SkillRequirements",
+            "module": "esc-skill",
             "namespace": "esc"
         }
     ],

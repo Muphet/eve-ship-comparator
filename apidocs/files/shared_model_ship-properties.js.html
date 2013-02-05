@@ -59,6 +59,14 @@
             
                 <li><a href="..&#x2F;classes/esc.Shield.html">esc.Shield</a></li>
             
+                <li><a href="..&#x2F;classes/esc.Ship.html">esc.Ship</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Skill.html">esc.Skill</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirement.html">esc.SkillRequirement</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirements.html">esc.SkillRequirements</a></li>
+            
                 <li><a href="..&#x2F;classes/esc.Slots.html">esc.Slots</a></li>
             
             </ul>
@@ -70,6 +78,8 @@
                 <li><a href="..&#x2F;modules/esc-ship.html">esc-ship</a></li>
             
                 <li><a href="..&#x2F;modules/esc-ship-properties.html">esc-ship-properties</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-skill.html">esc-skill</a></li>
             
             </ul>
         </div>
@@ -110,25 +120,30 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
+&#x2F;*global YUI *&#x2F;
 &#x2F;**
 @module esc-ship-properties
 @namespace esc
 **&#x2F;
-YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
+YUI.add(&#x27;esc-ship-properties&#x27;, function (Y) {
+    &quot;use strict&quot;;
+
     var NS = Y.namespace(&#x27;esc&#x27;);
 
 &#x2F;&#x2F;
 &#x2F;&#x2F; --- Sensors --------------------------------------------------------------
 &#x2F;&#x2F;
-    
+
     &#x2F;**
+    A set of properties related to sensor strength, range, and max locked targets.
+
     @class Sensors
     @constructor
     **&#x2F;
-    var Sensors = function(cfg) {
+    function Sensors(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Sensors.prototype));
-    };
-    
+    }
+
     Y.mix(Sensors.prototype, {
         gravimetricStrength   : null,
         magnetometricStrength : null,
@@ -138,7 +153,7 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
         resolution            : null,
         lockedTargets         : null
     });
-    
+
     &#x2F;**
     Returns the highest of the radar strengths, since each ship really only has one radar strength type.
     
@@ -147,55 +162,59 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
     **&#x2F;
     Object.defineProperty(Sensors.prototype, &#x27;strength&#x27;, {
         writeable: false,
-        get: function() {
+        get: function () {
             return this.gravimetricStrength || this.magnetometricStrength || this.ladarStrength || this.radarStrength;
         }
     });
-    
+
     NS.Sensors = Sensors;
-    
+
 &#x2F;&#x2F;
 &#x2F;&#x2F; --- Heat --------------------------------------------------------------
 &#x2F;&#x2F;
 
     &#x2F;**
+    Properties related to how a ship generates and sheds heat.
+
     @class Heat
     @constructor
     **&#x2F;
-    var Heat = function(cfg) {
+    function Heat(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Heat.prototype));
-    };
-    
+    }
+
     Y.mix(Heat.prototype, {
         generationMultiplier: 0,
-        
+
         highAttenuation: 0,
         mediumAttenuation: 0,
         lowAttenuation: 0,
-        
+
         highDissipation: 0,
         mediumDissipation: 0,
         lowDissipation: 0,
-        
+
         highCapacity: 0,
         mediumCapacity: 0,
         lowCapacity: 0
     });
-    
+
     NS.Heat = Heat;
-    
+
 &#x2F;&#x2F;
 &#x2F;&#x2F; --- Capacity --------------------------------------------------------------
 &#x2F;&#x2F;
-    
+
     &#x2F;**
+    Properties related to how much junk a ship can hold.
+
     @class Capacity
     @constructor
     **&#x2F;
-    var Capacity = function(cfg) {
+    function Capacity(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Capacity.prototype));
-    };
-    
+    }
+
     Y.mix(Capacity.prototype, {
         cargo: 0,
         fleetHangar: 0,
@@ -203,21 +222,23 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
         fuel: 0,
         ore: 0
     });
-    
+
     NS.Capacity = Capacity;
-    
+
 &#x2F;&#x2F;
 &#x2F;&#x2F; --- Slots --------------------------------------------------------------
 &#x2F;&#x2F;
 
     &#x2F;**
+    Properties related to how many modules a ship can be fitted with.
+
     @class Slots
     @constructor
     **&#x2F;
-    var Slots = function(cfg) {
+    function Slots(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Slots.prototype));
-    };
-    
+    }
+
     Y.mix(Slots.prototype, {
         high: 0,
         medium: 0,
@@ -227,28 +248,28 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
         turrets: 0,
         launchers: 0
     });
-    
+
     NS.Slots = Slots;
-    
+
 &#x2F;&#x2F;
 &#x2F;&#x2F; --- Drones --------------------------------------------------------------
 &#x2F;&#x2F;
-    
+
     &#x2F;**
     A set of properties related to ship drone capacity and bandwidth.
     
     @class Drones
     @constructor
     **&#x2F;
-    var Drones = function(cfg) {
+    function Drones(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Drones.prototype));
-    };
-    
+    }
+
     Y.mix(Drones.prototype, {
         bandwidth: 0,
         capacity: 0
     });
-    
+
     NS.Drones = Drones;
 
 &#x2F;&#x2F;
@@ -261,12 +282,12 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
     @class JumpDrive
     @constructor
     **&#x2F;
-    var JumpDrive = function(cfg) {
-        if(cfg) {cfg.canJump = !!cfg.canJump; } &#x2F;&#x2F; coerce to boolean
-        
+    function JumpDrive(cfg) {
+        if (cfg) {cfg.canJump = !!cfg.canJump; } &#x2F;&#x2F; coerce to boolean
+
         Y.mix(this, cfg || {}, true, Object.keys(JumpDrive.prototype));
-    };
-    
+    }
+
     Y.mix(JumpDrive.prototype, {
         canJump: false,
         fuelType: 0,
@@ -274,7 +295,7 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
         fuelConsumption: 0,
         capacitorNeed: 0
     });
-    
+
     NS.JumpDrive = JumpDrive;
 
 &#x2F;&#x2F;
@@ -282,18 +303,28 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
 &#x2F;&#x2F;
 
     &#x2F;**
+    A set of properties related to the size and charge rate of the capacitor.
+
     @class Capacitor
     @constructor
     **&#x2F;
-    var Capacitor = function(cfg) {
+    function Capacitor(cfg) {
         Y.mix(this, cfg || {}, true, Object.keys(Capacitor.prototype));
-    };
-    
+    }
+
     Y.mix(Capacitor.prototype, {
+        &#x2F;**
+         The maximum amount of charge the capacitor can hold.
+         @property capacity {Number}
+         **&#x2F;
+        &#x2F;**
+         The time it takes to go from fully discharged to fully charged in seconds.
+         @property recharge {Number}
+         **&#x2F;
         capacity : 0,
         recharge : 0
     });
-    
+
     &#x2F;**
     A read-only synthetic property that&#x27;s the peak recharge rate of a capacitor.
         
@@ -315,11 +346,11 @@ YUI.add(&#x27;esc-ship-properties&#x27;, function(Y) {
     **&#x2F;
     Object.defineProperty(Capacitor.prototype, &#x27;peakRecharge&#x27;, {
         writeable: false,
-        get: function() { return (Math.sqrt(0.25) - 0.25) * 2 * this.capacity &#x2F; (this.recharge &#x2F; 5000); }
+        get: function () { return (Math.sqrt(0.25) - 0.25) * 2 * this.capacity &#x2F; (this.recharge &#x2F; 5000); }
     });
 
     NS.Capacitor = Capacitor;
-    
+
 });
     </pre>
 </div>

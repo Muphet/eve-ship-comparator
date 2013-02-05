@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>esc.Capacity - Eve Ship Comparator API</title>
+    <title>shared&#x2F;model&#x2F;skill.js - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -116,123 +116,199 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>esc.Capacity Class</h1>
-<div class="box meta">
-    
+                        <h1 class="file-heading">File: shared&#x2F;model&#x2F;skill.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*global YUI*&#x2F;
+&#x2F;**
+ Classes and objects having to do with skill requirements for ships.
 
-    
-        <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;shared_model_ship-properties.js.html#l86"><code>shared&#x2F;model&#x2F;ship-properties.js:86</code></a>
-        </div>
-    
+ @module esc-skill
+ @namespace esc
+ *&#x2F;
+YUI.add(&#x27;esc-skill&#x27;, function (Y) {
+    &quot;use strict&quot;;
 
-    
-        
-            Module: <a href="../modules/esc-ship-properties.html">esc-ship-properties</a>
-        
-    
+    var NS = Y.namespace(&#x27;esc&#x27;);
 
-    
-</div>
+    &#x2F;&#x2F;
+    &#x2F;&#x2F; --- Skill ----------------------------------------------------------------
+    &#x2F;&#x2F;
 
+    &#x2F;**
+     A representation of a skill in the Eve skill tree. Matains a list of skills that are required to train this skill, as well as things like group, rank, and description.
 
+     @class Skill
+     @constructor
+     *&#x2F;
+    function Skill(cfg) {
+        Y.mix(this, cfg || {}, true, Object.keys(Skill.prototype));
 
-<div class="box intro">
-    <p>Properties related to how much junk a ship can hold.</p>
-</div>
+        if (!this.requirements) {
+            this.requirements = [];
+        }
+    }
 
+    Y.mix(Skill.prototype, {
+        &#x2F;**
+         The ID of the skill in the Eve database.
 
-    <div class="constructor">
-        <h2>Constructor</h2>
-        <div id="method_esc.Capacity" class="method item">
-    <h3 class="name"><code>esc.Capacity</code></h3>
+         @property id {Number}
+         *&#x2F;
+        id           : null,
 
-    
-        <span class="paren">()</span>
-    
+        &#x2F;**
+         The name of the skill.
 
-    
+         @property name {String}
+         *&#x2F;
+        name         : null,
 
-    
+        &#x2F;**
+         The description of the skill.
 
-    
+         @property description {String}
+         *&#x2F;
+        description  : null,
 
-    
+        &#x2F;**
+         The group this skill belongs to.
 
-    
+         @property group {String}
+         *&#x2F;
+        group        : null,
 
-    
+        &#x2F;**
+         The rank of the skill.
 
-    
+         @property rank {Number}
+         *&#x2F;
+        rank         : null,
 
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;shared_model_ship-properties.js.html#l86"><code>shared&#x2F;model&#x2F;ship-properties.js:86</code></a>
-        
-        </p>
+        &#x2F;**
+         The prereqs for this skill.
 
+         @property requirements {Array}
+         *&#x2F;
+        requirements : null
+    });
 
-        
+    NS.Skill = Skill;
 
-        
-    </div>
+    &#x2F;**
+     A representation of a required skill, either to fly a ship or as a prereq for a skill to fly a ship.
 
-    <div class="description">
-        
-    </div>
+     @class SkillRequirement
+     @constructor
+     *&#x2F;
+    function SkillRequirement(cfg) {
+        Y.mix(this, cfg || {}, true, Object.keys(SkillRequirement.prototype));
+    }
 
-    
+    Y.mix(SkillRequirement.prototype, {
+        &#x2F;**
+         The ID of the skill that is required.
 
-    
+         @property id {Number}
+         *&#x2F;
+        id : null,
 
-    
-</div>
+        &#x2F;**
+         The level of the skill that is required.
+         @property level {Number}
+         *&#x2F;
+        level : null,
 
-    </div>
+        &#x2F;**
+         The resolved skill that is required.
 
+         @property skill {esc.Skill}
+         *&#x2F;
+        skill : null
+    });
 
-<div id="classdocs" class="tabview">
-    <ul class="api-class-tabs">
-        <li class="api-class-tab index"><a href="#index">Index</a></li>
+    NS.SkillRequirement = SkillRequirement;
 
-        
-        
-        
-        
-    </ul>
+&#x2F;&#x2F;
+&#x2F;&#x2F; --- Skill Requirements ---------------------------------------------------
+&#x2F;&#x2F;
+    &#x2F;**
+     @class SkillRequirements
+     @constructor
+     *&#x2F;
+    function SkillRequirements(sr) {
+        this.skills = sr &amp;&amp; sr.skills ? sr.skills.slice(0) : [];
 
-    <div>
-        <div id="index" class="api-class-tabpanel index">
-            <h2 class="off-left">Item Index</h2>
+        if (sr &amp;&amp; sr.primary) {
+            this.primary = sr.primary;
+        }
+        if (sr &amp;&amp; sr.secondary) {
+            this.secondary = sr.secondary;
+        }
+        if (sr &amp;&amp; sr.tertiary) {
+            this.tertiary = sr.tertiary;
+        }
+    }
 
-            
+    Y.mix(SkillRequirements.prototype, {
+        &#x2F;**
+         @property skills {Array}
+         *&#x2F;
+        skills : null
+    });
 
-            
+    Object.defineProperties(SkillRequirements.prototype, {
 
-            
+        &#x2F;**
+         @property primary {esc.SkillRequirement}
+         *&#x2F;
+        primary : {
+            get : function () {
+                if (!this.skills[0]) {
+                    this.skills[0] = new SkillRequirement();
+                }
+                return this.skills[0];
+            },
+            set : function (val) {
+                this.skills[0] = val;
+            }
+        },
 
-            
-        </div>
+        &#x2F;**
+         @property secondary {esc.SkillRequirement}
+         *&#x2F;
+        secondary : {
+            get : function () {
+                if (!this.skills[1]) {
+                    this.skills[1] = new SkillRequirement();
+                }
+                return this.skills[1];
+            },
+            set : function (val) {
+                this.skills[1] = val;
+            }
+        },
 
-        
+        &#x2F;**
+         @property tertiary {esc.SkillRequirement}
+         *&#x2F;
+        tertiary : {
+            get : function () {
+                if (!this.skills[2]) {
+                    this.skills[2] = new SkillRequirement();
+                }
+                return this.skills[2];
+            },
+            set : function (val) {
+                this.skills[2] = val;
+            }
+        }
+    });
 
-        
-
-        
-
-        
-    </div>
+    NS.SkillRequirements = SkillRequirements;
+});
+    </pre>
 </div>
 
                     </div>

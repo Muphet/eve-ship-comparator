@@ -59,6 +59,14 @@
             
                 <li><a href="..&#x2F;classes/esc.Shield.html">esc.Shield</a></li>
             
+                <li><a href="..&#x2F;classes/esc.Ship.html">esc.Ship</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Skill.html">esc.Skill</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirement.html">esc.SkillRequirement</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirements.html">esc.SkillRequirements</a></li>
+            
                 <li><a href="..&#x2F;classes/esc.Slots.html">esc.Slots</a></li>
             
             </ul>
@@ -70,6 +78,8 @@
                 <li><a href="..&#x2F;modules/esc-ship.html">esc-ship</a></li>
             
                 <li><a href="..&#x2F;modules/esc-ship-properties.html">esc-ship-properties</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-skill.html">esc-skill</a></li>
             
             </ul>
         </div>
@@ -110,15 +120,17 @@
 
 <div class="file">
     <pre class="code prettyprint linenums">
+&#x2F;*global YUI *&#x2F;
 &#x2F;**
 @module esc-ship
 @namespace esc
 **&#x2F;
-YUI.add(&#x27;esc-ship&#x27;, function(Y) {
+YUI.add(&#x27;esc-ship&#x27;, function (Y) {
+    &quot;use strict&quot;;
 
-    var NS = Y.namespace(&#x27;esc&#x27;);
+    var NS = Y.namespace(&#x27;esc&#x27;),
 
-    var Capacitor         = NS.Capacitor,
+        Capacitor         = NS.Capacitor,
         Capacity          = NS.Capacity,
         Drones            = NS.Drones,
         HpPool            = NS.HpPool,
@@ -129,16 +141,60 @@ YUI.add(&#x27;esc-ship&#x27;, function(Y) {
         SkillRequirements = NS.SkillRequirements,
         Slots             = NS.Slots;
 
-    &#x2F;*
+    &#x2F;**
     @class Ship
     @constructor
     @param cfg {Object} An object literal describing a ship.
-    *&#x2F;
-    var Ship = function(cfg) {
+    **&#x2F;
+    function Ship(cfg) {
         cfg = cfg || {};
-        
+
         Y.mix(this, cfg, true, Object.keys(Ship.prototype));
-        
+
+        &#x2F;**
+         The ship&#x27;s capacity.
+         @property capacity {esc.Capacity}
+        **&#x2F;
+        &#x2F;**
+         The ship&#x27;s sensors.
+         @property sensors {esc.Sensors}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s hardpoint slots.
+         @property slots {esc.Slots}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s capacitor propereties.
+         @property capacitor {esc.Capacitor}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s drones capacity.
+         @property drones {esc.Drones}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s heat capacity.
+         @property heat {esc.Heat}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s hull hp and durability.
+         @property hull {esc.HpPool}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s armor hp and durability.
+         @property armor {esc.HpPool}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s shield hp, durability, and recharge rate.
+         @property shield {esc.Shield}
+         **&#x2F;
+        &#x2F;**
+         The ship&#x27;s jump drive properties (if any).
+         @property jumpDrive {esc.JumpDrive}
+         **&#x2F;
+        &#x2F;**
+         The skill requirements to sit in the seat.
+         @property skillRequirements {esc.SkillRequirements}
+         **&#x2F;
         this.capacity          = new Capacity(cfg.capacity);
         this.sensors           = new Sensors(cfg.sensors);
         this.slots             = new Slots(cfg.slots);
@@ -150,49 +206,119 @@ YUI.add(&#x27;esc-ship&#x27;, function(Y) {
         this.shield            = new Shield(cfg.shield);
         this.jumpDrive         = new JumpDrive(cfg.jumpDrive);
         this.skillRequirements = new SkillRequirements(cfg.skillRequirements);
-    };
-
-    Ship.NOT_RESOLVED_ID = 0;
+    }
 
     Y.mix(Ship.prototype, {
-        id                  : Ship.NOT_RESOLVED_ID,
-        name                : null,
+        &#x2F;**
+         The ship&#x27;s asset ID in the Eve database. This is a unique identifier.
 
-        type                : null,
-        description         : null,
-        race                : null,
+         @property id {Number}
+         **&#x2F;
+        id : 0,
 
-        meta                : 0,
-        techLevel           : 1,
+        &#x2F;**
+         The ship&#x27;s name.
 
-        signature           : null,
-        agility             : null,
-        velocity            : null,
-        warpSpeed           : null,
+         @property name {String}
+         **&#x2F;
+        name : null,
+
+        &#x2F;**
+         The ship&#x27;s type (e.g. Cruiser, Assault Ship, or Titan)
+
+         @property type {String}
+         **&#x2F;
+        type : null,
+
+        &#x2F;**
+         The ship&#x27;s description, cleaned and normalized into a chunk of HTML.
+
+         @property description {String}
+         **&#x2F;
+        description : null,
+
+        &#x2F;**
+         The faction or race the ship belongs to. This is incorrect for pirate-faction ships.
+
+         @property race {String}
+         **&#x2F;
+        race : null,
+
+        &#x2F;**
+         The meta-level of the item. Here&#x27;s a loose collection of values and what they mean:
+
+         * 0 - Tech-level 1
+         * 1-4 - &quot;Named&quot; equipment, not used for ships.
+         * 5 - Tech-level 2 and 3.
+         * 6 - Special edition gifts or unusual craft (e.g. the echelon or zephyr)
+         * 7 - ??
+         * 8 - Pirate- or Navy-faction.
+         * 9 - Special
+
+         @property meta {Number}
+         **&#x2F;
+        meta : 0,
+
+        &#x2F;**
+         The tech level (1, 2, or 3)
+
+         @property techLevel {Number}
+         **&#x2F;
+        techLevel : 1,
+
+        &#x2F;**
+         The signature radius
+
+         @property signature {Number}
+         **&#x2F;
+        signature : null,
+
+        &#x2F;**
+         @property agility {Number}
+         *&#x2F;
+        agility : null,
+
+        &#x2F;**
+         @property velocity {Number}
+         *&#x2F;
+        velocity : null,
+
+        &#x2F;**
+         @property warpSpeed {Number}
+         *&#x2F;
+        warpSpeed : null,
+
+        &#x2F;**
+         @property warpSpeedMultiplier {Number}
+         *&#x2F;
         warpSpeedMultiplier : null,
 
-        cpu                 : null,
-        powerGrid           : null
-    });
-    
-    Ship.prototype.toString = function() {
-        var out = [];
+        &#x2F;**
+         The base CPU capacity.
 
-        out.push(this.name + &#x27; - &#x27; + this.type + &#x27; [&#x27; + this.id + &#x27;]&#x27;);
-        
-        return out.join(&#x27;\n&#x27;);
-    };
+         @property cpu {Number}
+         *&#x2F;
+        cpu : null,
 
+        &#x2F;**
+         The base power grid.
 
-    Object.defineProperties(Ship.prototype, {
-        resolved: {
-            writeable: false,
-            get: function() { return this.id === Ship.NOT_RESOLVED_ID; }
+         @property powerGrid {Number}
+         *&#x2F;
+        powerGrid : null,
+
+        &#x2F;**
+         Override for the toString method.
+
+         @method toString
+         *&#x2F;
+        toString : function () {
+            return this.name + &#x27; - &#x27; + this.type + &#x27; [&#x27; + this.id + &#x27;]&#x27;;
         }
     });
 
     NS.Ship = Ship;
-    
+
 }, &#x27;&#x27;, {
     requires: [ &#x27;esc-hp-pool&#x27;, &#x27;esc-skill&#x27;, &#x27;esc-ship-properties&#x27; ]
 });

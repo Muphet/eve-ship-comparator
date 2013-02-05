@@ -59,6 +59,14 @@
             
                 <li><a href="..&#x2F;classes/esc.Shield.html">esc.Shield</a></li>
             
+                <li><a href="..&#x2F;classes/esc.Ship.html">esc.Ship</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Skill.html">esc.Skill</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirement.html">esc.SkillRequirement</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirements.html">esc.SkillRequirements</a></li>
+            
                 <li><a href="..&#x2F;classes/esc.Slots.html">esc.Slots</a></li>
             
             </ul>
@@ -70,6 +78,8 @@
                 <li><a href="..&#x2F;modules/esc-ship.html">esc-ship</a></li>
             
                 <li><a href="..&#x2F;modules/esc-ship-properties.html">esc-ship-properties</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-skill.html">esc-skill</a></li>
             
             </ul>
         </div>
@@ -118,7 +128,7 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l328"><code>shared&#x2F;model&#x2F;hp-pool.js:328</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l332"><code>shared&#x2F;model&#x2F;hp-pool.js:332</code></a>
         </div>
     
 
@@ -137,6 +147,63 @@
     <p>A descendant of the HpPool object that has additional features related to shield rechage rates.</p>
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_esc.Shield" class="method item">
+    <h3 class="name"><code>esc.Shield</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l332"><code>shared&#x2F;model&#x2F;hp-pool.js:332</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -227,7 +294,14 @@
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_rechargeRate">rechargeRate</a>
+                                <a href="#property_peakRecharge">peakRecharge</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_recharge">recharge</a>
 
                                 
                                 
@@ -283,7 +357,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l265"><code>shared&#x2F;model&#x2F;hp-pool.js:265</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l269"><code>shared&#x2F;model&#x2F;hp-pool.js:269</code></a>
         
         </p>
 
@@ -326,7 +400,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l301"><code>shared&#x2F;model&#x2F;hp-pool.js:301</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l304"><code>shared&#x2F;model&#x2F;hp-pool.js:304</code></a>
         
         </p>
 
@@ -336,9 +410,11 @@
     </div>
 
     <div class="description">
-        <p>The effective hit points of this damage pool, calculated by:</p>
+        <p>The effective hit points of this damage pool, typically calculated by:</p>
 
 <p><code>EHP = HP / (1-RST)</code></p>
+
+<p>Where 'HP<code>is the pool size and</code>RST` is the average damage resistance against the four damage types.</p>
 
 <p>Source: <a href="http://community.eveonline.com/ingameboard.asp?a=topic&amp;threadID=780756">http://community.eveonline.com/ingameboard.asp?a=topic&amp;threadID=780756</a></p>
     </div>
@@ -371,7 +447,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l277"><code>shared&#x2F;model&#x2F;hp-pool.js:277</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l280"><code>shared&#x2F;model&#x2F;hp-pool.js:280</code></a>
         
         </p>
 
@@ -412,7 +488,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l245"><code>shared&#x2F;model&#x2F;hp-pool.js:245</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l249"><code>shared&#x2F;model&#x2F;hp-pool.js:249</code></a>
         
         </p>
 
@@ -453,7 +529,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l283"><code>shared&#x2F;model&#x2F;hp-pool.js:283</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l286"><code>shared&#x2F;model&#x2F;hp-pool.js:286</code></a>
         
         </p>
 
@@ -494,7 +570,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l250"><code>shared&#x2F;model&#x2F;hp-pool.js:250</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l254"><code>shared&#x2F;model&#x2F;hp-pool.js:254</code></a>
         
         </p>
 
@@ -535,7 +611,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l240"><code>shared&#x2F;model&#x2F;hp-pool.js:240</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l244"><code>shared&#x2F;model&#x2F;hp-pool.js:244</code></a>
         
         </p>
 
@@ -576,7 +652,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l289"><code>shared&#x2F;model&#x2F;hp-pool.js:289</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l292"><code>shared&#x2F;model&#x2F;hp-pool.js:292</code></a>
         
         </p>
 
@@ -617,7 +693,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l255"><code>shared&#x2F;model&#x2F;hp-pool.js:255</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l259"><code>shared&#x2F;model&#x2F;hp-pool.js:259</code></a>
         
         </p>
 
@@ -638,8 +714,8 @@
 </div>
 
                 
-                    <div id="property_rechargeRate" class="property item">
-    <h3 class="name"><code>rechargeRate</code></h3>
+                    <div id="property_peakRecharge" class="property item">
+    <h3 class="name"><code>peakRecharge</code></h3>
     <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
 
     
@@ -661,7 +737,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l343"><code>shared&#x2F;model&#x2F;hp-pool.js:343</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l354"><code>shared&#x2F;model&#x2F;hp-pool.js:354</code></a>
         
         </p>
 
@@ -671,7 +747,57 @@
     </div>
 
     <div class="description">
+        <p>The peak recharge rate of a shield is defined by:</p>
+
+<p><code>R = 2.4 * S / R</code></p>
+
+<p>Where <code>R</code> is the recharge rate, <code>S</code> is the maximum shield size, and <code>R</code> is the recharge rate in seconds.</p>
+
+<p>Source: <a href="http://wiki.eveonline.com/en/wiki/Shield_recharge">http://wiki.eveonline.com/en/wiki/Shield_recharge</a></p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_recharge" class="property item">
+    <h3 class="name"><code>recharge</code></h3>
+    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
         
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l346"><code>shared&#x2F;model&#x2F;hp-pool.js:346</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The amount of time it takes for the shield to go from fully discharged to fully charged in seconds.</p>
     </div>
 
     
@@ -702,7 +828,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l295"><code>shared&#x2F;model&#x2F;hp-pool.js:295</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l298"><code>shared&#x2F;model&#x2F;hp-pool.js:298</code></a>
         
         </p>
 
@@ -743,7 +869,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l260"><code>shared&#x2F;model&#x2F;hp-pool.js:260</code></a>
+        <a href="..&#x2F;files&#x2F;shared_model_hp-pool.js.html#l264"><code>shared&#x2F;model&#x2F;hp-pool.js:264</code></a>
         
         </p>
 
