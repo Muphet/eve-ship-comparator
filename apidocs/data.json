@@ -1,0 +1,658 @@
+{
+    "project": {
+        "name": "Eve Ship Comparator API",
+        "description": "A set of classes for interacting with Eve Online ship data.",
+        "version": "0.0.1",
+        "url": "http://eve-ship-comparator.herokuapp.com"
+    },
+    "files": {
+        "shared/model/hp-pool.js": {
+            "name": "shared/model/hp-pool.js",
+            "modules": {
+                "esc-hp-pool": 1
+            },
+            "classes": {
+                "esc.DamageProfile": 1,
+                "esc.HpPool": 1,
+                "esc.Shield": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
+        "shared/model/ship-properties.js": {
+            "name": "shared/model/ship-properties.js",
+            "modules": {
+                "esc-ship-properties": 1
+            },
+            "classes": {
+                "esc.Sensors": 1,
+                "esc.Heat": 1,
+                "esc.Capacity": 1,
+                "esc.Slots": 1,
+                "esc.Drones": 1,
+                "esc.JumpDrive": 1,
+                "esc.Capacitor": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
+        "shared/model/ship.js": {
+            "name": "shared/model/ship.js",
+            "modules": {
+                "esc-ship": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        }
+    },
+    "modules": {
+        "esc-hp-pool": {
+            "name": "esc-hp-pool",
+            "submodules": {},
+            "classes": {
+                "esc.DamageProfile": 1,
+                "esc.HpPool": 1,
+                "esc.Shield": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "shared/model/hp-pool.js",
+            "line": 328,
+            "description": "Objects, classes, and methods related to hit point pools for ships in Eve Online. Includes calculating EHP based on a number of strategies (EFT, and CCP's own calculations) and different damage profiles (Gursita, Amarr, Serpentis, etc.)."
+        },
+        "esc-ship-properties": {
+            "name": "esc-ship-properties",
+            "submodules": {},
+            "classes": {
+                "esc.Sensors": 1,
+                "esc.Heat": 1,
+                "esc.Capacity": 1,
+                "esc.Slots": 1,
+                "esc.Drones": 1,
+                "esc.JumpDrive": 1,
+                "esc.Capacitor": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "shared/model/ship-properties.js",
+            "line": 172
+        },
+        "esc-ship": {
+            "name": "esc-ship",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "shared/model/ship.js",
+            "line": 1
+        }
+    },
+    "classes": {
+        "esc.DamageProfile": {
+            "name": "esc.DamageProfile",
+            "shortname": "DamageProfile",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-hp-pool",
+            "namespace": "esc",
+            "file": "shared/model/hp-pool.js",
+            "line": 15,
+            "description": "A utility class that generates an EHP based on a provided HpPool instance.",
+            "extends": "View",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "cfg",
+                    "description": "A configuration object that accepts the following properties:\n\n* **em** - The proportion of EM damage.\n* **explosive** - The proportion of explosive damage.\n* **kinetic** - The proportion of kinetic damage.\n* **thermal** - The proportion of thermal damage.\n\nIf the sum of all four damage levels is greater than 1, they will all be normalized in relation to each other to enforce a total value of 1.\n\nFor example, passing `{ em: 1, explosive: 1, kinetic: 1, thermal: 1 }` will normalize each value to `0.25`.",
+                    "type": "Object"
+                }
+            ]
+        },
+        "esc.HpPool": {
+            "name": "esc.HpPool",
+            "shortname": "HpPool",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-hp-pool",
+            "namespace": "esc",
+            "file": "shared/model/hp-pool.js",
+            "line": 229,
+            "description": "Represents one of the three HP 'pools' on a ship: shields, armor, and structure (hull)",
+            "is_constructor": 1
+        },
+        "esc.Shield": {
+            "name": "esc.Shield",
+            "shortname": "Shield",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-hp-pool",
+            "namespace": "esc",
+            "file": "shared/model/hp-pool.js",
+            "line": 328,
+            "description": "A descendant of the HpPool object that has additional features related to shield rechage rates.",
+            "extends": "esc.HpPool"
+        },
+        "esc.Sensors": {
+            "name": "esc.Sensors",
+            "shortname": "Sensors",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 12,
+            "is_constructor": 1
+        },
+        "esc.Heat": {
+            "name": "esc.Heat",
+            "shortname": "Heat",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 49,
+            "is_constructor": 1
+        },
+        "esc.Capacity": {
+            "name": "esc.Capacity",
+            "shortname": "Capacity",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 79,
+            "is_constructor": 1
+        },
+        "esc.Slots": {
+            "name": "esc.Slots",
+            "shortname": "Slots",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 101,
+            "is_constructor": 1
+        },
+        "esc.Drones": {
+            "name": "esc.Drones",
+            "shortname": "Drones",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 125,
+            "description": "A set of properties related to ship drone capacity and bandwidth.",
+            "is_constructor": 1
+        },
+        "esc.JumpDrive": {
+            "name": "esc.JumpDrive",
+            "shortname": "JumpDrive",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 146,
+            "description": "A set of properties related to ship Jump Drives.",
+            "is_constructor": 1
+        },
+        "esc.Capacitor": {
+            "name": "esc.Capacitor",
+            "shortname": "Capacitor",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-properties",
+            "namespace": "esc",
+            "file": "shared/model/ship-properties.js",
+            "line": 172,
+            "is_constructor": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 47,
+            "itemtype": "property",
+            "name": "em",
+            "type": "Number",
+            "default": "0",
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 53,
+            "itemtype": "property",
+            "name": "explosive",
+            "type": "Number",
+            "default": "0",
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 59,
+            "itemtype": "property",
+            "name": "kinetic",
+            "type": "Number",
+            "default": "0",
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 65,
+            "itemtype": "property",
+            "name": "thermal",
+            "type": "Number",
+            "default": "0",
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 71,
+            "itemtype": "method",
+            "name": "ehp",
+            "params": [
+                {
+                    "name": "hpPool",
+                    "description": "An HpPool instance to generate an EHP value from.",
+                    "type": "HpPool"
+                }
+            ],
+            "return": {
+                "description": "The EHP of that hit point pool.",
+                "type": "Number"
+            },
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 92,
+            "description": "The standard even-distribution profile used by EFT.",
+            "itemtype": "property",
+            "name": "eft",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 100,
+            "description": "The Gurista damage profile.",
+            "itemtype": "property",
+            "name": "gurista",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 106,
+            "description": "The EOM damage profile.",
+            "itemtype": "property",
+            "name": "eom",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 115,
+            "description": "The Angel Cartell damage profile.",
+            "itemtype": "property",
+            "name": "angel",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 123,
+            "description": "The Sanshas Nation damage profile.",
+            "itemtype": "property",
+            "name": "sansha",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 129,
+            "description": "The Blood Raider Covenant damage profile.",
+            "itemtype": "property",
+            "name": "bloodRaider",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 135,
+            "description": "The Amarr Empire damage profile.",
+            "itemtype": "property",
+            "name": "amarr",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 145,
+            "description": "The Serpentis damage profile.",
+            "itemtype": "property",
+            "name": "serpentis",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 151,
+            "description": "The Caldari damage profile.",
+            "itemtype": "property",
+            "name": "caldari",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 160,
+            "description": "The Gallente Federation damage profile.",
+            "itemtype": "property",
+            "name": "gallente",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 168,
+            "description": "The Minmatar damage profile.",
+            "itemtype": "property",
+            "name": "minmatar",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 176,
+            "description": "The Mercenaries (?) damage profile.",
+            "itemtype": "property",
+            "name": "mercenaries",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 184,
+            "description": "The Rogue Drone damage profile.",
+            "itemtype": "property",
+            "name": "drones",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 193,
+            "description": "The damage profile used by the in-game fitting tool. CCP uses a different strategy, they use the weakest of a pool's four resists to generate the EHP.",
+            "itemtype": "property",
+            "name": "eve",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 210,
+            "description": "HpPools will fall back to this damage profile if no damageProfile is provided to the instance. Defaults to the EFT profile.",
+            "itemtype": "property",
+            "name": "sharedDamageProfile",
+            "type": "esc.DamageProfile",
+            "static": 1,
+            "class": "esc.DamageProfile",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 240,
+            "itemtype": "property",
+            "name": "hp",
+            "type": "Number",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 245,
+            "itemtype": "property",
+            "name": "emResonance",
+            "type": "Number",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 250,
+            "itemtype": "property",
+            "name": "explosiveResonance",
+            "type": "Number",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 255,
+            "itemtype": "property",
+            "name": "kineticResonance",
+            "type": "Number",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 260,
+            "itemtype": "property",
+            "name": "thermalResonance",
+            "type": "Number",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 265,
+            "itemtype": "property",
+            "name": "damageProfile",
+            "type": "esc.DamageProfile",
+            "default": "null",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 277,
+            "itemtype": "property",
+            "name": "emResistance",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 283,
+            "itemtype": "property",
+            "name": "explosiveResistance",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 289,
+            "itemtype": "property",
+            "name": "kineticResistance",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 295,
+            "itemtype": "property",
+            "name": "thermalResistance",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 301,
+            "description": "The effective hit points of this damage pool, calculated by:\n    \n`EHP = HP / (1-RST)`\n    \nSource: <http://community.eveonline.com/ingameboard.asp?a=topic&threadID=780756>",
+            "itemtype": "property",
+            "name": "ehp",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.HpPool",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/hp-pool.js",
+            "line": 343,
+            "itemtype": "property",
+            "name": "rechargeRate",
+            "type": "Number",
+            "class": "esc.Shield",
+            "module": "esc-hp-pool",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship-properties.js",
+            "line": 30,
+            "description": "Returns the highest of the radar strengths, since each ship really only has one radar strength type.",
+            "itemtype": "property",
+            "name": "strength",
+            "readonly": "",
+            "class": "esc.Sensors",
+            "module": "esc-ship-properties",
+            "namespace": "esc"
+        },
+        {
+            "file": "shared/model/ship-properties.js",
+            "line": 185,
+            "description": "A read-only synthetic property that's the peak recharge rate of a capacitor.\n    \nThe peak recharge of a capacitor appears to happen on or near the 25% mark and is defined by:\n\n`dC/dt = ( SQRT( Cx/Cmax ) - C/Cmax ) * 2 * Cmax / tau`\n\nWhere:\n\n* `dC/dt` is the amount the capacitor will recharge per second\n* `Cx` is the current amount of energy in the capacitor\n* `Cmax` is the total amount of energy in a fully-charged capacitor\n* `tau` is a constant that's either t/5 or t/4.8 where t is the recharge rate in seconds. (I chose 5) \n\nSource: <http://wiki.eveonline.com/en/wiki/Capacitor_recharge_rate>",
+            "itemtype": "property",
+            "name": "peakRecharge",
+            "type": "Number",
+            "readonly": "",
+            "class": "esc.Capacitor",
+            "module": "esc-ship-properties",
+            "namespace": "esc"
+        }
+    ],
+    "warnings": []
+}
