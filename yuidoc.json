@@ -1,18 +1,19 @@
 {
-    "name": "Eve Ship Comparator API",
-    "description": "A set of classes for interacting with Eve Online ship data.",
-    "version": "0.0.1",
-    "url": "http://eve-ship-comparator.herokuapp.com",
-    "options": {
-        "linkNatives": true,
+    "name"        : "Eve Ship Comparator API",
+    "description" : "A set of classes for interacting with Eve Online ship data.",
+    "version"     : "0.0.1",
+    "url"         : "http://eve-ship-comparator.herokuapp.com",
+    "options"     : {
+        "linkNatives" : true,
 
-        "paths": [ 
+        "paths"    : [
             "./shared",
-            "./server"
+            "./server",
+            "./client"
         ],
-        "outdir": "./apidocs",
-        "external": {
-            "data": "http://yuilibrary.com/yui/docs/api/data.json"
+        "outdir"   : "./apidocs",
+        "external" : {
+            "data" : "http://yuilibrary.com/yui/docs/api/data.json"
         }
     }
 }
