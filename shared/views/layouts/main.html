@@ -5,11 +5,16 @@
         <link id="main-styles" rel="stylesheet" href="/css/ship-comparator.css" />
     </head>
     <body id="eve-ship-comparator" class="yui3-skin-night yui3-app">
-        <%== $(this.page.template, this.page.model) %>
-        
+        <div id="application-body">
+            <%== $(this.page.template, this.page.model) %>
+        </div>
+
         <script>
         // ESC_CONFIG
         <%== this.javascript %>
+        </script>
+        <script>
+            ESC_MODEL = <%== JSON.stringify(this.page) %>;
         </script>
         <script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
         <script src="js/templates.js"></script>

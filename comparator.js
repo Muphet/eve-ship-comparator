@@ -19,7 +19,7 @@ Y.use('esc-micro-template', 'esc-ship-service', 'esc-skill-service', function(Y)
     app.engine('html', function(path, options, fn) {
         if(typeof options === 'function') {
             fn = options;
-            options - {};
+            options = {};
         }
         
         options.filename = path;
