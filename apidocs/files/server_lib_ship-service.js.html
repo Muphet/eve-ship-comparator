@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>server&#x2F;lib&#x2F;ship-service.js - Eve Ship Comparator API</title>
+    <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
+    <link rel="shortcut icon" type="image/png" href="..&#x2F;assets/favicon.png">
+    <script src="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;combo?3.8.0pr2&#x2F;build&#x2F;yui&#x2F;yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+
+<div id="doc">
+    <div id="hd" class="yui3-g header">
+        <div class="yui3-u-3-4">
+            
+                <h1><img src="..&#x2F;assets/css/logo.png" title="Eve Ship Comparator API"></h1>
+            
+        </div>
+        <div class="yui3-u-1-4 version">
+            <em>API Docs for: 0.0.1</em>
+        </div>
+    </div>
+    <div id="bd" class="yui3-g">
+
+        <div class="yui3-u-1-4">
+            <div id="docs-sidebar" class="sidebar apidocs">
+                <div id="api-list">
+    <h2 class="off-left">APIs</h2>
+    <div id="api-tabview" class="tabview">
+        <ul class="tabs">
+            <li><a href="#api-classes">Classes</a></li>
+            <li><a href="#api-modules">Modules</a></li>
+        </ul>
+
+        <div id="api-tabview-filter">
+            <input type="search" id="api-filter" placeholder="Type to filter APIs">
+        </div>
+
+        <div id="api-tabview-panel">
+            <ul id="api-classes" class="apis classes">
+            
+                <li><a href="..&#x2F;classes/esc.Capacitor.html">esc.Capacitor</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Capacity.html">esc.Capacity</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.CompareView.html">esc.CompareView</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Criteria.html">esc.Criteria</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.DamageProfile.html">esc.DamageProfile</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Database.html">esc.Database</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Drones.html">esc.Drones</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Heat.html">esc.Heat</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.HpPool.html">esc.HpPool</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.JumpDrive.html">esc.JumpDrive</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.MicroTemplate.html">esc.MicroTemplate</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Promise.html">esc.Promise</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Promise.Resolver.html">esc.Promise.Resolver</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Query.html">esc.Query</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Select.html">esc.Select</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Sensors.html">esc.Sensors</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Shield.html">esc.Shield</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Ship.html">esc.Ship</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.ShipService.html">esc.ShipService</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Skill.html">esc.Skill</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirement.html">esc.SkillRequirement</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.SkillRequirements.html">esc.SkillRequirements</a></li>
+            
+                <li><a href="..&#x2F;classes/esc.Slots.html">esc.Slots</a></li>
+            
+            </ul>
+
+            <ul id="api-modules" class="apis modules">
+            
+                <li><a href="..&#x2F;modules/esc-compare-view.html">esc-compare-view</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-hp-pool.html">esc-hp-pool</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-micro-template.html">esc-micro-template</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-promise.html">esc-promise</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-select.html">esc-select</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-ship.html">esc-ship</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-ship-properties.html">esc-ship-properties</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-ship-service.html">esc-ship-service</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-skill.html">esc-skill</a></li>
+            
+                <li><a href="..&#x2F;modules/esc-sqlite.html">esc-sqlite</a></li>
+            
+            </ul>
+        </div>
+    </div>
+</div>
+
+            </div>
+        </div>
+        <div class="yui3-u-3-4">
+                <div id="api-options">
+        Show:
+        <label for="api-show-inherited">
+            <input type="checkbox" id="api-show-inherited" checked>
+            Inherited
+        </label>
+
+        <label for="api-show-protected">
+            <input type="checkbox" id="api-show-protected">
+            Protected
+        </label>
+
+        <label for="api-show-private">
+            <input type="checkbox" id="api-show-private">
+            Private
+        </label>
+        <label for="api-show-deprecated">
+            <input type="checkbox" id="api-show-deprecated">
+            Deprecated
+        </label>
+
+    </div>
+
+
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+                        <h1 class="file-heading">File: server&#x2F;lib&#x2F;ship-service.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*global YUI*&#x2F;
+
+&#x2F;**
+ @module esc-ship-service
+ @namespace esc
+ **&#x2F;
+YUI.add(&#x27;esc-ship-service&#x27;, function (Y) {
+    &quot;use strict&quot;;
+
+    var NS = Y.namespace(&#x27;esc&#x27;),
+        UNDEFINED,
+
+        markdown = YUI.require(&quot;node-markdown&quot;).Markdown,
+        toMarkdown = YUI.require(&#x27;to-markdown&#x27;).toMarkdown,
+
+        select = NS.Select;
+
+    function setValue(o, path, val) {
+        var i,
+            p = path.split(&#x27;.&#x27;),
+            leafIndex = p.length - 1,
+            ref = o;
+
+        for (i = 0; i &lt; leafIndex; i += 1) {
+            if (ref[p[i]] === UNDEFINED) {
+                ref[p[i]] = {};
+            }
+            ref = ref[p[i]];
+        }
+
+        ref[p[i]] = val;
+
+        return o;
+    }
+
+    function getValue(o, path) {
+        var i,
+            p = path.split(&#x27;.&#x27;),
+            l = p.length;
+
+        for (i = 0; o !== UNDEFINED &amp;&amp; i &lt; l; i += 1) {
+            o = o[p[i]];
+        }
+
+        return o;
+    }
+
+    &#x2F;**
+    @class ShipService
+    @constructor
+    **&#x2F;
+
+    function ShipService(database, skillService) {
+        this.db = database;
+        this.skillService = skillService;
+    }
+
+    &#x2F;**
+     @property TYPE_ID_COLUMNS {Object}
+     @static
+     **&#x2F;
+    ShipService.TYPE_ID_COLUMNS = {
+        invTypes        : [
+            &#x27;typeID&#x27;, &#x27;typeName&#x27;, &#x27;raceID&#x27;, &#x27;groupID&#x27;, &#x27;marketGroupID&#x27;, &#x27;published&#x27;, &#x27;capacity&#x27;, &#x27;description&#x27;
+        ],
+        invGroups       : [
+            &#x27;groupID&#x27;, &#x27;groupName&#x27;, &#x27;categoryID&#x27;
+        ],
+        invmarketgroups : [
+            &#x27;marketGroupID&#x27;, &#x27;marketGroupName&#x27;
+        ]
+    };
+
+    &#x2F;**
+     @property ATTRIBUTE_COLUMNS {Object}
+     @static
+     **&#x2F;
+    ShipService.ATTRIBUTE_COLUMNS = {
+        dgmAttributeTypes : [ &#x27;attributeID&#x27;, &#x27;attributeName&#x27;, &#x27;displayName&#x27;, &#x27;published&#x27; ],
+        dgmTypeAttributes : [ &#x27;typeID&#x27;, &#x27;value&#x27; ]
+    };
+
+    &#x2F;**
+     @property SKILL_COLUMNS {Object}
+     @static
+     **&#x2F;
+    ShipService.SKILL_COLUMNS = {
+        &quot;dgmTypeAttributes AS SkillName&quot;  : [ &#x27;value AS skillId&#x27;, &#x27;typeID&#x27; ],
+        &quot;dgmTypeAttributes AS SkillLevel&quot; : [ &#x27;attributeId&#x27;, &#x27;value&#x27; ]
+    };
+
+    &#x2F;**
+     @property SEARCH_QUERY {esc.Select}
+     @static
+     **&#x2F;
+    ShipService.SEARCH_QUERY = select.from(ShipService.TYPE_ID_COLUMNS)
+        .where(&#x27;invGroups.categoryID&#x27;).is(6)
+        .and(&#x27;invTypes.published&#x27;).is(1)
+        .and(&#x27;invTypes.marketGroupID&#x27;).is(&#x27;invmarketgroups.marketGroupID&#x27;)
+        .and(&#x27;invTypes.groupID&#x27;).is(&#x27;invGroups.groupID&#x27;)
+        .and(function (ids) {
+            ids = Array.isArray(ids) ? ids : [ ids ];
+
+            return &#x27;( &#x27; + ids.map(function (t) {
+                var out;
+                if (isNaN(parseInt(t, 10))) {
+                    out = &quot;invTypes.typeName LIKE &#x27;%&quot; + t + &quot;%&#x27; OR invGroups.groupName LIKE &#x27;%&quot; + t + &quot;%&#x27;&quot;;
+                } else {
+                    out = &quot;invTypes.typeID == &quot; + parseInt(t, 10);
+                }
+                return out;
+            }).join(&#x27; OR &#x27;) + &#x27; )&#x27;;
+        });
+
+    &#x2F;**
+     @property ATTRIBUTE_QUERY {esc.Select}
+     @static
+     **&#x2F;
+    ShipService.ATTRIBUTE_QUERY = select.from(ShipService.ATTRIBUTE_COLUMNS)
+        .where(&#x27;dgmAttributeTypes.attributeID&#x27;).is(&#x27;dgmTypeAttributes.attributeID&#x27;)
+        .and(&#x27;published&#x27;).is(1)
+        .and(function (ids) {
+            ids = Array.isArray(ids) ? ids : [ ids ];
+
+            return &#x27;( &#x27; + ids.map(function (id) {
+                return &#x27;dgmTypeAttributes.typeID == &#x27; + id;
+            }).join(&#x27; OR &#x27;) + &#x27; )&#x27;;
+        });
+
+    &#x2F;**
+     @property SKILL_QUERY {esc.Select}
+     @static
+     **&#x2F;
+    ShipService.SKILL_QUERY = select.from(ShipService.SKILL_COLUMNS)
+        .where(&#x27;SkillLevel.typeID&#x27;).is(&#x27;SkillName.typeID&#x27;)
+        .and(function (ids) {
+            ids = Array.isArray(ids) ? ids : [ ids ];
+
+            return &#x27;( &#x27; + ids.map(function (t) {
+                return &quot;SkillName.typeID == &quot; + parseInt(t, 10);
+            }).join(&#x27; OR &#x27;) + &#x27; )&#x27;;
+        })
+        .and((function () {
+            var joinCriteria,
+                pointer,
+                mappings = {
+                    &#x27;182&#x27;  : 277,
+                    &#x27;183&#x27;  : 278,
+                    &#x27;184&#x27;  : 279,
+                    &#x27;1285&#x27; : 1286,
+                    &#x27;1289&#x27; : 1287,
+                    &#x27;1290&#x27; : 1288
+                };
+
+            Y.Object.each(mappings, function (value, key) {
+                var c = new NS.Criteria(&#x27;SkillName.attributeID&#x27;).is(key);
+
+                c.and(&#x27;SkillLevel.attributeID&#x27;).is(value);
+
+                if (pointer) {
+                    pointer = pointer.or(c);
+                } else {
+                    joinCriteria = pointer = new NS.Criteria(c);
+                }
+            });
+
+            return joinCriteria;
+        }()));
+
+    &#x2F;**
+     @property ROW_PROPERTY_MAPPINGS {Object}
+     @static
+     **&#x2F;
+    ShipService.ROW_PROPERTY_MAPPINGS = {
+        &#x2F;&#x2F; Basic ship properties
+        &#x27;typeID&#x27;                                    : &#x27;id&#x27;,
+        &#x27;typeName&#x27;                                  : &#x27;name&#x27;,
+        &#x27;groupName&#x27;                                 : &#x27;type&#x27;,
+        &#x27;description&#x27;                               : &#x27;description&#x27;,
+        &#x27;marketGroupName&#x27;                           : &#x27;race&#x27;,
+        &#x27;attributes.metaLevel&#x27;                      : &#x27;meta&#x27;,
+        &#x27;attributes.techLevel&#x27;                      : &#x27;techLevel&#x27;,
+        &#x27;attributes.signatureRadius&#x27;                : &#x27;signature&#x27;,
+        &#x27;attributes.agility&#x27;                        : &#x27;agility&#x27;,
+        &#x27;attributes.maxVelocity&#x27;                    : &#x27;velocity&#x27;,
+        &#x27;attributes.warpSpeedMultiplier&#x27;            : &#x27;warpSpeed&#x27;,
+        &#x27;attributes.cpuOutput&#x27;                      : &#x27;cpu&#x27;,
+        &#x27;attributes.powerOutput&#x27;                    : &#x27;powerGrid&#x27;,
+
+        &#x2F;&#x2F; Capacity
+        &#x27;capacity&#x27;                                  : &#x27;capacity.cargo&#x27;,
+        &#x27;attributes.shipMaintenanceBayCapacity&#x27;     : &#x27;capacity.shipMaintenenance&#x27;,
+        &#x27;attributes.fleetHangarCapacity&#x27;            : &#x27;capacity.fleetHangar&#x27;,
+        &#x27;attributes.maxJumpClones&#x27;                  : &#x27;capacity.jumpClones&#x27;,
+        &#x27;attributes.specialFuelBayCapacity&#x27;         : &#x27;capacity.fuel&#x27;,
+        &#x27;attributes.specialOreHoldCapacity&#x27;         : &#x27;capacity.ore&#x27;,
+
+        &#x2F;&#x2F; Sensors
+        &#x27;attributes.maxLockedTargets&#x27;               : &#x27;sensors.lockedTargets&#x27;,
+        &#x27;attributes.maxTargetRange&#x27;                 : &#x27;sensors.range&#x27;,
+        &#x27;attributes.scanResolution&#x27;                 : &#x27;sensors.resolution&#x27;,
+        &#x27;attributes.scanGravimetricStrength&#x27;        : &#x27;sensors.gravimetricStrength&#x27;,
+        &#x27;attributes.scanMagnetometricStrength&#x27;      : &#x27;sensors.magnetometricStrength&#x27;,
+        &#x27;attributes.scanRadarStrength&#x27;              : &#x27;sensors.radarStrength&#x27;,
+        &#x27;attributes.scanLadarStrength&#x27;              : &#x27;sensors.ladarStrength&#x27;,
+
+        &#x2F;&#x2F; Slots
+        &#x27;attributes.hiSlots&#x27;                        : &#x27;slots.high&#x27;,
+        &#x27;attributes.medSlots&#x27;                       : &#x27;slots.medium&#x27;,
+        &#x27;attributes.lowSlots&#x27;                       : &#x27;slots.low&#x27;,
+        &#x27;attributes.rigSlots&#x27;                       : &#x27;slots.rig&#x27;,
+        &#x27;attributes.upgradeCapacity&#x27;                : &#x27;slots.rigCalibration&#x27;,
+        &#x27;attributes.turretSlotsLeft&#x27;                : &#x27;slots.turrets&#x27;,
+        &#x27;attributes.launcherSlotsLeft&#x27;              : &#x27;slots.launchers&#x27;,
+
+        &#x2F;&#x2F; Capacitor
+        &#x27;attributes.capacitorCapacity&#x27;              : &#x27;capacitor.capacity&#x27;,
+        &#x27;attributes.rechargeRate&#x27;                   : &#x27;capacitor.recharge&#x27;,
+
+        &#x2F;&#x2F; Drones
+        &#x27;attributes.droneBandwidth&#x27;                 : &#x27;drones.bandwidth&#x27;,
+        &#x27;attributes.droneCapacity&#x27;                  : &#x27;drones.capacity&#x27;,
+
+        &#x2F;&#x2F; Heat
+        &#x27;attributes.heatGenerationMultiplier&#x27;       : &#x27;heat.generationMultiplier&#x27;,
+        &#x27;attributes.heatAttenuationHi&#x27;              : &#x27;heat.highAttenuation&#x27;,
+        &#x27;attributes.heatAttenuationMed&#x27;             : &#x27;heat.mediumAttenuation&#x27;,
+        &#x27;attributes.heatAttenuationLow&#x27;             : &#x27;heat.lowAttenuation&#x27;,
+        &#x27;attributes.heatDissipationRateHi&#x27;          : &#x27;heat.highDissipation&#x27;,
+        &#x27;attributes.heatDissipationRateMed&#x27;         : &#x27;heat.mediumDissipation&#x27;,
+        &#x27;attributes.heatDissipationRateLow&#x27;         : &#x27;heat.lowDissipation&#x27;,
+        &#x27;attributes.heatCapacityHi&#x27;                 : &#x27;heat.highCapacity&#x27;,
+        &#x27;attributes.heatCapacityMed&#x27;                : &#x27;heat.mediumCapacity&#x27;,
+        &#x27;attributes.heatCapacityLow&#x27;                : &#x27;heat.lowCapacity&#x27;,
+
+        &#x2F;&#x2F; Hull
+        &#x27;attributes.hp&#x27;                             : &#x27;hull.hp&#x27;,
+        &#x27;attributes.emDamageResonance&#x27;              : &#x27;hull.emResonance&#x27;,
+        &#x27;attributes.explosiveDamageResonance&#x27;       : &#x27;hull.explosiveResonance&#x27;,
+        &#x27;attributes.kineticDamageResonance&#x27;         : &#x27;hull.kineticResonance&#x27;,
+        &#x27;attributes.thermalDamageResonance&#x27;         : &#x27;hull.thermalResonance&#x27;,
+
+        &#x2F;&#x2F; Armor
+        &#x27;attributes.armorHP&#x27;                        : &#x27;armor.hp&#x27;,
+        &#x27;attributes.armorEmDamageResonance&#x27;         : &#x27;armor.emResonance&#x27;,
+        &#x27;attributes.armorExplosiveDamageResonance&#x27;  : &#x27;armor.explosiveResonance&#x27;,
+        &#x27;attributes.armorKineticDamageResonance&#x27;    : &#x27;armor.kineticResonance&#x27;,
+        &#x27;attributes.armorThermalDamageResonance&#x27;    : &#x27;armor.thermalResonance&#x27;,
+
+        &#x2F;&#x2F; Shield
+        &#x27;attributes.shieldCapacity&#x27;                 : &#x27;shield.hp&#x27;,
+        &#x27;attributes.shieldEmDamageResonance&#x27;        : &#x27;shield.emResonance&#x27;,
+        &#x27;attributes.shieldExplosiveDamageResonance&#x27; : &#x27;shield.explosiveResonance&#x27;,
+        &#x27;attributes.shieldKineticDamageResonance&#x27;   : &#x27;shield.kineticResonance&#x27;,
+        &#x27;attributes.shieldThermalDamageResonance&#x27;   : &#x27;shield.thermalResonance&#x27;,
+        &#x27;attributes.shieldRechargeRate&#x27;             : &#x27;shield.recharge&#x27;,
+
+        &#x2F;&#x2F; Jump Drive
+        &#x27;attributes.canJump&#x27;                        : &#x27;jumpDrive.canJump&#x27;,
+        &#x27;attributes.jumpDriveConsumptionType&#x27;       : &#x27;jumpDrive.fuelType&#x27;,
+        &#x27;attributes.jumpDriveRange&#x27;                 : &#x27;jumpDrive.range&#x27;,
+        &#x27;attributes.jumpDriveConsumptionAmount&#x27;     : &#x27;jumpDrive.fuelConsumption&#x27;,
+        &#x27;attributes.jumpDriveCapacitorNeed&#x27;         : &#x27;jumpDrive.capacitorNeed&#x27;,
+
+        &#x2F;&#x2F; Skill Requirements
+        &#x27;attributes.requiredSkill1&#x27;                 : &#x27;skillRequirements.primary.id&#x27;,
+        &#x27;attributes.requiredSkill1Level&#x27;            : &#x27;skillRequirements.primary.level&#x27;,
+        &#x27;attributes.requiredSkill2&#x27;                 : &#x27;skillRequirements.secondary.id&#x27;,
+        &#x27;attributes.requiredSkill2Level&#x27;            : &#x27;skillRequirements.secondary.level&#x27;,
+        &#x27;attributes.requiredSkill3&#x27;                 : &#x27;skillRequirements.tertiary.id&#x27;,
+        &#x27;attributes.requiredSkill3Level&#x27;            : &#x27;skillRequirements.tertiary.level&#x27;
+    };
+
+    Y.mix(ShipService.prototype, {
+        &#x2F;**
+         @property skillService {esc.SkillService}
+         **&#x2F;
+        skillService : null,
+
+        &#x2F;**
+         @property db {esc.Database}
+         **&#x2F;
+        db           : null,
+
+        &#x2F;**
+         @method search
+         @param query {String|Number\Array} A single or list of ids, ship names, or ship types.
+         @return {esc.Query} A promise of ships.
+         **&#x2F;
+        search : function (query) {
+            var d = this.db;
+
+            return this.db.all(ShipService.SEARCH_QUERY.exec(query))
+                .then(this.cleanDescription.bind(this))
+                .then(this.queryAttributes.bind(this))
+                .then(this.querySkills.bind(this))
+                .then(this.mapResultsToShips.bind(this))
+                .then(this.resolveSkills.bind(this));
+        },
+
+        &#x2F;**
+         @method resolveSkills
+         @private
+         @param ships {Object[]}
+         @return {esc.SkillService} A promise of ships.
+         **&#x2F;
+        resolveSkills : function (ships) {
+            var out,
+                i,
+                l,
+                requiredSkills = {};
+
+            if (this.skillService) {
+                if (ships.length === 0) {
+                    return ships;
+                }
+
+                for (i = 0, l = ships.length; i &lt; l; i += 1) {
+                    ships[i].skillRequirements.skills.forEach(function (sr) {
+                        if (sr &amp;&amp; sr.id) {
+                            requiredSkills[sr.id] = true;
+                        }
+                    });
+                }
+
+                out = this.skillService.getSkill(Object.keys(requiredSkills)).then(function (skills) {
+                    skills = Array.isArray(skills) ? skills : [ skills ];
+                    var i, l;
+
+                    for (i = 0, l = ships.length; i &lt; l; i += 1) {
+                        ships[i].skillRequirements.skills.forEach(function (sr) {
+                            skills.forEach(function (sk) {
+                                if (sk.id === sr.id) {
+                                    sr.skill = sk;
+                                }
+                            });
+                        });
+                    }
+
+                    return ships;
+                });
+            } else {
+                out = ships;
+            }
+
+            return out;
+        },
+
+        &#x2F;**
+         @method queryAttributes
+         @private
+         @param ships {Object[]}
+         @return {esc.Query} A promise of ships.
+         **&#x2F;
+        queryAttributes : function (ships) {
+            if (ships.length === 0) {
+                return ships;
+            }
+
+            var ids = ships.map(function (s) {
+                return s.typeID;
+            });
+
+            return this.db.all(ShipService.ATTRIBUTE_QUERY.exec(ids)).then(function (attrs) {
+                var attrMap = {},
+                    item, i, l;
+
+                for (i = 0, l = attrs.length; i &lt; l; i += 1) {
+                    item = attrs[i];
+
+                    if (!attrMap[item.typeID]) {
+                        attrMap[item.typeID] = {};
+                    }
+
+                    attrMap[item.typeID][item.attributeName] = item.value;
+                }
+
+                for (i = 0, l = ships.length; i &lt; l; i += 1) {
+                    item = ships[i];
+
+                    if (attrMap[item.typeID]) {
+                        item.attributes = attrMap[item.typeID];
+                    }
+                }
+
+                return ships;
+            });
+        },
+
+        &#x2F;**
+         @method querySkills
+         @private
+         @param ships {Object[]}
+         @return {esc.Query} A promise of ships.
+         **&#x2F;
+        querySkills : function (ships) {
+            if (ships.length === 0) {
+                return ships;
+            }
+
+            var ids = ships.map(function (s) {
+                return s.typeID;
+            });
+
+            return this.db.all(ShipService.SKILL_QUERY.exec(ids)).then(function (skills) {
+                var skillMap = {},
+                    item, i, l, attrs;
+
+                for (i = 0, l = skills.length; i &lt; l; i += 1) {
+                    item = skills[i];
+
+                    if (!skillMap[item.typeID]) {
+                        skillMap[item.typeID] = {};
+                    }
+
+                    skillMap[item.typeID][item.skillId] = item.value;
+                }
+
+                for (i = 0, l = ships.length; i &lt; l; i += 1) {
+                    item = ships[i];
+                    attrs = item.attributes;
+
+                    if (skillMap[item.typeID]) {
+                        if (skillMap[item.typeID][attrs.requiredSkill1]) {
+                            attrs.requiredSkill1Level = skillMap[item.typeID][attrs.requiredSkill1];
+                        }
+                        if (skillMap[item.typeID][attrs.requiredSkill2]) {
+                            attrs.requiredSkill2Level = skillMap[item.typeID][attrs.requiredSkill2];
+                        }
+                        if (skillMap[item.typeID][attrs.requiredSkill3]) {
+                            attrs.requiredSkill2Level = skillMap[item.typeID][attrs.requiredSkill3];
+                        }
+                    }
+                }
+
+                return ships;
+            });
+        },
+
+        &#x2F;**
+         @method cleanDescription
+         @private
+         @param ships {Object[]}
+         @return {esc.SkillService} A promise of ships.
+         **&#x2F;
+        cleanDescription : function (ships) {
+            &#x2F;*jslint continue:true, regexp:true *&#x2F;
+
+            var i, l, ship, desc;
+            for (i = 0, l = ships.length; i &lt; l; i += 1) {
+                ship = ships[i];
+
+                if (!ship.description) {
+                    continue; &#x2F;&#x2F; NOTE CONTINUE
+                }
+
+                &#x2F;&#x2F; Fix the newline horribleness,
+                desc = ship.description.
+                    replace(&#x2F;\\n\\n&#x2F;g, &#x27;\n\n&#x27;).&#x2F;&#x2F; replace stupid &#x2F;r&#x2F;n with double newline (that seems to be the intent)
+                    replace(&#x2F;(\\r){0,1}\\n&#x2F;g, &#x27;  \n&#x27;).&#x2F;&#x2F; replace single newlines with markdown-style brs
+                    replace(&#x2F;\\u([A-Fa-f0-9]{4})&#x2F;g, &#x27;&amp;#x$1;&#x27;).&#x2F;&#x2F; replace unicode characters with html entities
+                    replace(&#x2F;&lt;a[^&gt;]+&gt;&#x2F;ig, &#x27;&#x27;).&#x2F;&#x2F; strip any inline links, since they&#x27;re Eve-specific
+                    replace(&#x2F;\n[^\n\S]+&#x2F;g, &#x27;\n&#x27;).&#x2F;&#x2F; strip leading whitespace to prevent preformatted markdown text
+                    replace(&#x2F;\n-&#x2F;, &#x27;\n&amp;mdash;&#x27;); &#x2F;&#x2F; replace leading dash with an emdash for strategic cruiser text
+
+                &#x2F;&#x2F; Convert the remaining html to markdown
+                desc = toMarkdown(desc);
+
+                &#x2F;&#x2F; Strip out any remaining markup that can&#x27;t be represented by markdown
+                desc = desc.replace(&#x2F;(&lt;([^&gt;]+)&gt;)&#x2F;ig, &#x27;&#x27;);
+
+                &#x2F;&#x2F; Convert the markdown to HTML.
+                ship.description = markdown(desc);
+            }
+
+            &#x2F;*jslint continue:false, regexp:false *&#x2F;
+
+            return ships;
+        },
+
+        &#x2F;**
+         @method mapResultsToShips
+         @private
+         @param ships {Object[]}
+         @return {esc.Ships[]}
+         **&#x2F;
+        mapResultsToShips : function (ships) {
+            var i, l;
+
+            if (ships.length === 0) {
+                return ships;
+            }
+
+            for (i = 0, l = ships.length; i &lt; l; i += 1) {
+                ships[i] = new NS.Ship(this.mapDatabaseRowToShip(ships[i]));
+            }
+
+            return ships;
+        },
+
+        &#x2F;**
+         @method mapDatabaseRowToShip
+         @private
+         @param ships {Object[]}
+         @return {Object[]}
+         **&#x2F;
+        mapDatabaseRowToShip : function (dbRow) {
+            var ship = {},
+                mappings = ShipService.ROW_PROPERTY_MAPPINGS,
+                dbValue,
+                dbProperty,
+                shipProperty;
+
+            for (dbProperty in mappings) {
+                if (mappings.hasOwnProperty(dbProperty)) {
+                    shipProperty = mappings[dbProperty];
+                    dbValue = getValue(dbRow, dbProperty);
+
+                    if (dbValue !== UNDEFINED) {
+                        setValue(ship, shipProperty, dbValue);
+                    }
+                }
+            }
+
+            return ship;
+        }
+    });
+
+    NS.ShipService = ShipService;
+
+}, &#x27;&#x27;, {
+    requires : [ &#x27;esc-sqlite&#x27;, &#x27;esc-select&#x27;, &#x27;esc-ship&#x27; ]
+});
+    </pre>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="..&#x2F;assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="..&#x2F;assets/js/yui-prettify.js"></script>
+<script src="..&#x2F;assets/../api.js"></script>
+<script src="..&#x2F;assets/js/api-filter.js"></script>
+<script src="..&#x2F;assets/js/api-list.js"></script>
+<script src="..&#x2F;assets/js/api-search.js"></script>
+<script src="..&#x2F;assets/js/apidocs.js"></script>
+</body>
+</html>

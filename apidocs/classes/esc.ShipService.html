@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>esc.MicroTemplate - Eve Ship Comparator API</title>
+    <title>esc.ShipService - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -146,7 +146,7 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>esc.MicroTemplate Class</h1>
+                        <h1>esc.ShipService Class</h1>
 <div class="box meta">
     
 
@@ -154,13 +154,13 @@
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l13"><code>shared&#x2F;utils&#x2F;micro-template.js:13</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l48"><code>server&#x2F;lib&#x2F;ship-service.js:48</code></a>
         </div>
     
 
     
         
-            Module: <a href="../modules/esc-micro-template.html">esc-micro-template</a>
+            Module: <a href="../modules/esc-ship-service.html">esc-ship-service</a>
         
     
 
@@ -173,6 +173,63 @@
     
 </div>
 
+
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_esc.ShipService" class="method item">
+    <h3 class="name"><code>esc.ShipService</code></h3>
+
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l48"><code>server&#x2F;lib&#x2F;ship-service.js:48</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+    </div>
 
 
 <div id="classdocs" class="tabview">
@@ -199,56 +256,51 @@
 
                     <ul class="index-list methods">
                         
-                            <li class="index-item method">
-                                <a href="#method_compile">compile</a>
+                            <li class="index-item method private">
+                                <a href="#method_cleanDescription">cleanDescription</a>
 
                                 
-                                    <span class="flag static">static</span>
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_mapDatabaseRowToShip">mapDatabaseRowToShip</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_mapResultsToShips">mapResultsToShips</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_queryAttributes">queryAttributes</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_querySkills">querySkills</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item method private">
+                                <a href="#method_resolveSkills">resolveSkills</a>
+
                                 
                                 
                             </li>
                         
                             <li class="index-item method">
-                                <a href="#method_escape">escape</a>
+                                <a href="#method_search">search</a>
 
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_include">include</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_precompile">precompile</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_render">render</a>
-
-                                
-                                    <span class="flag static">static</span>
-                                
-                                
-                            </li>
-                        
-                            <li class="index-item method">
-                                <a href="#method_revive">revive</a>
-
-                                
-                                    <span class="flag static">static</span>
                                 
                                 
                             </li>
@@ -264,7 +316,7 @@
                     <ul class="index-list properties">
                         
                             <li class="index-item property">
-                                <a href="#property_OPTIONS">OPTIONS</a>
+                                <a href="#property_ATTRIBUTE_COLUMNS">ATTRIBUTE_COLUMNS</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -273,7 +325,7 @@
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_STRING_ESCAPE">STRING_ESCAPE</a>
+                                <a href="#property_ATTRIBUTE_QUERY">ATTRIBUTE_QUERY</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -282,7 +334,57 @@
                             </li>
                         
                             <li class="index-item property">
-                                <a href="#property_TEMPLATE_ESCAPE">TEMPLATE_ESCAPE</a>
+                                <a href="#property_db">db</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_ROW_PROPERTY_MAPPINGS">ROW_PROPERTY_MAPPINGS</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SEARCH_QUERY">SEARCH_QUERY</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SKILL_COLUMNS">SKILL_COLUMNS</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_SKILL_QUERY">SKILL_QUERY</a>
+
+                                
+                                    <span class="flag static">static</span>
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_skillService">skillService</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_TYPE_ID_COLUMNS">TYPE_ID_COLUMNS</a>
 
                                 
                                     <span class="flag static">static</span>
@@ -304,8 +406,8 @@
                 <h2 class="off-left">Methods</h2>
 
                 
-                    <div id="method_compile" class="method item">
-    <h3 class="name"><code>compile</code></h3>
+                    <div id="method_cleanDescription" class="method item private">
+    <h3 class="name"><code>cleanDescription</code></h3>
 
     
         <div class="args">
@@ -313,13 +415,7 @@
             
                 <li class="arg">
                     
-                        <code>text</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>precompile</code>
+                        <code>ships</code>
                     
                 </li>
             
@@ -329,18 +425,18 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
+            <span class="type">esc.SkillService</span>
         </span>
     
 
     
 
     
-
+        <span class="flag private">private</span>
     
 
     
-        <span class="flag static">static</span>
+
     
 
     
@@ -358,7 +454,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l88"><code>shared&#x2F;utils&#x2F;micro-template.js:88</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l440"><code>server&#x2F;lib&#x2F;ship-service.js:440</code></a>
         
         </p>
 
@@ -380,23 +476,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">text</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">precompile</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+                        <code class="param-name">ships</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
                     
 
                     
@@ -419,8 +500,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>:
+                        <span class="type">esc.SkillService</span>:
                     
+                    A promise of ships.
                 
             </div>
         </div>
@@ -430,8 +512,8 @@
 </div>
 
                 
-                    <div id="method_escape" class="method item">
-    <h3 class="name"><code>escape</code></h3>
+                    <div id="method_mapDatabaseRowToShip" class="method item private">
+    <h3 class="name"><code>mapDatabaseRowToShip</code></h3>
 
     
         <div class="args">
@@ -439,7 +521,7 @@
             
                 <li class="arg">
                     
-                        <code>s</code>
+                        <code>ships</code>
                     
                 </li>
             
@@ -449,18 +531,18 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
         </span>
     
 
     
 
     
-
+        <span class="flag private">private</span>
     
 
     
-        <span class="flag static">static</span>
+
     
 
     
@@ -478,7 +560,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l55"><code>shared&#x2F;utils&#x2F;micro-template.js:55</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l501"><code>server&#x2F;lib&#x2F;ship-service.js:501</code></a>
         
         </p>
 
@@ -500,8 +582,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">s</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">ships</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
                     
 
                     
@@ -524,7 +606,7 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>:
                     
                 
             </div>
@@ -535,8 +617,8 @@
 </div>
 
                 
-                    <div id="method_include" class="method item">
-    <h3 class="name"><code>include</code></h3>
+                    <div id="method_mapResultsToShips" class="method item private">
+    <h3 class="name"><code>mapResultsToShips</code></h3>
 
     
         <div class="args">
@@ -544,117 +626,7 @@
             
                 <li class="arg">
                     
-                        <code>path</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>data</code>
-                    
-                </li>
-            
-            </ul><span class="paren">)</span>
-        </div>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-        <span class="flag static">static</span>
-    
-
-    
-
-    
-
-    <div class="meta">
-        
-            
-                
-                <p>
-                
-                Defined in
-                
-            
-        
-        
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l78"><code>shared&#x2F;utils&#x2F;micro-template.js:78</code></a>
-        
-        </p>
-
-
-        
-
-        
-    </div>
-
-    <div class="description">
-        
-    </div>
-
-    
-        <div class="params">
-            <h4>Parameters:</h4>
-
-            <ul class="params-list">
-            
-                <li class="param">
-                    
-                        <code class="param-name">path</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">data</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-            </ul>
-        </div>
-    
-
-    
-
-    
-</div>
-
-                
-                    <div id="method_precompile" class="method item">
-    <h3 class="name"><code>precompile</code></h3>
-
-    
-        <div class="args">
-            <span class="paren">(</span><ul class="args-list inline commas">
-            
-                <li class="arg">
-                    
-                        <code>text</code>
+                        <code>ships</code>
                     
                 </li>
             
@@ -664,18 +636,18 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+            <span class="type">esc.Ships</span>
         </span>
     
 
     
 
     
-
+        <span class="flag private">private</span>
     
 
     
-        <span class="flag static">static</span>
+
     
 
     
@@ -693,7 +665,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l154"><code>shared&#x2F;utils&#x2F;micro-template.js:154</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l481"><code>server&#x2F;lib&#x2F;ship-service.js:481</code></a>
         
         </p>
 
@@ -715,8 +687,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">text</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">ships</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
                     
 
                     
@@ -739,7 +711,7 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                        <span class="type">esc.Ships</span>:
                     
                 
             </div>
@@ -750,8 +722,8 @@
 </div>
 
                 
-                    <div id="method_render" class="method item">
-    <h3 class="name"><code>render</code></h3>
+                    <div id="method_queryAttributes" class="method item private">
+    <h3 class="name"><code>queryAttributes</code></h3>
 
     
         <div class="args">
@@ -759,13 +731,7 @@
             
                 <li class="arg">
                     
-                        <code>text</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>data</code>
+                        <code>ships</code>
                     
                 </li>
             
@@ -775,18 +741,18 @@
 
     
         <span class="returns-inline">
-            <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+            <span class="type"><a href="../classes/esc.Query.html" class="crosslink">esc.Query</a></span>
         </span>
     
 
     
 
     
-
+        <span class="flag private">private</span>
     
 
     
-        <span class="flag static">static</span>
+
     
 
     
@@ -804,7 +770,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l67"><code>shared&#x2F;utils&#x2F;micro-template.js:67</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l349"><code>server&#x2F;lib&#x2F;ship-service.js:349</code></a>
         
         </p>
 
@@ -826,23 +792,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">text</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">data</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object</a></span>
+                        <code class="param-name">ships</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
                     
 
                     
@@ -865,8 +816,9 @@
             <div class="returns-description">
                 
                     
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>:
+                        <span class="type"><a href="../classes/esc.Query.html" class="crosslink">esc.Query</a></span>:
                     
+                    A promise of ships.
                 
             </div>
         </div>
@@ -876,8 +828,8 @@
 </div>
 
                 
-                    <div id="method_revive" class="method item">
-    <h3 class="name"><code>revive</code></h3>
+                    <div id="method_querySkills" class="method item private">
+    <h3 class="name"><code>querySkills</code></h3>
 
     
         <div class="args">
@@ -885,13 +837,7 @@
             
                 <li class="arg">
                     
-                        <code>precompiled</code>
-                    
-                </li>
-            
-                <li class="arg">
-                    
-                        <code>UNKNOWN</code>
+                        <code>ships</code>
                     
                 </li>
             
@@ -900,15 +846,19 @@
     
 
     
-
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/esc.Query.html" class="crosslink">esc.Query</a></span>
+        </span>
     
 
     
 
     
+        <span class="flag private">private</span>
+    
 
     
-        <span class="flag static">static</span>
+
     
 
     
@@ -926,7 +876,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l164"><code>shared&#x2F;utils&#x2F;micro-template.js:164</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l390"><code>server&#x2F;lib&#x2F;ship-service.js:390</code></a>
         
         </p>
 
@@ -948,23 +898,8 @@
             
                 <li class="param">
                     
-                        <code class="param-name">precompiled</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function" class="crosslink external" target="_blank">Function</a></span>
-                    
-
-                    
-
-                    <div class="param-description">
-                         
-                    </div>
-
-                    
-                </li>
-            
-                <li class="param">
-                    
-                        <code class="param-name">UNKNOWN</code>
-                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a></span>
+                        <code class="param-name">ships</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
                     
 
                     
@@ -980,6 +915,229 @@
         </div>
     
 
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/esc.Query.html" class="crosslink">esc.Query</a></span>:
+                    
+                    A promise of ships.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_resolveSkills" class="method item private">
+    <h3 class="name"><code>resolveSkills</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>ships</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type">esc.SkillService</span>
+        </span>
+    
+
+    
+
+    
+        <span class="flag private">private</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l301"><code>server&#x2F;lib&#x2F;ship-service.js:301</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">ships</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object[]</a></span>
+                    
+
+                    
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type">esc.SkillService</span>:
+                    
+                    A promise of ships.
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+                
+                    <div id="method_search" class="method item">
+    <h3 class="name"><code>search</code></h3>
+
+    
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+            
+                <li class="arg">
+                    
+                        <code>query</code>
+                    
+                </li>
+            
+            </ul><span class="paren">)</span>
+        </div>
+    
+
+    
+        <span class="returns-inline">
+            <span class="type"><a href="../classes/esc.Query.html" class="crosslink">esc.Query</a></span>
+        </span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l285"><code>server&#x2F;lib&#x2F;ship-service.js:285</code></a>
+        
+        </p>
+
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+            
+                <li class="param">
+                    
+                        <code class="param-name">query</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/String" class="crosslink external" target="_blank">String</a> | Number\Array</span>
+                    
+
+                    
+
+                    <div class="param-description">
+                        <p>A single or list of ids, ship names, or ship types.</p>
+                    </div>
+
+                    
+                </li>
+            
+            </ul>
+        </div>
+    
+
+    
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                
+                    
+                        <span class="type"><a href="../classes/esc.Query.html" class="crosslink">esc.Query</a></span>:
+                    
+                    A promise of ships.
+                
+            </div>
+        </div>
     
 
     
@@ -994,9 +1152,9 @@
                 <h2 class="off-left">Properties</h2>
 
                 
-                    <div id="property_OPTIONS" class="property item">
-    <h3 class="name"><code>OPTIONS</code></h3>
-    <span class="type">Unknown</span>
+                    <div id="property_ATTRIBUTE_COLUMNS" class="property item">
+    <h3 class="name"><code>ATTRIBUTE_COLUMNS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object</a></span>
 
     
 
@@ -1019,7 +1177,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l17"><code>shared&#x2F;utils&#x2F;micro-template.js:17</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l74"><code>server&#x2F;lib&#x2F;ship-service.js:74</code></a>
         
         </p>
 
@@ -1040,9 +1198,9 @@
 </div>
 
                 
-                    <div id="property_STRING_ESCAPE" class="property item">
-    <h3 class="name"><code>STRING_ESCAPE</code></h3>
-    <span class="type">Unknown</span>
+                    <div id="property_ATTRIBUTE_QUERY" class="property item">
+    <h3 class="name"><code>ATTRIBUTE_QUERY</code></h3>
+    <span class="type"><a href="../classes/esc.Select.html" class="crosslink">esc.Select</a></span>
 
     
 
@@ -1065,7 +1223,7 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l41"><code>shared&#x2F;utils&#x2F;micro-template.js:41</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l115"><code>server&#x2F;lib&#x2F;ship-service.js:115</code></a>
         
         </p>
 
@@ -1086,9 +1244,53 @@
 </div>
 
                 
-                    <div id="property_TEMPLATE_ESCAPE" class="property item">
-    <h3 class="name"><code>TEMPLATE_ESCAPE</code></h3>
-    <span class="type">Unknown</span>
+                    <div id="property_db" class="property item">
+    <h3 class="name"><code>db</code></h3>
+    <span class="type"><a href="../classes/esc.Database.html" class="crosslink">esc.Database</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l280"><code>server&#x2F;lib&#x2F;ship-service.js:280</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_ROW_PROPERTY_MAPPINGS" class="property item">
+    <h3 class="name"><code>ROW_PROPERTY_MAPPINGS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object</a></span>
 
     
 
@@ -1111,7 +1313,235 @@
             
         
         
-        <a href="..&#x2F;files&#x2F;shared_utils_micro-template.js.html#l28"><code>shared&#x2F;utils&#x2F;micro-template.js:28</code></a>
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l170"><code>server&#x2F;lib&#x2F;ship-service.js:170</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_SEARCH_QUERY" class="property item">
+    <h3 class="name"><code>SEARCH_QUERY</code></h3>
+    <span class="type"><a href="../classes/esc.Select.html" class="crosslink">esc.Select</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l92"><code>server&#x2F;lib&#x2F;ship-service.js:92</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_SKILL_COLUMNS" class="property item">
+    <h3 class="name"><code>SKILL_COLUMNS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l83"><code>server&#x2F;lib&#x2F;ship-service.js:83</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_SKILL_QUERY" class="property item">
+    <h3 class="name"><code>SKILL_QUERY</code></h3>
+    <span class="type"><a href="../classes/esc.Select.html" class="crosslink">esc.Select</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l130"><code>server&#x2F;lib&#x2F;ship-service.js:130</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_skillService" class="property item">
+    <h3 class="name"><code>skillService</code></h3>
+    <span class="type">esc.SkillService</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l275"><code>server&#x2F;lib&#x2F;ship-service.js:275</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_TYPE_ID_COLUMNS" class="property item">
+    <h3 class="name"><code>TYPE_ID_COLUMNS</code></h3>
+    <span class="type"><a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object" class="crosslink external external" target="_blank">Object</a></span>
+
+    
+
+    
+
+    
+
+    
+        <span class="flag static">static</span>
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l58"><code>server&#x2F;lib&#x2F;ship-service.js:58</code></a>
         
         </p>
 

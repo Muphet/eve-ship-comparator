@@ -19,6 +19,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "esc.Sensors",
         "esc.Shield",
         "esc.Ship",
+        "esc.ShipService",
         "esc.Skill",
         "esc.SkillRequirement",
         "esc.SkillRequirements",
@@ -32,6 +33,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "esc-select",
         "esc-ship",
         "esc-ship-properties",
+        "esc-ship-service",
         "esc-skill",
         "esc-sqlite"
     ],
@@ -66,6 +68,10 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "esc-ship-properties",
             "name": "esc-ship-properties"
+        },
+        {
+            "displayName": "esc-ship-service",
+            "name": "esc-ship-service"
         },
         {
             "displayName": "esc-skill",

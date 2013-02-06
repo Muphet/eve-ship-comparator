@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>shared&#x2F;utils&#x2F;micro-template.js - Eve Ship Comparator API</title>
+    <title>esc-ship-service - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -146,194 +146,49 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: shared&#x2F;utils&#x2F;micro-template.js</h1>
+                        <h1>esc-ship-service Module</h1>
+<div class="box clearfix meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-&#x2F;*global YUI*&#x2F;
+    
 
-&#x2F;**
- @module esc-micro-template
- @namespace esc
- *&#x2F;
-YUI.add(&#x27;esc-micro-template&#x27;, function (Y) {
-    &quot;use strict&quot;;
+    
+        <div class="foundat">
+            Defined in: <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l48"><code>server&#x2F;lib&#x2F;ship-service.js:48</code></a>
+        </div>
+    
 
-    var NS = Y.namespace(&#x27;esc&#x27;),
-        MicroTemplate = {};
+    
+</div>
 
-    &#x2F;**
-     @class MicroTemplate
-     *&#x2F;
 
-    &#x2F;**
-     @property OPTIONS
-     @static
-     *&#x2F;
-    MicroTemplate.OPTIONS = {
-        code          : &#x2F;&lt;%([\s\S]+?)%&gt;&#x2F;g,
-        escapedOutput : &#x2F;&lt;%=([\s\S]+?)%&gt;&#x2F;g,
-        rawOutput     : &#x2F;&lt;%==([\s\S]+?)%&gt;&#x2F;g,
-        stringEscape  : &#x2F;(&#x27;|\r|\n|\t|\u2028|\u2029|\\)&#x2F;g
-    };
 
-    &#x2F;**
-     @property TEMPLATE_ESCAPE
-     @static
-     *&#x2F;
-    MicroTemplate.TEMPLATE_ESCAPE = {
-        &#x27;\n&#x27;     : &#x27;\\n&#x27;,
-        &#x27;\t&#x27;     : &#x27;\\t&#x27;,
-        &#x27;\r&#x27;     : &#x27;\\r&#x27;,
-        &#x27;\u2028&#x27; : &#x27;\\u2028&#x27;,
-        &#x27;\u2029&#x27; : &#x27;\\u2029&#x27;,
-        &#x27;\\&#x27;     : &#x27;\\\\&#x27;
-    };
+<div class="box intro">
+    
+</div>
 
-    &#x2F;**
-     @property STRING_ESCAPE
-     @static
-     *&#x2F;
-    MicroTemplate.STRING_ESCAPE = {
-        &#x27;&amp;&#x27; : &#x27;&amp;amp;&#x27;,
-        &#x27;&lt;&#x27; : &#x27;&amp;lt;&#x27;,
-        &#x27;&gt;&#x27; : &#x27;&amp;gt;&#x27;,
-        &#x27;&quot;&#x27; : &#x27;&amp;quot;&#x27;,
-        &quot;&#x27;&quot; : &#x27;&amp;#x27;&#x27;,
-        &#x27;&#x2F;&#x27; : &#x27;&amp;#x2F;&#x27;,
-        &#x27;&#x60;&#x27; : &#x27;&amp;#x60;&#x27;
-    };
 
-    &#x2F;**
-     @method escape
-     @static
-     @param s {String}
-     @return {String}
-     *&#x2F;
-    MicroTemplate.escape = function (s) {
-        return (s + &#x27;&#x27;).replace(&#x2F;[&amp;&lt;&gt;&quot;&#x27;\&#x2F;&#x60;]&#x2F;g, function (match) {
-            return MicroTemplate.STRING_ESCAPE[match];
-        });
-    };
 
-    &#x2F;**
-     @method render
-     @static
-     @param text {String}
-     @param data {Object}
-     @return {String}
-     *&#x2F;
-    MicroTemplate.render = function (text, data) {
-        return MicroTemplate.compile(text)(data);
-    };
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        
+            <p>This module provides the following classes:</p>
 
-    &#x2F;**
-     @method include
-     @static
-     @param path {String}
-     @param data {Object}
-     *&#x2F;
-    MicroTemplate.include = function (path, data) {
-        &#x2F;* NO-OP *&#x2F;
-    };
+            <ul class="module-classes">
+            
+                <li class="module-class">
+                    <a href="..&#x2F;classes/esc.ShipService.html">
+                        esc.ShipService
+                    </a>
+                </li>
+            
+            </ul>
+        
+    </div>
 
-    &#x2F;**
-     @method compile
-     @static
-     @param text {String}
-     @param precompile {Boolean}
-     @return {String|Function}
-     *&#x2F;
-    MicroTemplate.compile = function (text, precompile) {
-        var blocks = [],
-            tokenClose = &quot;\uffff&quot;,
-            tokenOpen = &quot;\ufffe&quot;,
-            options = MicroTemplate.OPTIONS,
-            source,
-            out;
-
-        &#x2F;&#x2F; Parse the input text into a string of JavaScript code, with placeholders
-        &#x2F;&#x2F; for code blocks. Text outside of code blocks will be escaped for safe
-        &#x2F;&#x2F; usage within a double-quoted string literal.
-        source = &quot;var $b=&#x27;&#x27;, $v=function (v){ return v || v === 0 ? v : $b; }, $t=&#x27;&quot; +
-
-            &#x2F;&#x2F; U+FFFE and U+FFFF are guaranteed to represent non-characters, so no
-            &#x2F;&#x2F; valid UTF-8 string should ever contain them. That means we can freely
-            &#x2F;&#x2F; strip them out of the input text (just to be safe) and then use them
-            &#x2F;&#x2F; for our own nefarious purposes as token placeholders!
-            &#x2F;&#x2F;
-            &#x2F;&#x2F; See http:&#x2F;&#x2F;en.wikipedia.org&#x2F;wiki&#x2F;Mapping_of_Unicode_characters#Noncharacters
-            text.replace(&#x2F;\ufffe|\uffff&#x2F;g, &#x27;&#x27;)
-
-                .replace(options.rawOutput, function (match, code) {
-                    return tokenOpen + (blocks.push(&quot;&#x27;+\n$v(&quot; + code + &quot;)+\n&#x27;&quot;) - 1) + tokenClose;
-                })
-
-                .replace(options.escapedOutput, function (match, code) {
-                    return tokenOpen + (blocks.push(&quot;&#x27;+\n$e($v(&quot; + code + &quot;))+\n&#x27;&quot;) - 1) + tokenClose;
-                })
-
-                .replace(options.code, function (match, code) {
-                    return tokenOpen + (blocks.push(&quot;&#x27;;\n&quot; + code + &quot;\n$t+=&#x27;&quot;) - 1) + tokenClose;
-                })
-
-                .replace(options.stringEscape, function (match) {
-                    return MicroTemplate.TEMPLATE_ESCAPE[match];
-                })
-
-                &#x2F;&#x2F; Replace the token placeholders with code.
-                .replace(&#x2F;\ufffe(\d+)\uffff&#x2F;g, function (match, index) {
-                    return blocks[parseInt(index, 10)];
-                })
-
-                &#x2F;&#x2F; Remove noop string concatenations that have been left behind.
-                .replace(&#x2F;\n\$t\+=&#x27;&#x27;;\n&#x2F;g, &#x27;\n&#x27;) +
-
-            &quot;&#x27;;\nreturn $t;&quot;;
-
-        &#x2F;&#x2F; If compile() was called from precompile(), return precompiled source.
-
-        if (precompile) {
-            out = &quot;function (Y, $, $e, data) {\n&quot; + source + &quot;\n}&quot;;
-        } else {
-            &#x2F;&#x2F; TODO: try&#x2F;catch this
-            out = MicroTemplate.revive(new Function(&#x27;Y&#x27;, &#x27;$&#x27;, &#x27;$e&#x27;, &#x27;data&#x27;, source));
-        }
-
-        return out;
-    };
-
-    &#x2F;**
-     @method precompile
-     @static
-     @param text {String}
-     @return {String}
-     *&#x2F;
-    MicroTemplate.precompile = function (text) {
-        return this.compile(text, true);
-    };
-
-    &#x2F;**
-     @method revive
-     @static
-     @param precompiled {Function}
-     @param {String}
-     *&#x2F;
-    MicroTemplate.revive = function (precompiled) {
-        return function (data) {
-            data = data || {};
-
-            data.include = MicroTemplate.include;
-
-            return precompiled.call(data, Y, MicroTemplate.include, MicroTemplate.escape, data);
-        }
-    };
-
-    NS.MicroTemplate = MicroTemplate;
-
-});
-
-    </pre>
+    <div class="yui3-u-1-2">
+        
+    </div>
 </div>
 
                     </div>

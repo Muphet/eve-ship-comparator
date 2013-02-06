@@ -33,6 +33,19 @@
                 "esc": 1
             }
         },
+        "server/lib/ship-service.js": {
+            "name": "server/lib/ship-service.js",
+            "modules": {
+                "esc-ship-service": 1
+            },
+            "classes": {
+                "esc.ShipService": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
         "server/lib/sqlite.js": {
             "name": "server/lib/sqlite.js",
             "modules": {
@@ -167,6 +180,20 @@
             "file": "server/lib/select.js",
             "line": 166,
             "description": "A tool to make it easier to build complex SQL queries."
+        },
+        "esc-ship-service": {
+            "name": "esc-ship-service",
+            "submodules": {},
+            "classes": {
+                "esc.ShipService": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "server/lib/ship-service.js",
+            "line": 48
         },
         "esc-sqlite": {
             "name": "esc-sqlite",
@@ -323,6 +350,20 @@
             "namespace": "esc",
             "file": "server/lib/select.js",
             "line": 166,
+            "is_constructor": 1
+        },
+        "esc.ShipService": {
+            "name": "esc.ShipService",
+            "shortname": "ShipService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-ship-service",
+            "namespace": "esc",
+            "file": "server/lib/ship-service.js",
+            "line": 48,
             "is_constructor": 1
         },
         "esc.Query": {
@@ -682,6 +723,255 @@
             },
             "class": "esc.Criteria",
             "module": "esc-select",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 58,
+            "itemtype": "property",
+            "name": "TYPE_ID_COLUMNS",
+            "type": "Object",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 74,
+            "itemtype": "property",
+            "name": "ATTRIBUTE_COLUMNS",
+            "type": "Object",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 83,
+            "itemtype": "property",
+            "name": "SKILL_COLUMNS",
+            "type": "Object",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 92,
+            "itemtype": "property",
+            "name": "SEARCH_QUERY",
+            "type": "esc.Select",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 115,
+            "itemtype": "property",
+            "name": "ATTRIBUTE_QUERY",
+            "type": "esc.Select",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 130,
+            "itemtype": "property",
+            "name": "SKILL_QUERY",
+            "type": "esc.Select",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 170,
+            "itemtype": "property",
+            "name": "ROW_PROPERTY_MAPPINGS",
+            "type": "Object",
+            "static": 1,
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 275,
+            "itemtype": "property",
+            "name": "skillService",
+            "type": "esc.SkillService",
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 280,
+            "itemtype": "property",
+            "name": "db",
+            "type": "esc.Database",
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 285,
+            "itemtype": "method",
+            "name": "search",
+            "params": [
+                {
+                    "name": "query",
+                    "description": "A single or list of ids, ship names, or ship types.",
+                    "type": "String|Number\\Array"
+                }
+            ],
+            "return": {
+                "description": "A promise of ships.",
+                "type": "esc.Query"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 301,
+            "itemtype": "method",
+            "name": "resolveSkills",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "ships",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "A promise of ships.",
+                "type": "esc.SkillService"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 349,
+            "itemtype": "method",
+            "name": "queryAttributes",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "ships",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "A promise of ships.",
+                "type": "esc.Query"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 390,
+            "itemtype": "method",
+            "name": "querySkills",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "ships",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "A promise of ships.",
+                "type": "esc.Query"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 440,
+            "itemtype": "method",
+            "name": "cleanDescription",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "ships",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "A promise of ships.",
+                "type": "esc.SkillService"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 481,
+            "itemtype": "method",
+            "name": "mapResultsToShips",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "ships",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "esc.Ships[]"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
+            "namespace": "esc"
+        },
+        {
+            "file": "server/lib/ship-service.js",
+            "line": 501,
+            "itemtype": "method",
+            "name": "mapDatabaseRowToShip",
+            "access": "private",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "ships",
+                    "description": "",
+                    "type": "Object[]"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Object[]"
+            },
+            "class": "esc.ShipService",
+            "module": "esc-ship-service",
             "namespace": "esc"
         },
         {
