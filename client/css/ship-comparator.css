@@ -1,5 +1,5 @@
 html {
-  font-family: Helvetica;
+  font-family: Helvetica, sans-serif;
   background-color: #222225;
   color: #ddddc5;
 
@@ -93,5 +93,5 @@ body {
 }
 
 #ship-picker::-webkit-input-placeholder {
-  olor: #ddddc5;
+  color: #ddddc5;
 }
