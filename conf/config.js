@@ -1,4 +1,6 @@
-/*jslint nodejs:true */
+/*jslint node:true, stupid:true */
+
+"use strict";
 
 var fs          = require('fs'),
     path        = require('path'),
