@@ -1,153 +1,189 @@
-YUI.add('esc-ship-service', function(Y) {
+/*global YUI*/
+
+/**
+ @module esc-ship-service
+ @namespace esc
+ **/
+YUI.add('esc-ship-service', function (Y) {
+    "use strict";
 
     var NS = Y.namespace('esc'),
         UNDEFINED,
 
         markdown = YUI.require("node-markdown").Markdown,
         toMarkdown = YUI.require('to-markdown').toMarkdown,
-        
+
         select = NS.Select;
-        
-        
+
     function setValue(o, path, val) {
-        var p = path.split('.'),
+        var i,
+            p = path.split('.'),
             leafIndex = p.length - 1,
             ref = o;
 
-        for(var i = 0; i < leafIndex; i += 1) {
-            if(ref[p[i]] === UNDEFINED) {
+        for (i = 0; i < leafIndex; i += 1) {
+            if (ref[p[i]] === UNDEFINED) {
                 ref[p[i]] = {};
             }
             ref = ref[p[i]];
         }
-        
+
         ref[p[i]] = val;
 
         return o;
     }
 
-    function getValue(o, path) { 
+    function getValue(o, path) {
         var i,
             p = path.split('.'),
             l = p.length;
-         
-        for (i = 0; o !== UNDEFINED && i < l; i++) {
+
+        for (i = 0; o !== UNDEFINED && i < l; i += 1) {
             o = o[p[i]];
         }
-         
+
         return o;
     }
-    
+
+    /**
+    @class ShipService
+    @constructor
+    **/
+
     function ShipService(database, skillService) {
         this.db = database;
         this.skillService = skillService;
-    };
-    
+    }
+
+    /**
+     @property TYPE_ID_COLUMNS {Object}
+     @static
+     **/
     ShipService.TYPE_ID_COLUMNS = {
-        invTypes: [
+        invTypes        : [
             'typeID', 'typeName', 'raceID', 'groupID', 'marketGroupID', 'published', 'capacity', 'description'
         ],
-        invGroups: [
+        invGroups       : [
             'groupID', 'groupName', 'categoryID'
         ],
-        invmarketgroups: [
+        invmarketgroups : [
             'marketGroupID', 'marketGroupName'
         ]
     };
-    
+
+    /**
+     @property ATTRIBUTE_COLUMNS {Object}
+     @static
+     **/
     ShipService.ATTRIBUTE_COLUMNS = {
-        dgmAttributeTypes: [ 'attributeID', 'attributeName', 'displayName', 'published' ],
-        dgmTypeAttributes: [ 'typeID', 'value' ]
+        dgmAttributeTypes : [ 'attributeID', 'attributeName', 'displayName', 'published' ],
+        dgmTypeAttributes : [ 'typeID', 'value' ]
     };
-    
+
+    /**
+     @property SKILL_COLUMNS {Object}
+     @static
+     **/
     ShipService.SKILL_COLUMNS = {
-        "dgmTypeAttributes AS SkillName": [ 'value AS skillId', 'typeID' ],
-        "dgmTypeAttributes AS SkillLevel": [ 'attributeId', 'value' ]
+        "dgmTypeAttributes AS SkillName"  : [ 'value AS skillId', 'typeID' ],
+        "dgmTypeAttributes AS SkillLevel" : [ 'attributeId', 'value' ]
     };
-    
-    
+
+    /**
+     @property SEARCH_QUERY {esc.Select}
+     @static
+     **/
     ShipService.SEARCH_QUERY = select.from(ShipService.TYPE_ID_COLUMNS)
         .where('invGroups.categoryID').is(6)
         .and('invTypes.published').is(1)
         .and('invTypes.marketGroupID').is('invmarketgroups.marketGroupID')
         .and('invTypes.groupID').is('invGroups.groupID')
-        .and(function(ids) {
+        .and(function (ids) {
             ids = Array.isArray(ids) ? ids : [ ids ];
 
-            var o = '( ' + ids.map(function(t) {
-                if(isNaN(parseInt(t,10))) {
-                    return "invTypes.typeName LIKE '%" + t + "%' OR invGroups.groupName LIKE '%" + t + "%'";
+            return '( ' + ids.map(function (t) {
+                var out;
+                if (isNaN(parseInt(t, 10))) {
+                    out = "invTypes.typeName LIKE '%" + t + "%' OR invGroups.groupName LIKE '%" + t + "%'";
                 } else {
-                    return "invTypes.typeID == " + parseInt(t,10);
+                    out = "invTypes.typeID == " + parseInt(t, 10);
                 }
+                return out;
             }).join(' OR ') + ' )';
-            
-            return o;
         });
-        
+
+    /**
+     @property ATTRIBUTE_QUERY {esc.Select}
+     @static
+     **/
     ShipService.ATTRIBUTE_QUERY = select.from(ShipService.ATTRIBUTE_COLUMNS)
         .where('dgmAttributeTypes.attributeID').is('dgmTypeAttributes.attributeID')
         .and('published').is(1)
-        .and(function(ids) {
+        .and(function (ids) {
             ids = Array.isArray(ids) ? ids : [ ids ];
-        
-            return '( ' + ids.map(function(id) { return 'dgmTypeAttributes.typeID == ' + id; }).join(' OR ') + ' )';
+
+            return '( ' + ids.map(function (id) {
+                return 'dgmTypeAttributes.typeID == ' + id;
+            }).join(' OR ') + ' )';
         });
 
+    /**
+     @property SKILL_QUERY {esc.Select}
+     @static
+     **/
     ShipService.SKILL_QUERY = select.from(ShipService.SKILL_COLUMNS)
         .where('SkillLevel.typeID').is('SkillName.typeID')
-        .and(function(ids) {
+        .and(function (ids) {
             ids = Array.isArray(ids) ? ids : [ ids ];
 
-            var o = '( ' + ids.map(function(t) {
-                return "SkillName.typeID == " + parseInt(t,10);
+            return '( ' + ids.map(function (t) {
+                return "SkillName.typeID == " + parseInt(t, 10);
             }).join(' OR ') + ' )';
-            
-            return o;
         })
-        .and((function() {
-            var mappings = {
-                '182'  : 277,
-                '183'  : 278,
-                '184'  : 279,
-                '1285' : 1286,
-                '1289' : 1287,
-                '1290' : 1288
-            };
-            
-            var joinCriteria, p;
+        .and((function () {
+            var joinCriteria,
+                pointer,
+                mappings = {
+                    '182'  : 277,
+                    '183'  : 278,
+                    '184'  : 279,
+                    '1285' : 1286,
+                    '1289' : 1287,
+                    '1290' : 1288
+                };
 
-            Y.Object.each(mappings, function(value, key) {
+            Y.Object.each(mappings, function (value, key) {
                 var c = new NS.Criteria('SkillName.attributeID').is(key);
-                
+
                 c.and('SkillLevel.attributeID').is(value);
-                
-                if(p) {
-                    p = p.or(c);
+
+                if (pointer) {
+                    pointer = pointer.or(c);
                 } else {
-                    joinCriteria = p = new NS.Criteria(c);
+                    joinCriteria = pointer = new NS.Criteria(c);
                 }
             });
-            
-            return joinCriteria;
-        }()))
 
+            return joinCriteria;
+        }()));
+
+    /**
+     @property ROW_PROPERTY_MAPPINGS {Object}
+     @static
+     **/
     ShipService.ROW_PROPERTY_MAPPINGS = {
+        // Basic ship properties
         'typeID'                                    : 'id',
         'typeName'                                  : 'name',
-
-        'groupName'                                 : 'type',        // TODO: make this point at the right field
+        'groupName'                                 : 'type',
         'description'                               : 'description',
-        'marketGroupName'                           : 'race',        // TODO: "
-
+        'marketGroupName'                           : 'race',
         'attributes.metaLevel'                      : 'meta',
         'attributes.techLevel'                      : 'techLevel',
-
         'attributes.signatureRadius'                : 'signature',
         'attributes.agility'                        : 'agility',
         'attributes.maxVelocity'                    : 'velocity',
         'attributes.warpSpeedMultiplier'            : 'warpSpeed',
-
         'attributes.cpuOutput'                      : 'cpu',
         'attributes.powerOutput'                    : 'powerGrid',
 
@@ -158,7 +194,7 @@ YUI.add('esc-ship-service', function(Y) {
         'attributes.maxJumpClones'                  : 'capacity.jumpClones',
         'attributes.specialFuelBayCapacity'         : 'capacity.fuel',
         'attributes.specialOreHoldCapacity'         : 'capacity.ore',
-    
+
         // Sensors
         'attributes.maxLockedTargets'               : 'sensors.lockedTargets',
         'attributes.maxTargetRange'                 : 'sensors.range',
@@ -218,14 +254,14 @@ YUI.add('esc-ship-service', function(Y) {
         'attributes.shieldKineticDamageResonance'   : 'shield.kineticResonance',
         'attributes.shieldThermalDamageResonance'   : 'shield.thermalResonance',
         'attributes.shieldRechargeRate'             : 'shield.recharge',
-    
+
         // Jump Drive
         'attributes.canJump'                        : 'jumpDrive.canJump',
         'attributes.jumpDriveConsumptionType'       : 'jumpDrive.fuelType',
         'attributes.jumpDriveRange'                 : 'jumpDrive.range',
         'attributes.jumpDriveConsumptionAmount'     : 'jumpDrive.fuelConsumption',
         'attributes.jumpDriveCapacitorNeed'         : 'jumpDrive.capacitorNeed',
-    
+
         // Skill Requirements
         'attributes.requiredSkill1'                 : 'skillRequirements.primary.id',
         'attributes.requiredSkill1Level'            : 'skillRequirements.primary.level',
@@ -236,12 +272,24 @@ YUI.add('esc-ship-service', function(Y) {
     };
 
     Y.mix(ShipService.prototype, {
-        skillService: null,
-        db: null,
-        
-        search: function(query) {
+        /**
+         @property skillService {esc.SkillService}
+         **/
+        skillService : null,
+
+        /**
+         @property db {esc.Database}
+         **/
+        db           : null,
+
+        /**
+         @method search
+         @param query {String|Number\Array} A single or list of ids, ship names, or ship types.
+         @return {esc.Query} A promise of ships.
+         **/
+        search : function (query) {
             var d = this.db;
-            
+
             return this.db.all(ShipService.SEARCH_QUERY.exec(query))
                 .then(this.cleanDescription.bind(this))
                 .then(this.queryAttributes.bind(this))
@@ -249,136 +297,170 @@ YUI.add('esc-ship-service', function(Y) {
                 .then(this.mapResultsToShips.bind(this))
                 .then(this.resolveSkills.bind(this));
         },
-        
-        resolveSkills: function(ships) {
-            
-            if(this.skillService) {
-                if(ships.length === 0) {
+
+        /**
+         @method resolveSkills
+         @private
+         @param ships {Object[]}
+         @return {esc.SkillService} A promise of ships.
+         **/
+        resolveSkills : function (ships) {
+            var out,
+                i,
+                l,
+                requiredSkills = {};
+
+            if (this.skillService) {
+                if (ships.length === 0) {
                     return ships;
                 }
-                
-                var requiredSkills = {}, i, l;
 
-                for(i = 0, l = ships.length; i < l; i += 1) {
-                    ships[i].skillRequirements.skills.forEach(function(sr) {
-                        if(sr && sr.id) {
+                for (i = 0, l = ships.length; i < l; i += 1) {
+                    ships[i].skillRequirements.skills.forEach(function (sr) {
+                        if (sr && sr.id) {
                             requiredSkills[sr.id] = true;
                         }
                     });
                 }
 
-                return this.skillService.getSkill(Object.keys(requiredSkills)).then(function(skills) {
+                out = this.skillService.getSkill(Object.keys(requiredSkills)).then(function (skills) {
                     skills = Array.isArray(skills) ? skills : [ skills ];
-                    
-                    for(var i = 0, l = ships.length; i < l; i += 1) {
-                        ships[i].skillRequirements.skills.forEach(function(sr) {
-                            skills.forEach(function(sk) {
-                                if(sk.id === sr.id) {
+                    var i, l;
+
+                    for (i = 0, l = ships.length; i < l; i += 1) {
+                        ships[i].skillRequirements.skills.forEach(function (sr) {
+                            skills.forEach(function (sk) {
+                                if (sk.id === sr.id) {
                                     sr.skill = sk;
                                 }
                             });
                         });
                     }
-                    
+
                     return ships;
                 });
             } else {
-                return ships;
+                out = ships;
             }
+
+            return out;
         },
-        
-        queryAttributes: function(ships) {
-            if(ships.length === 0) {
+
+        /**
+         @method queryAttributes
+         @private
+         @param ships {Object[]}
+         @return {esc.Query} A promise of ships.
+         **/
+        queryAttributes : function (ships) {
+            if (ships.length === 0) {
                 return ships;
             }
 
-            var ids = ships.map(function(s) { return s.typeID });
-            
-            
-            return this.db.all(ShipService.ATTRIBUTE_QUERY.exec(ids)).then(function(attrs) {
+            var ids = ships.map(function (s) {
+                return s.typeID;
+            });
+
+            return this.db.all(ShipService.ATTRIBUTE_QUERY.exec(ids)).then(function (attrs) {
                 var attrMap = {},
                     item, i, l;
 
-                for(i = 0, l = attrs.length; i < l; i += 1) {
+                for (i = 0, l = attrs.length; i < l; i += 1) {
                     item = attrs[i];
-                    
-                    if(!attrMap[item.typeID]) {
+
+                    if (!attrMap[item.typeID]) {
                         attrMap[item.typeID] = {};
                     }
 
                     attrMap[item.typeID][item.attributeName] = item.value;
                 }
-                
-                for(i = 0, l = ships.length; i < l; i += 1) {
+
+                for (i = 0, l = ships.length; i < l; i += 1) {
                     item = ships[i];
-                    
-                    if(attrMap[item.typeID]) {
+
+                    if (attrMap[item.typeID]) {
                         item.attributes = attrMap[item.typeID];
                     }
                 }
-                
+
                 return ships;
             });
         },
-        
-        querySkills: function(ships) {
-            if(ships.length === 0) {
+
+        /**
+         @method querySkills
+         @private
+         @param ships {Object[]}
+         @return {esc.Query} A promise of ships.
+         **/
+        querySkills : function (ships) {
+            if (ships.length === 0) {
                 return ships;
             }
-            
-            var ids = ships.map(function(s) { return s.typeID });
-            
-            return this.db.all(ShipService.SKILL_QUERY.exec(ids)).then(function(skills) {
+
+            var ids = ships.map(function (s) {
+                return s.typeID;
+            });
+
+            return this.db.all(ShipService.SKILL_QUERY.exec(ids)).then(function (skills) {
                 var skillMap = {},
                     item, i, l, attrs;
-                
-                for(i = 0, l = skills.length; i < l; i += 1) {
+
+                for (i = 0, l = skills.length; i < l; i += 1) {
                     item = skills[i];
-                    
-                    if(!skillMap[item.typeID]) {
+
+                    if (!skillMap[item.typeID]) {
                         skillMap[item.typeID] = {};
                     }
-                    
+
                     skillMap[item.typeID][item.skillId] = item.value;
                 }
-                
-                for(i = 0, l = ships.length; i < l; i += 1) {
+
+                for (i = 0, l = ships.length; i < l; i += 1) {
                     item = ships[i];
                     attrs = item.attributes;
-                                        
-                    if(skillMap[item.typeID]) {
-                        if(skillMap[item.typeID][attrs.requiredSkill1]) {
+
+                    if (skillMap[item.typeID]) {
+                        if (skillMap[item.typeID][attrs.requiredSkill1]) {
                             attrs.requiredSkill1Level = skillMap[item.typeID][attrs.requiredSkill1];
                         }
-                        if(skillMap[item.typeID][attrs.requiredSkill2]) {
+                        if (skillMap[item.typeID][attrs.requiredSkill2]) {
                             attrs.requiredSkill2Level = skillMap[item.typeID][attrs.requiredSkill2];
                         }
-                        if(skillMap[item.typeID][attrs.requiredSkill3]) {
+                        if (skillMap[item.typeID][attrs.requiredSkill3]) {
                             attrs.requiredSkill2Level = skillMap[item.typeID][attrs.requiredSkill3];
                         }
                     }
                 }
-                                
+
                 return ships;
             });
         },
-        
-        cleanDescription: function(ships) {
+
+        /**
+         @method cleanDescription
+         @private
+         @param ships {Object[]}
+         @return {esc.SkillService} A promise of ships.
+         **/
+        cleanDescription : function (ships) {
+            /*jslint continue:true, regexp:true */
+
             var i, l, ship, desc;
-            for(i = 0, l = ships.length; i < l; i += 1) {
+            for (i = 0, l = ships.length; i < l; i += 1) {
                 ship = ships[i];
 
-                if(!ship.description) {
+                if (!ship.description) {
                     continue; // NOTE CONTINUE
                 }
 
-                // Fix the newline horribleness, 
+                // Fix the newline horribleness,
                 desc = ship.description.
-                    replace(/\\n\\n/g, '\n\n'). // replace stupid /r/n with double newline (that seems to be the intent)
-                    replace(/(\\r){0,1}\\n/g, '  \n'). // replace single newlines with markdown-style brs
-                    replace(/\\u([A-Fa-f0-9]{4})/g, '&#x$1;'). // replace unicode characters with html entities
-                    replace(/<a[^>]+>/ig, ''). // strip any inline links, since they're Eve-specific
-                    replace(/\n[^\n\S]+/g,'\n'). // strip leading whitespace to prevent preformatted markdown text
+                    replace(/\\n\\n/g, '\n\n').// replace stupid /r/n with double newline (that seems to be the intent)
+                    replace(/(\\r){0,1}\\n/g, '  \n').// replace single newlines with markdown-style brs
+                    replace(/\\u([A-Fa-f0-9]{4})/g, '&#x$1;').// replace unicode characters with html entities
+                    replace(/<a[^>]+>/ig, '').// strip any inline links, since they're Eve-specific
+                    replace(/\n[^\n\S]+/g, '\n').// strip leading whitespace to prevent preformatted markdown text
                     replace(/\n-/, '\n&mdash;'); // replace leading dash with an emdash for strategic cruiser text
 
                 // Convert the remaining html to markdown
@@ -391,40 +473,55 @@ YUI.add('esc-ship-service', function(Y) {
                 ship.description = markdown(desc);
             }
 
+            /*jslint continue:false, regexp:false */
+
             return ships;
         },
-        
-        mapResultsToShips: function(ships) {
-            if(ships.length === 0) {
+
+        /**
+         @method mapResultsToShips
+         @private
+         @param ships {Object[]}
+         @return {esc.Ships[]}
+         **/
+        mapResultsToShips : function (ships) {
+            var i, l;
+
+            if (ships.length === 0) {
                 return ships;
             }
-            
-            for(var i = 0, l = ships.length; i < l; i += 1) {
+
+            for (i = 0, l = ships.length; i < l; i += 1) {
                 ships[i] = new NS.Ship(this.mapDatabaseRowToShip(ships[i]));
             }
 
-
             return ships;
         },
-        
-        mapDatabaseRowToShip: function(dbRow) {
+
+        /**
+         @method mapDatabaseRowToShip
+         @private
+         @param ships {Object[]}
+         @return {Object[]}
+         **/
+        mapDatabaseRowToShip : function (dbRow) {
             var ship = {},
                 mappings = ShipService.ROW_PROPERTY_MAPPINGS,
                 dbValue,
                 dbProperty,
                 shipProperty;
 
-            for(dbProperty in mappings) {
-                if(mappings.hasOwnProperty(dbProperty)) {
+            for (dbProperty in mappings) {
+                if (mappings.hasOwnProperty(dbProperty)) {
                     shipProperty = mappings[dbProperty];
                     dbValue = getValue(dbRow, dbProperty);
 
-                    if(dbValue !== UNDEFINED) {
+                    if (dbValue !== UNDEFINED) {
                         setValue(ship, shipProperty, dbValue);
                     }
                 }
             }
-            
+
             return ship;
         }
     });
@@ -432,5 +529,5 @@ YUI.add('esc-ship-service', function(Y) {
     NS.ShipService = ShipService;
 
 }, '', {
-    requires: [ 'esc-sqlite', 'esc-select', 'esc-ship' ]
+    requires : [ 'esc-sqlite', 'esc-select', 'esc-ship' ]
 });
