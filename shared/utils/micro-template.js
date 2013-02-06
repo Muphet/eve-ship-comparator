@@ -20,8 +20,8 @@ YUI.add('esc-micro-template', function (Y) {
      */
     MicroTemplate.OPTIONS = {
         code          : /<%([\s\S]+?)%>/g,
-        escapedOutput : /<%=([\s\S]+?)%>/g,
-        rawOutput     : /<%==([\s\S]+?)%>/g,
+        escapedOutput : /\$\{([\s\S]+?)\}/g,
+        rawOutput     : /\$\{\{([\s\S]+?)\}\}/g,
         stringEscape  : /('|\r|\n|\t|\u2028|\u2029|\\)/g
     };
 

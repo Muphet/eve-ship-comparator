@@ -3,7 +3,7 @@
 
 <div class="ship-list">
     <% Y.Array.each(this.ships, function(ship) { %>
-    <%==$('partials/ship', ship) %>
+    ${{ $('partials/ship', ship) }}
     <% }) %>
 </div>
 
