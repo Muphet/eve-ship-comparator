@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>esc-ship - Eve Ship Comparator API</title>
+    <title>client&#x2F;js&#x2F;views&#x2F;compare-view.js - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -142,49 +142,71 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>esc-ship Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: client&#x2F;js&#x2F;views&#x2F;compare-view.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*global YUI*&#x2F;
 
-    
-        <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;shared_model_ship.js.html#l22"><code>shared&#x2F;model&#x2F;ship.js:22</code></a>
-        </div>
-    
+&#x2F;**
+ @module esc-compare-view
+ @namespace esc
+ **&#x2F;
+YUI.add(&#x27;esc-compare-view&#x27;, function (Y, NAME) {
+    &quot;use strict&quot;;
 
-    
-</div>
+    var NS = Y.namespace(&#x27;esc&#x27;);
 
+    &#x2F;**
+     @class CompareView
+     @extends View
+    **&#x2F;
 
+    NS.CompareView = Y.Base.create(NAME, Y.View, [], {
+        viewTemplate : Y.esc.MicroTemplate.getTemplate(&#x27;compare&#x27;),
+        shipTemplate : Y.esc.MicroTemplate.getTemplate(&#x27;partials&#x2F;ship&#x27;),
 
-<div class="box intro">
-    
-</div>
+        search : function (path) {
+            path = path.replace(&#x27; &#x27;, &#x27;+&#x27;);
 
+            Y.io(&#x27;&#x2F;search?&#x27; + path, {
+                on : {
+                    success : function (id, response) {
+                        var r = JSON.parse(response.responseText).map(function (s) {
+                            return new Y.esc.Ship(s);
+                        });
 
+                    },
+                    failure : function () {
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-            <p>This module provides the following classes:</p>
+                    }
+                }
+            });
+        },
 
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="..&#x2F;classes/esc.Ship.html">
-                        esc.Ship
-                    </a>
-                </li>
-            
-            </ul>
-        
-    </div>
+        render : function () {
+            var c = this.get(&#x27;container&#x27;),
+                ships = this.get(&#x27;ships&#x27;),
+                newContent = &#x27;&#x27;;
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+            Y.Array.each(ships, function (ship) {
+                newContent += Y.esc.MicroTemplate.include(&#x27;partials&#x2F;ship&#x27;, ship);
+            });
+
+            c.setHTML(newContent);
+        }
+    }, {
+        ATTRS : {
+            ships : {
+                value : []
+            }
+        }
+    });
+
+}, &#x27;&#x27;, {
+    requires : [ &#x27;view&#x27; ]
+});
+    </pre>
 </div>
 
                     </div>

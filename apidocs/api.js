@@ -3,6 +3,7 @@ YUI.add("yuidoc-meta", function(Y) {
     "classes": [
         "esc.Capacitor",
         "esc.Capacity",
+        "esc.CompareView",
         "esc.Criteria",
         "esc.DamageProfile",
         "esc.Database",
@@ -24,6 +25,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "esc.Slots"
     ],
     "modules": [
+        "esc-compare-view",
         "esc-hp-pool",
         "esc-micro-template",
         "esc-promise",
@@ -34,6 +36,10 @@ YUI.add("yuidoc-meta", function(Y) {
         "esc-sqlite"
     ],
     "allModules": [
+        {
+            "displayName": "esc-compare-view",
+            "name": "esc-compare-view"
+        },
         {
             "displayName": "esc-hp-pool",
             "name": "esc-hp-pool",

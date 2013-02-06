@@ -6,6 +6,19 @@
         "url": "http://eve-ship-comparator.herokuapp.com"
     },
     "files": {
+        "client/js/views/compare-view.js": {
+            "name": "client/js/views/compare-view.js",
+            "modules": {
+                "esc-compare-view": 1
+            },
+            "classes": {
+                "esc.CompareView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            }
+        },
         "server/lib/select.js": {
             "name": "server/lib/select.js",
             "modules": {
@@ -125,6 +138,20 @@
         }
     },
     "modules": {
+        "esc-compare-view": {
+            "name": "esc-compare-view",
+            "submodules": {},
+            "classes": {
+                "esc.CompareView": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc": 1
+            },
+            "tag": "module",
+            "file": "client/js/views/compare-view.js",
+            "line": 12
+        },
         "esc-select": {
             "name": "esc-select",
             "submodules": {},
@@ -256,6 +283,20 @@
         }
     },
     "classes": {
+        "esc.CompareView": {
+            "name": "esc.CompareView",
+            "shortname": "CompareView",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-compare-view",
+            "namespace": "esc",
+            "file": "client/js/views/compare-view.js",
+            "line": 12,
+            "extends": "View"
+        },
         "esc.Criteria": {
             "name": "esc.Criteria",
             "shortname": "Criteria",
