@@ -2,12 +2,12 @@
 
 /**
  @module esc-micro-template
- @namespace esc
+ @namespace esc.util
  */
 YUI.add('esc-micro-template', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc'),
+    var NS = Y.namespace('esc.util'),
         MicroTemplate = {};
 
     /**

@@ -3,12 +3,12 @@
  Classes and objects having to do with skill requirements for ships.
 
  @module esc-skill
- @namespace esc
+ @namespace esc.model
  */
 YUI.add('esc-skill', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc');
+    var NS = Y.namespace('esc.model');
 
     //
     // --- Skill ----------------------------------------------------------------

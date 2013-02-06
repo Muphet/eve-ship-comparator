@@ -15,26 +15,8 @@ YUI.add('esc-compare-view', function (Y, NAME) {
     **/
 
     NS.CompareView = Y.Base.create(NAME, Y.View, [], {
-        viewTemplate : Y.esc.MicroTemplate.getTemplate('compare'),
-        shipTemplate : Y.esc.MicroTemplate.getTemplate('partials/ship'),
-
-        search : function (path) {
-            path = path.replace(' ', '+');
-
-            Y.io('/search?' + path, {
-                on : {
-                    success : function (id, response) {
-                        var r = JSON.parse(response.responseText).map(function (s) {
-                            return new Y.esc.Ship(s);
-                        });
-
-                    },
-                    failure : function () {
-
-                    }
-                }
-            });
-        },
+        viewTemplate : Y.esc.util.MicroTemplate.getTemplate('compare'),
+        shipTemplate : Y.esc.util.MicroTemplate.getTemplate('partials/ship'),
 
         render : function () {
             var c = this.get('container'),
@@ -42,8 +24,8 @@ YUI.add('esc-compare-view', function (Y, NAME) {
                 newContent = '';
 
             Y.Array.each(ships, function (ship) {
-                newContent += Y.esc.MicroTemplate.include('partials/ship', ship);
-            });
+                newContent += this.shipTemplate(ship);
+            }, this);
 
             c.setHTML(newContent);
         }

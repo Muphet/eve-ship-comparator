@@ -18,9 +18,8 @@
         "combine": false
     },
     
-    "client": {
-    },
-    
+    "client": {},
+
     "yui": {
         "version": "3.8.1",
         

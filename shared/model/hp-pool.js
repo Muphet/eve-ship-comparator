@@ -3,12 +3,12 @@
  Objects, classes, and methods related to hit point pools for ships in Eve Online. Includes calculating EHP based on a number of strategies (EFT, and CCP's own calculations) and different damage profiles (Gursita, Amarr, Serpentis, etc.).
 
  @module esc-hp-pool
- @namespace esc
+ @namespace esc.model
  **/
 YUI.add('esc-hp-pool', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc');
+    var NS = Y.namespace('esc.model');
 
 //
 // --- Damage Profile -------------------------------------------------------

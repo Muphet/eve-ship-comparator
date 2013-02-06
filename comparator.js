@@ -1,3 +1,6 @@
+/*jslint node:true, stupid: true */
+
+"use strict";
 
 var express = require('express'),
     expose  = require('express-expose'),
@@ -10,7 +13,7 @@ var express = require('express'),
 Y.applyConfig(config.server);
 
 Y.use('esc-micro-template', 'esc-ship-service', 'esc-skill-service', function(Y) {
-    var MicroTemplate = Y.esc.MicroTemplate;
+    var MicroTemplate = Y.esc.util.MicroTemplate;
     
     MicroTemplate.include = function(path, options) {
         return MicroTemplate.render(fs.readFileSync(__dirname + '/shared/views/' + path + '.html', 'utf8'), options);
@@ -34,9 +37,9 @@ Y.use('esc-micro-template', 'esc-ship-service', 'esc-skill-service', function(Y)
     });
     
     
-    app.set('db', Y.esc.Database.open(config.datasources.database));
-    app.set('skillService', Y.esc.SkillService.retrieve(config.datasources.skilltree));
-    app.set('shipService', new Y.esc.ShipService(app.get('db') /*, app.get('skillService') */));
+    app.set('db', Y.esc.util.Database.open(config.datasources.database));
+    app.set('skillService', Y.esc.service.SkillService.retrieve(config.datasources.skilltree));
+    app.set('shipService', new Y.esc.service.ShipService(app.get('db') /*, app.get('skillService') */));
     
 });
 
@@ -54,7 +57,6 @@ app.get('/compare', require('./server/controllers/ship.js').compare);
 app.get('/search', require('./server/controllers/ship.js').search);
 app.get('/', require('./server/controllers/ship.js').index);
 
-// app.engine('html', require('./server/lib/micro-template'));
 
 app.set('view engine', 'html');
 app.set('views', config.dirs.views);

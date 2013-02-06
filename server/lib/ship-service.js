@@ -2,18 +2,19 @@
 
 /**
  @module esc-ship-service
- @namespace esc
+ @namespace esc.service
  **/
 YUI.add('esc-ship-service', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc'),
+    var NS = Y.namespace('esc.service'),
         UNDEFINED,
 
+        Select = Y.esc.util.Select,
+        Criteria = Y.esc.util.Criteria,
+        Ship = Y.esc.model.Ship,
         markdown = YUI.require("node-markdown").Markdown,
-        toMarkdown = YUI.require('to-markdown').toMarkdown,
-
-        select = NS.Select;
+        toMarkdown = YUI.require('to-markdown').toMarkdown;
 
     function setValue(o, path, val) {
         var i,
@@ -90,10 +91,10 @@ YUI.add('esc-ship-service', function (Y) {
     };
 
     /**
-     @property SEARCH_QUERY {esc.Select}
+     @property SEARCH_QUERY {esc.util.Select}
      @static
      **/
-    ShipService.SEARCH_QUERY = select.from(ShipService.TYPE_ID_COLUMNS)
+    ShipService.SEARCH_QUERY = Select.from(ShipService.TYPE_ID_COLUMNS)
         .where('invGroups.categoryID').is(6)
         .and('invTypes.published').is(1)
         .and('invTypes.marketGroupID').is('invmarketgroups.marketGroupID')
@@ -110,13 +111,14 @@ YUI.add('esc-ship-service', function (Y) {
                 }
                 return out;
             }).join(' OR ') + ' )';
-        });
+        })
+        .orderBy('invTypes.typeID');
 
     /**
-     @property ATTRIBUTE_QUERY {esc.Select}
+     @property ATTRIBUTE_QUERY {esc.util.Select}
      @static
      **/
-    ShipService.ATTRIBUTE_QUERY = select.from(ShipService.ATTRIBUTE_COLUMNS)
+    ShipService.ATTRIBUTE_QUERY = Select.from(ShipService.ATTRIBUTE_COLUMNS)
         .where('dgmAttributeTypes.attributeID').is('dgmTypeAttributes.attributeID')
         .and('published').is(1)
         .and(function (ids) {
@@ -128,10 +130,10 @@ YUI.add('esc-ship-service', function (Y) {
         });
 
     /**
-     @property SKILL_QUERY {esc.Select}
+     @property SKILL_QUERY {esc.util.Select}
      @static
      **/
-    ShipService.SKILL_QUERY = select.from(ShipService.SKILL_COLUMNS)
+    ShipService.SKILL_QUERY = Select.from(ShipService.SKILL_COLUMNS)
         .where('SkillLevel.typeID').is('SkillName.typeID')
         .and(function (ids) {
             ids = Array.isArray(ids) ? ids : [ ids ];
@@ -153,14 +155,14 @@ YUI.add('esc-ship-service', function (Y) {
                 };
 
             Y.Object.each(mappings, function (value, key) {
-                var c = new NS.Criteria('SkillName.attributeID').is(key);
+                var c = new Criteria('SkillName.attributeID').is(key);
 
                 c.and('SkillLevel.attributeID').is(value);
 
                 if (pointer) {
                     pointer = pointer.or(c);
                 } else {
-                    joinCriteria = pointer = new NS.Criteria(c);
+                    joinCriteria = pointer = new Criteria(c);
                 }
             });
 
@@ -273,19 +275,19 @@ YUI.add('esc-ship-service', function (Y) {
 
     Y.mix(ShipService.prototype, {
         /**
-         @property skillService {esc.SkillService}
+         @property skillService {esc.util.SkillService}
          **/
         skillService : null,
 
         /**
-         @property db {esc.Database}
+         @property db {esc.util.Database}
          **/
         db           : null,
 
         /**
          @method search
          @param query {String|Number\Array} A single or list of ids, ship names, or ship types.
-         @return {esc.Query} A promise of ships.
+         @return {esc.util.Query} A promise of ships.
          **/
         search : function (query) {
             var d = this.db;
@@ -302,7 +304,7 @@ YUI.add('esc-ship-service', function (Y) {
          @method resolveSkills
          @private
          @param ships {Object[]}
-         @return {esc.SkillService} A promise of ships.
+         @return {esc.util.SkillService} A promise of ships.
          **/
         resolveSkills : function (ships) {
             var out,
@@ -350,7 +352,7 @@ YUI.add('esc-ship-service', function (Y) {
          @method queryAttributes
          @private
          @param ships {Object[]}
-         @return {esc.Query} A promise of ships.
+         @return {esc.util.Query} A promise of ships.
          **/
         queryAttributes : function (ships) {
             if (ships.length === 0) {
@@ -391,7 +393,7 @@ YUI.add('esc-ship-service', function (Y) {
          @method querySkills
          @private
          @param ships {Object[]}
-         @return {esc.Query} A promise of ships.
+         @return {esc.util.Query} A promise of ships.
          **/
         querySkills : function (ships) {
             if (ships.length === 0) {
@@ -441,7 +443,7 @@ YUI.add('esc-ship-service', function (Y) {
          @method cleanDescription
          @private
          @param ships {Object[]}
-         @return {esc.SkillService} A promise of ships.
+         @return {esc.service.SkillService} A promise of ships.
          **/
         cleanDescription : function (ships) {
             /*jslint continue:true, regexp:true */
@@ -482,7 +484,7 @@ YUI.add('esc-ship-service', function (Y) {
          @method mapResultsToShips
          @private
          @param ships {Object[]}
-         @return {esc.Ships[]}
+         @return {esc.model.Ships[]}
          **/
         mapResultsToShips : function (ships) {
             var i, l;
@@ -492,7 +494,7 @@ YUI.add('esc-ship-service', function (Y) {
             }
 
             for (i = 0, l = ships.length; i < l; i += 1) {
-                ships[i] = new NS.Ship(this.mapDatabaseRowToShip(ships[i]));
+                ships[i] = new Ship(this.mapDatabaseRowToShip(ships[i]));
             }
 
             return ships;
