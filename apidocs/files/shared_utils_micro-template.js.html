@@ -172,8 +172,8 @@ YUI.add(&#x27;esc-micro-template&#x27;, function (Y) {
      *&#x2F;
     MicroTemplate.OPTIONS = {
         code          : &#x2F;&lt;%([\s\S]+?)%&gt;&#x2F;g,
-        escapedOutput : &#x2F;&lt;%=([\s\S]+?)%&gt;&#x2F;g,
-        rawOutput     : &#x2F;&lt;%==([\s\S]+?)%&gt;&#x2F;g,
+        escapedOutput : &#x2F;\$\{([\s\S]+?)\}&#x2F;g,
+        rawOutput     : &#x2F;\$\{\{([\s\S]+?)\}\}&#x2F;g,
         stringEscape  : &#x2F;(&#x27;|\r|\n|\t|\u2028|\u2029|\\)&#x2F;g
     };
 
