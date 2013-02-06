@@ -1,6 +1,6 @@
 ## Eve ship comparison tool
 
-See it live [here](http://eve-ship-comparator.herokuapp.com/?frigate).
+See it live [here](http://eve-ship-comparator.herokuapp.com/compare?frigate).
 
 API documentation (in progress) can be found [here](http://nhusher.github.com/eve-ship-comparator/apidocs/).
 
