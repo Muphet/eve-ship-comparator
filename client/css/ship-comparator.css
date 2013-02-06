@@ -1,71 +1,96 @@
-
 html {
-    font-family: Helvetica;
-    background-color: #222225;
-    color: #ddddc5;
-    
-    -webkit-font-smoothing: antialiased;
+  font-family: Helvetica;
+  background-color: #222225;
+  color: #ddddc5;
+
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 0 100px;
 }
 
 .ship-card {
-    width: 25%;
-    float: left;
-    padding: 10px;
-    box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+
+  float: left;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .ship-icon {
-    position: relative;
+  position: relative;
+
 }
+
 .ship-icon img {
-    width: 100%;
-    display: block;
+  width: 100%;
+  display: block;
+  height: 100%;
 }
+
 .ship-icon h3 {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: right;
-    margin: 0;
-    padding: 5px;
-    text-shadow: 0 -1px rgba(0,0,0,0.3);
-    background: rgba(0,0,0,0.2);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: right;
+  margin: 0;
+  padding: 5px;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .ship-icon::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 16px;
-    width: 16px;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
 }
 
 .ship-icon.tech-1.meta-0::after {
-    display: block;
-    background: url(/img/badges/tech-1.png) top left no-repeat;
+  display: block;
+  background: url(/img/badges/tech-1.png) top left no-repeat;
 }
 
 .ship-icon.tech-2.meta-5::after {
-    display: block;
-    background: url(/img/badges/tech-2.png) top left no-repeat;
+  display: block;
+  background: url(/img/badges/tech-2.png) top left no-repeat;
 }
 
 .ship-icon.tech-3.meta-5::after {
-    display: block;
-    background: url(/img/badges/tech-3.png) top left no-repeat;
+  display: block;
+  background: url(/img/badges/tech-3.png) top left no-repeat;
 }
 
 .ship-icon.meta-9::after,
 .ship-icon.meta-7::after,
 .ship-icon.meta-6::after {
-    display: block;
-    background: url(/img/badges/faction.png) top left no-repeat;
+  display: block;
+  background: url(/img/badges/faction.png) top left no-repeat;
+}
+
+#ship-picker {
+  margin: 50px auto 0;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 150%;
+  background-color: #444448;
+  padding: 12px;
+  border: 0;
+  color: #fff;
+}
+
+#ship-picker:focus {
+  outline: 2px solid #ddddc5;
+}
+
+#ship-picker::-webkit-input-placeholder {
+  olor: #ddddc5;
 }

@@ -28,7 +28,15 @@
         
         "modules": {
             "client": {
-                "modules": {}
+                "esc-compare-view": { "path": "views/compare-view.js", "requires": [ "view" ] },
+
+                "esc-ship-query-service": { "path": "util/ship-query-service.js",
+                    "requires": [
+                        "esc-promise",
+                        "oop",
+                        "io"
+                    ]
+                }
             },
             
             "server": {
