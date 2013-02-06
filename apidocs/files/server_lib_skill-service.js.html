@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>esc-ship-service - Eve Ship Comparator API</title>
+    <title>server&#x2F;lib&#x2F;skill-service.js - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -150,49 +150,158 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>esc-ship-service Module</h1>
-<div class="box clearfix meta">
-    
+                        <h1 class="file-heading">File: server&#x2F;lib&#x2F;skill-service.js</h1>
 
-    
+<div class="file">
+    <pre class="code prettyprint linenums">
+&#x2F;*global YUI*&#x2F;
+&#x2F;**
+ @module esc-skill-service
+ @namespace esc.service
+ *&#x2F;
+YUI.add(&#x27;esc-skill-service&#x27;, function (Y) {
+    &quot;use strict&quot;;
 
-    
-        <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l49"><code>server&#x2F;lib&#x2F;ship-service.js:49</code></a>
-        </div>
-    
+    var NS = Y.namespace(&#x27;esc.service&#x27;),
+        Skill = Y.esc.model.Skill,
+        SkillRequirement = Y.esc.model.SkillRequirement,
+        Promise = Y.esc.util.Promise,
 
-    
-</div>
+        xml2js = YUI.require(&#x27;xml2js&#x27;),
+        https = YUI.require(&#x27;https&#x27;);
 
+    &#x2F;**
+     @class SkillService
+     @constructor
+     @extends esc.util.Promise
+     @example
 
+         SkillService.retrieve(&#x27;https:&#x2F;&#x2F;api.eveonline.com&#x2F;eve&#x2F;SkillTree.xml.aspx&#x27;).getSkill(12345).then(function(s) {
+            console.log(s.name);
+         });
+     **&#x2F;
+    function SkillService(resolver) {
+        SkillService.superclass.constructor.apply(this, arguments);
+    }
 
-<div class="box intro">
-    
-</div>
+    &#x2F;**
+     @method retrieve
+     @static
+     @param url {String}
+     @return {esc.service.SkillService}
+     *&#x2F;
+    SkillService.retrieve = function (url) {
+        return new SkillService(function (fulfill, reject) {
+            var data = &#x27;&#x27;;
 
+            https.get(url,function (res) {
+                res.on(&#x27;data&#x27;, function (d) {
+                    data += d;
+                });
 
+                res.on(&#x27;end&#x27;, function () {
+                    var parser = new xml2js.Parser(),
+                        skillTree = {};
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
-        
-            <p>This module provides the following classes:</p>
+                    parser.parseString(data, function (err, result) {
+                        var groups = result.eveapi.result[0].rowset[0].row,
+                            group, i, l,
+                            skills, skill, ii, ll;
 
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="..&#x2F;classes/esc.service.ShipService.html">
-                        esc.service.ShipService
-                    </a>
-                </li>
-            
-            </ul>
-        
-    </div>
+                        for (i = 0, l = groups.length; i &lt; l; i += 1) {
+                            group = groups[i];
+                            skills = group.rowset[0].row;
 
-    <div class="yui3-u-1-2">
-        
-    </div>
+                            for (ii = 0, ll = skills.length; ii &lt; ll; ii += 1) {
+                                skill = skills[ii];
+
+                                if (skill.$.published === &#x27;1&#x27;) {
+
+                                    skillTree[skill.$.typeID] = new Skill({
+                                        id           : parseFloat(skill.$.typeID),
+                                        name         : skill.$.typeName,
+                                        group        : group.$.groupName,
+                                        description  : skill.description[0],
+                                        rank         : parseFloat(skill.rank[0]),
+                                        requirements : skill.rowset[0].row ? skill.rowset[0].row.map(function (s) {
+                                            return new SkillRequirement({
+                                                id    : parseFloat(s.$.typeID),
+                                                level : parseFloat(s.$.skillLevel)
+                                            });
+
+                                        }) : []
+                                    });
+
+                                }
+                            }
+                        }
+
+                        fulfill(skillTree);
+                    });
+                });
+            }).on(&#x27;error&#x27;, function (e) {
+                    reject(e);
+                });
+
+        });
+    };
+
+    &#x2F;**
+     @method resolveSkillsFromTree
+     @static
+     @param ids {Array|Number} A list of ids
+     @param tree {Object} The skill tree to pull the ids out of.
+     @return {Object} Skills
+     *&#x2F;
+    SkillService.resolveSkillsFromTree = function (ids, tree) {
+        ids = Array.isArray(ids) ? ids : [ ids ];
+
+        var i, l, ii, iii, ll, lll, skills = [], skill, reqs;
+
+        for (i = 0, l = ids.length; i &lt; l; i += 1) {
+            skill = tree[ids[i]];
+
+            if (skill &amp;&amp; skill.requirements &amp;&amp; skill.requirements.length) {
+                reqs = SkillService.resolveSkillsFromTree(skill.requirements.map(function (i) {
+                    return i.id;
+                }), tree);
+
+                for (ii = 0, ll = reqs.length; ii &lt; ll; ii += 1) {
+                    for (iii = 0, lll = skill.requirements.length; iii &lt; lll; iii += 1) {
+                        if (reqs[ii].id === skill.requirements[iii].id) {
+                            skill.requirements[iii].skill = reqs[ii];
+                        }
+                    }
+                }
+            }
+
+            skills.push(skill);
+        }
+
+        return skills;
+    };
+
+    Y.extend(SkillService, Promise, {
+        &#x2F;**
+         @method getSkill
+         @params ids {Number|Number[]} A single id or list of ids to resolve.
+         @return {Skill[]}
+        **&#x2F;
+        getSkill : function (ids) {
+            return this.then(function (tree) {
+                var res = SkillService.resolveSkillsFromTree(ids, tree);
+
+                return res.length === 1 ? res[0] : res;
+            });
+        }
+    });
+
+    NS.SkillService = SkillService;
+
+}, &#x27;&#x27;, {
+    requires : [ &#x27;esc-promise&#x27; ]
+});
+    </pre>
 </div>
 
                     </div>

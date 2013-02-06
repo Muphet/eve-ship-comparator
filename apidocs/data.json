@@ -25,12 +25,12 @@
                 "esc-select": 1
             },
             "classes": {
-                "esc.Criteria": 1,
-                "esc.Select": 1
+                "esc.util.Criteria": 1,
+                "esc.util.Select": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             }
         },
         "server/lib/ship-service.js": {
@@ -39,11 +39,24 @@
                 "esc-ship-service": 1
             },
             "classes": {
-                "esc.ShipService": 1
+                "esc.service.ShipService": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.service": 1
+            }
+        },
+        "server/lib/skill-service.js": {
+            "name": "server/lib/skill-service.js",
+            "modules": {
+                "esc-skill-service": 1
+            },
+            "classes": {
+                "esc.service.SkillService": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc.service": 1
             }
         },
         "server/lib/sqlite.js": {
@@ -52,12 +65,12 @@
                 "esc-sqlite": 1
             },
             "classes": {
-                "esc.Query": 1,
-                "esc.Database": 1
+                "esc.util.Query": 1,
+                "esc.util.Database": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             }
         },
         "shared/model/hp-pool.js": {
@@ -66,13 +79,13 @@
                 "esc-hp-pool": 1
             },
             "classes": {
-                "esc.DamageProfile": 1,
-                "esc.HpPool": 1,
-                "esc.Shield": 1
+                "esc.model.DamageProfile": 1,
+                "esc.model.HpPool": 1,
+                "esc.model.Shield": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             }
         },
         "shared/model/ship-properties.js": {
@@ -81,17 +94,17 @@
                 "esc-ship-properties": 1
             },
             "classes": {
-                "esc.Sensors": 1,
-                "esc.Heat": 1,
-                "esc.Capacity": 1,
-                "esc.Slots": 1,
-                "esc.Drones": 1,
-                "esc.JumpDrive": 1,
-                "esc.Capacitor": 1
+                "esc.model.Sensors": 1,
+                "esc.model.Heat": 1,
+                "esc.model.Capacity": 1,
+                "esc.model.Slots": 1,
+                "esc.model.Drones": 1,
+                "esc.model.JumpDrive": 1,
+                "esc.model.Capacitor": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             }
         },
         "shared/model/ship.js": {
@@ -100,11 +113,11 @@
                 "esc-ship": 1
             },
             "classes": {
-                "esc.Ship": 1
+                "esc.model.Ship": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             }
         },
         "shared/model/skill.js": {
@@ -113,13 +126,13 @@
                 "esc-skill": 1
             },
             "classes": {
-                "esc.Skill": 1,
-                "esc.SkillRequirement": 1,
-                "esc.SkillRequirements": 1
+                "esc.model.Skill": 1,
+                "esc.model.SkillRequirement": 1,
+                "esc.model.SkillRequirements": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             }
         },
         "shared/utils/micro-template.js": {
@@ -128,11 +141,11 @@
                 "esc-micro-template": 1
             },
             "classes": {
-                "esc.MicroTemplate": 1
+                "esc.util.MicroTemplate": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             }
         },
         "shared/utils/promise.js": {
@@ -141,12 +154,12 @@
                 "esc-promise": 1
             },
             "classes": {
-                "esc.Promise": 1,
-                "esc.Promise.Resolver": 1
+                "esc.util.Promise": 1,
+                "esc.util.Promise.Resolver": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             }
         }
     },
@@ -169,42 +182,56 @@
             "name": "esc-select",
             "submodules": {},
             "classes": {
-                "esc.Criteria": 1,
-                "esc.Select": 1
+                "esc.util.Criteria": 1,
+                "esc.util.Select": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             },
             "tag": "module",
             "file": "server/lib/select.js",
-            "line": 166,
+            "line": 243,
             "description": "A tool to make it easier to build complex SQL queries."
         },
         "esc-ship-service": {
             "name": "esc-ship-service",
             "submodules": {},
             "classes": {
-                "esc.ShipService": 1
+                "esc.service.ShipService": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.service": 1
             },
             "tag": "module",
             "file": "server/lib/ship-service.js",
-            "line": 48
+            "line": 49
+        },
+        "esc-skill-service": {
+            "name": "esc-skill-service",
+            "submodules": {},
+            "classes": {
+                "esc.service.SkillService": 1
+            },
+            "fors": {},
+            "namespaces": {
+                "esc.service": 1
+            },
+            "tag": "module",
+            "file": "server/lib/skill-service.js",
+            "line": 17
         },
         "esc-sqlite": {
             "name": "esc-sqlite",
             "submodules": {},
             "classes": {
-                "esc.Query": 1,
-                "esc.Database": 1
+                "esc.util.Query": 1,
+                "esc.util.Database": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             },
             "tag": "module",
             "file": "server/lib/sqlite.js",
@@ -214,13 +241,13 @@
             "name": "esc-hp-pool",
             "submodules": {},
             "classes": {
-                "esc.DamageProfile": 1,
-                "esc.HpPool": 1,
-                "esc.Shield": 1
+                "esc.model.DamageProfile": 1,
+                "esc.model.HpPool": 1,
+                "esc.model.Shield": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             },
             "tag": "module",
             "file": "shared/model/hp-pool.js",
@@ -231,17 +258,17 @@
             "name": "esc-ship-properties",
             "submodules": {},
             "classes": {
-                "esc.Sensors": 1,
-                "esc.Heat": 1,
-                "esc.Capacity": 1,
-                "esc.Slots": 1,
-                "esc.Drones": 1,
-                "esc.JumpDrive": 1,
-                "esc.Capacitor": 1
+                "esc.model.Sensors": 1,
+                "esc.model.Heat": 1,
+                "esc.model.Capacity": 1,
+                "esc.model.Slots": 1,
+                "esc.model.Drones": 1,
+                "esc.model.JumpDrive": 1,
+                "esc.model.Capacitor": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             },
             "tag": "module",
             "file": "shared/model/ship-properties.js",
@@ -251,11 +278,11 @@
             "name": "esc-ship",
             "submodules": {},
             "classes": {
-                "esc.Ship": 1
+                "esc.model.Ship": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             },
             "tag": "module",
             "file": "shared/model/ship.js",
@@ -265,13 +292,13 @@
             "name": "esc-skill",
             "submodules": {},
             "classes": {
-                "esc.Skill": 1,
-                "esc.SkillRequirement": 1,
-                "esc.SkillRequirements": 1
+                "esc.model.Skill": 1,
+                "esc.model.SkillRequirement": 1,
+                "esc.model.SkillRequirements": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.model": 1
             },
             "tag": "module",
             "file": "shared/model/skill.js",
@@ -282,11 +309,11 @@
             "name": "esc-micro-template",
             "submodules": {},
             "classes": {
-                "esc.MicroTemplate": 1
+                "esc.util.MicroTemplate": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             },
             "tag": "module",
             "file": "shared/utils/micro-template.js",
@@ -296,12 +323,12 @@
             "name": "esc-promise",
             "submodules": {},
             "classes": {
-                "esc.Promise": 1,
-                "esc.Promise.Resolver": 1
+                "esc.util.Promise": 1,
+                "esc.util.Promise.Resolver": 1
             },
             "fors": {},
             "namespaces": {
-                "esc": 1
+                "esc.util": 1
             },
             "tag": "module",
             "file": "shared/utils/promise.js",
@@ -324,8 +351,8 @@
             "line": 12,
             "extends": "View"
         },
-        "esc.Criteria": {
-            "name": "esc.Criteria",
+        "esc.util.Criteria": {
+            "name": "esc.util.Criteria",
             "shortname": "Criteria",
             "classitems": [],
             "plugins": [],
@@ -333,13 +360,33 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-select",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "server/lib/select.js",
             "line": 13,
-            "is_constructor": 1
+            "description": "A criteria object generates a set of conditionals to be attached to a SQL query. Criteria objects are usually generated from Select instances using the `where` method, but can be generated on its own, if that level of control is needed.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "criteria",
+                    "description": "\nIf the `criteria` argument is a string, it sets the column the criteria is looking at, so that it can be followed by a call to `is`, `gt`, `lt`, or `like`. If the criteria argument is a function, it will evaluate the function against provided arguments when the criteria is evaluated. If the criteria is a `Criteria` instance, it attaches that. This last case is useful for attaching tree-based criteria to a query.",
+                    "type": "String|Function|esc.Criteria"
+                },
+                {
+                    "name": "parentCriteria",
+                    "description": "Criteria objects exist in a linked list. If the parentCriteria is defined, it will be set as the previous link in the list.",
+                    "type": "Criteria",
+                    "optional": true
+                },
+                {
+                    "name": "selectStatement",
+                    "description": "The containing select statement.",
+                    "type": "Select",
+                    "optional": true
+                }
+            ]
         },
-        "esc.Select": {
-            "name": "esc.Select",
+        "esc.util.Select": {
+            "name": "esc.util.Select",
             "shortname": "Select",
             "classitems": [],
             "plugins": [],
@@ -347,13 +394,24 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-select",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "server/lib/select.js",
-            "line": 166,
-            "is_constructor": 1
+            "line": 243,
+            "description": "Generates a new select statement that can be evaluated using `exec`. Generally accessed via the `from` factory method.",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "tablesAndFields",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "example": [
+                "\n\n    select.from({ 'invTypes': [ 'typeID', 'typeName' ] }).where('typeID').is('{id}').exec({ id: 12345 });\n    // SELECT invTypes.typeID, invTypes.typeName FROM invTypes WHERE typeID == 12345\n"
+            ]
         },
-        "esc.ShipService": {
-            "name": "esc.ShipService",
+        "esc.service.ShipService": {
+            "name": "esc.service.ShipService",
             "shortname": "ShipService",
             "classitems": [],
             "plugins": [],
@@ -361,13 +419,31 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-service",
-            "namespace": "esc",
+            "namespace": "esc.service",
             "file": "server/lib/ship-service.js",
-            "line": 48,
+            "line": 49,
             "is_constructor": 1
         },
-        "esc.Query": {
-            "name": "esc.Query",
+        "esc.service.SkillService": {
+            "name": "esc.service.SkillService",
+            "shortname": "SkillService",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "esc-skill-service",
+            "namespace": "esc.service",
+            "file": "server/lib/skill-service.js",
+            "line": 17,
+            "is_constructor": 1,
+            "extends": "esc.util.Promise",
+            "example": [
+                "\n\n    SkillService.retrieve('https://api.eveonline.com/eve/SkillTree.xml.aspx').getSkill(12345).then(function(s) {\n       console.log(s.name);\n    });"
+            ]
+        },
+        "esc.util.Query": {
+            "name": "esc.util.Query",
             "shortname": "Query",
             "classitems": [],
             "plugins": [],
@@ -375,14 +451,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-sqlite",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "server/lib/sqlite.js",
             "line": 21,
             "is_constructor": 1,
-            "extends": "esc.Promise"
+            "extends": "esc.util.Promise"
         },
-        "esc.Database": {
-            "name": "esc.Database",
+        "esc.util.Database": {
+            "name": "esc.util.Database",
             "shortname": "Database",
             "classitems": [],
             "plugins": [],
@@ -390,14 +466,17 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-sqlite",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "server/lib/sqlite.js",
             "line": 81,
             "is_constructor": 1,
-            "extends": "esc.Promise"
+            "extends": "esc.util.Promise",
+            "example": [
+                "\n\n    Database.open('someDatabase.sqlite').all('SELECT * FROM invTypes WHERE typeID == 12345').each(function(result) {\n        console.log(res.typeName);\n    });"
+            ]
         },
-        "esc.DamageProfile": {
-            "name": "esc.DamageProfile",
+        "esc.model.DamageProfile": {
+            "name": "esc.model.DamageProfile",
             "shortname": "DamageProfile",
             "classitems": [],
             "plugins": [],
@@ -405,7 +484,7 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-hp-pool",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/hp-pool.js",
             "line": 17,
             "description": "A utility class that generates an EHP based on a provided HpPool instance.",
@@ -418,8 +497,8 @@
                 }
             ]
         },
-        "esc.HpPool": {
-            "name": "esc.HpPool",
+        "esc.model.HpPool": {
+            "name": "esc.model.HpPool",
             "shortname": "HpPool",
             "classitems": [],
             "plugins": [],
@@ -427,14 +506,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-hp-pool",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/hp-pool.js",
             "line": 233,
             "description": "Represents one of the three HP 'pools' on a ship: shields, armor, and structure (hull)",
             "is_constructor": 1
         },
-        "esc.Shield": {
-            "name": "esc.Shield",
+        "esc.model.Shield": {
+            "name": "esc.model.Shield",
             "shortname": "Shield",
             "classitems": [],
             "plugins": [],
@@ -442,15 +521,15 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-hp-pool",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/hp-pool.js",
             "line": 332,
             "description": "A descendant of the HpPool object that has additional features related to shield rechage rates.",
             "is_constructor": 1,
             "extends": "esc.HpPool"
         },
-        "esc.Sensors": {
-            "name": "esc.Sensors",
+        "esc.model.Sensors": {
+            "name": "esc.model.Sensors",
             "shortname": "Sensors",
             "classitems": [],
             "plugins": [],
@@ -458,14 +537,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 15,
             "description": "A set of properties related to sensor strength, range, and max locked targets.",
             "is_constructor": 1
         },
-        "esc.Heat": {
-            "name": "esc.Heat",
+        "esc.model.Heat": {
+            "name": "esc.model.Heat",
             "shortname": "Heat",
             "classitems": [],
             "plugins": [],
@@ -473,14 +552,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 54,
             "description": "Properties related to how a ship generates and sheds heat.",
             "is_constructor": 1
         },
-        "esc.Capacity": {
-            "name": "esc.Capacity",
+        "esc.model.Capacity": {
+            "name": "esc.model.Capacity",
             "shortname": "Capacity",
             "classitems": [],
             "plugins": [],
@@ -488,14 +567,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 86,
             "description": "Properties related to how much junk a ship can hold.",
             "is_constructor": 1
         },
-        "esc.Slots": {
-            "name": "esc.Slots",
+        "esc.model.Slots": {
+            "name": "esc.model.Slots",
             "shortname": "Slots",
             "classitems": [],
             "plugins": [],
@@ -503,14 +582,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 110,
             "description": "Properties related to how many modules a ship can be fitted with.",
             "is_constructor": 1
         },
-        "esc.Drones": {
-            "name": "esc.Drones",
+        "esc.model.Drones": {
+            "name": "esc.model.Drones",
             "shortname": "Drones",
             "classitems": [],
             "plugins": [],
@@ -518,14 +597,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 136,
             "description": "A set of properties related to ship drone capacity and bandwidth.",
             "is_constructor": 1
         },
-        "esc.JumpDrive": {
-            "name": "esc.JumpDrive",
+        "esc.model.JumpDrive": {
+            "name": "esc.model.JumpDrive",
             "shortname": "JumpDrive",
             "classitems": [],
             "plugins": [],
@@ -533,14 +612,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 157,
             "description": "A set of properties related to ship Jump Drives.",
             "is_constructor": 1
         },
-        "esc.Capacitor": {
-            "name": "esc.Capacitor",
+        "esc.model.Capacitor": {
+            "name": "esc.model.Capacitor",
             "shortname": "Capacitor",
             "classitems": [],
             "plugins": [],
@@ -548,14 +627,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship-properties",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship-properties.js",
             "line": 183,
             "description": "A set of properties related to the size and charge rate of the capacitor.",
             "is_constructor": 1
         },
-        "esc.Ship": {
-            "name": "esc.Ship",
+        "esc.model.Ship": {
+            "name": "esc.model.Ship",
             "shortname": "Ship",
             "classitems": [],
             "plugins": [],
@@ -563,7 +642,7 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-ship",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/ship.js",
             "line": 22,
             "is_constructor": 1,
@@ -575,8 +654,8 @@
                 }
             ]
         },
-        "esc.Skill": {
-            "name": "esc.Skill",
+        "esc.model.Skill": {
+            "name": "esc.model.Skill",
             "shortname": "Skill",
             "classitems": [],
             "plugins": [],
@@ -584,14 +663,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-skill",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/skill.js",
             "line": 17,
             "description": "A representation of a skill in the Eve skill tree. Matains a list of skills that are required to train this skill, as well as things like group, rank, and description.",
             "is_constructor": 1
         },
-        "esc.SkillRequirement": {
-            "name": "esc.SkillRequirement",
+        "esc.model.SkillRequirement": {
+            "name": "esc.model.SkillRequirement",
             "shortname": "SkillRequirement",
             "classitems": [],
             "plugins": [],
@@ -599,14 +678,14 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-skill",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/skill.js",
             "line": 77,
             "description": "A representation of a required skill, either to fly a ship or as a prereq for a skill to fly a ship.",
             "is_constructor": 1
         },
-        "esc.SkillRequirements": {
-            "name": "esc.SkillRequirements",
+        "esc.model.SkillRequirements": {
+            "name": "esc.model.SkillRequirements",
             "shortname": "SkillRequirements",
             "classitems": [],
             "plugins": [],
@@ -614,13 +693,13 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-skill",
-            "namespace": "esc",
+            "namespace": "esc.model",
             "file": "shared/model/skill.js",
             "line": 114,
             "is_constructor": 1
         },
-        "esc.MicroTemplate": {
-            "name": "esc.MicroTemplate",
+        "esc.util.MicroTemplate": {
+            "name": "esc.util.MicroTemplate",
             "shortname": "MicroTemplate",
             "classitems": [],
             "plugins": [],
@@ -628,12 +707,12 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-micro-template",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "shared/utils/micro-template.js",
             "line": 13
         },
-        "esc.Promise": {
-            "name": "esc.Promise",
+        "esc.util.Promise": {
+            "name": "esc.util.Promise",
             "shortname": "Promise",
             "classitems": [],
             "plugins": [],
@@ -641,7 +720,7 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-promise",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "shared/utils/promise.js",
             "line": 45,
             "description": "The public API for a Resolver. Used to subscribe to the notification events for\nresolution or progress of the operation represented by the Resolver.",
@@ -654,8 +733,8 @@
                 }
             ]
         },
-        "esc.Promise.Resolver": {
-            "name": "esc.Promise.Resolver",
+        "esc.util.Promise.Resolver": {
+            "name": "esc.util.Promise.Resolver",
             "shortname": "Promise.Resolver",
             "classitems": [],
             "plugins": [],
@@ -663,7 +742,7 @@
             "plugin_for": [],
             "extension_for": [],
             "module": "esc-promise",
-            "namespace": "esc",
+            "namespace": "esc.util",
             "file": "shared/utils/promise.js",
             "line": 113,
             "description": "Represents an asynchronous operation. Provides a\nstandard API for subscribing to the moment that the operation completes either\nsuccessfully (`fulfill()`) or unsuccessfully (`reject()`).",
@@ -680,40 +759,40 @@
     "classitems": [
         {
             "file": "server/lib/select.js",
-            "line": 38,
+            "line": 47,
             "description": "The parent criteria for this instance.",
             "itemtype": "property",
             "name": "parent",
             "type": "esc.Criteria",
-            "class": "esc.Criteria",
+            "class": "esc.util.Criteria",
             "module": "esc-select",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/select.js",
-            "line": 45,
+            "line": 54,
             "description": "The child criteria for this instance.",
             "itemtype": "property",
             "name": "child",
             "type": "esc.Criteria",
-            "class": "esc.Criteria",
+            "class": "esc.util.Criteria",
             "module": "esc-select",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/select.js",
-            "line": 52,
+            "line": 61,
             "description": "The parent select statement.",
             "itemtype": "property",
             "name": "parentSelect",
             "type": "esc.Select",
-            "class": "esc.Criteria",
+            "class": "esc.util.Criteria",
             "module": "esc-select",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/select.js",
-            "line": 59,
+            "line": 68,
             "description": "Returns the select statement that this criteria is a part of, if one exists. If this Critiera doesn't know what select statement it is a part of, it will traverse the criteria tree until it finds it.",
             "itemtype": "method",
             "name": "select",
@@ -721,110 +800,378 @@
                 "description": "The parent select object, if any.",
                 "type": "esc.Select"
             },
-            "class": "esc.Criteria",
+            "class": "esc.util.Criteria",
             "module": "esc-select",
-            "namespace": "esc"
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 94,
+            "description": "Adds a child criteria to the linked list and returns it. Used for fluent chaining.",
+            "itemtype": "method",
+            "name": "addChildCriteria",
+            "access": "protected",
+            "tagname": "",
+            "params": [
+                {
+                    "name": "join",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "columnOrCriteria",
+                    "description": "",
+                    "type": "String|Function|Criteria"
+                }
+            ],
+            "return": {
+                "description": "The child criteria.",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 111,
+            "description": "Adds a new `AND` child criteria and returns it.",
+            "itemtype": "method",
+            "name": "and",
+            "params": [
+                {
+                    "name": "columnOrCriteria",
+                    "description": "",
+                    "type": "String|Function|Criteria"
+                }
+            ],
+            "return": {
+                "description": "The child criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 122,
+            "description": "Adds a new `OR` child criteria and returns it.",
+            "itemtype": "method",
+            "name": "or",
+            "params": [
+                {
+                    "name": "columnOrCriteria",
+                    "description": "",
+                    "type": "String|Function|Criteria"
+                }
+            ],
+            "return": {
+                "description": "The child criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 133,
+            "description": "Adds a predicate to the current criteria.",
+            "itemtype": "method",
+            "name": "addPredicate",
+            "access": "protected",
+            "tagname": "",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "join",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "This criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 156,
+            "itemtype": "method",
+            "name": "like",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "This criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 168,
+            "itemtype": "method",
+            "name": "is",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "This criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 178,
+            "itemtype": "method",
+            "name": "gt",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "This criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 188,
+            "itemtype": "method",
+            "name": "lt",
+            "chainable": 1,
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "String|Number"
+                }
+            ],
+            "return": {
+                "description": "This criteria",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 207,
+            "description": "Evaluates the current select statement.",
+            "itemtype": "method",
+            "name": "exec",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "",
+                    "type": "Object|Number|Array|String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "String"
+            },
+            "class": "esc.util.Criteria",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 285,
+            "description": "A factory method for Select",
+            "itemtype": "method",
+            "name": "from",
+            "static": 1,
+            "params": [
+                {
+                    "name": "tablesAndFields",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "A new select instance.",
+                "type": "esc.Select"
+            },
+            "class": "esc.util.Select",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 303,
+            "description": "Returns a new Criteria clause attached to this select statement.",
+            "itemtype": "method",
+            "name": "where",
+            "params": [
+                {
+                    "name": "columnOrCriteria",
+                    "description": "",
+                    "type": "String|Function|esc.Criteria"
+                }
+            ],
+            "return": {
+                "description": "The first item on the criteria chain.",
+                "type": "esc.Criteria"
+            },
+            "class": "esc.util.Select",
+            "module": "esc-select",
+            "namespace": "esc.util"
+        },
+        {
+            "file": "server/lib/select.js",
+            "line": 328,
+            "description": "A factory method for Select",
+            "itemtype": "method",
+            "name": "exec",
+            "params": [
+                {
+                    "name": "a",
+                    "description": "",
+                    "type": "String|Number|Array|Object"
+                }
+            ],
+            "return": {
+                "description": "The evaluated select statement.",
+                "type": "String"
+            },
+            "class": "esc.util.Select",
+            "module": "esc-select",
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 58,
+            "line": 59,
             "itemtype": "property",
             "name": "TYPE_ID_COLUMNS",
             "type": "Object",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 74,
+            "line": 75,
             "itemtype": "property",
             "name": "ATTRIBUTE_COLUMNS",
             "type": "Object",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 83,
+            "line": 84,
             "itemtype": "property",
             "name": "SKILL_COLUMNS",
             "type": "Object",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 92,
+            "line": 93,
             "itemtype": "property",
             "name": "SEARCH_QUERY",
-            "type": "esc.Select",
+            "type": "esc.util.Select",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 115,
+            "line": 117,
             "itemtype": "property",
             "name": "ATTRIBUTE_QUERY",
-            "type": "esc.Select",
+            "type": "esc.util.Select",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 130,
+            "line": 132,
             "itemtype": "property",
             "name": "SKILL_QUERY",
-            "type": "esc.Select",
+            "type": "esc.util.Select",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 170,
+            "line": 172,
             "itemtype": "property",
             "name": "ROW_PROPERTY_MAPPINGS",
             "type": "Object",
             "static": 1,
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 275,
+            "line": 277,
             "itemtype": "property",
             "name": "skillService",
-            "type": "esc.SkillService",
-            "class": "esc.ShipService",
+            "type": "esc.util.SkillService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 280,
+            "line": 282,
             "itemtype": "property",
             "name": "db",
-            "type": "esc.Database",
-            "class": "esc.ShipService",
+            "type": "esc.util.Database",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 285,
+            "line": 287,
             "itemtype": "method",
             "name": "search",
             "params": [
@@ -836,15 +1183,15 @@
             ],
             "return": {
                 "description": "A promise of ships.",
-                "type": "esc.Query"
+                "type": "esc.util.Query"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 301,
+            "line": 303,
             "itemtype": "method",
             "name": "resolveSkills",
             "access": "private",
@@ -858,15 +1205,15 @@
             ],
             "return": {
                 "description": "A promise of ships.",
-                "type": "esc.SkillService"
+                "type": "esc.util.SkillService"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 349,
+            "line": 351,
             "itemtype": "method",
             "name": "queryAttributes",
             "access": "private",
@@ -880,15 +1227,15 @@
             ],
             "return": {
                 "description": "A promise of ships.",
-                "type": "esc.Query"
+                "type": "esc.util.Query"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 390,
+            "line": 392,
             "itemtype": "method",
             "name": "querySkills",
             "access": "private",
@@ -902,15 +1249,15 @@
             ],
             "return": {
                 "description": "A promise of ships.",
-                "type": "esc.Query"
+                "type": "esc.util.Query"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 440,
+            "line": 442,
             "itemtype": "method",
             "name": "cleanDescription",
             "access": "private",
@@ -924,15 +1271,15 @@
             ],
             "return": {
                 "description": "A promise of ships.",
-                "type": "esc.SkillService"
+                "type": "esc.service.SkillService"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 481,
+            "line": 483,
             "itemtype": "method",
             "name": "mapResultsToShips",
             "access": "private",
@@ -946,15 +1293,15 @@
             ],
             "return": {
                 "description": "",
-                "type": "esc.Ships[]"
+                "type": "esc.model.Ships[]"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 501,
+            "line": 503,
             "itemtype": "method",
             "name": "mapDatabaseRowToShip",
             "access": "private",
@@ -970,135 +1317,202 @@
                 "description": "",
                 "type": "Object[]"
             },
-            "class": "esc.ShipService",
+            "class": "esc.service.ShipService",
             "module": "esc-ship-service",
-            "namespace": "esc"
+            "namespace": "esc.service"
+        },
+        {
+            "file": "server/lib/skill-service.js",
+            "line": 31,
+            "itemtype": "method",
+            "name": "retrieve",
+            "static": 1,
+            "params": [
+                {
+                    "name": "url",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "esc.service.SkillService"
+            },
+            "class": "esc.service.SkillService",
+            "module": "esc-skill-service",
+            "namespace": "esc.service"
+        },
+        {
+            "file": "server/lib/skill-service.js",
+            "line": 93,
+            "itemtype": "method",
+            "name": "resolveSkillsFromTree",
+            "static": 1,
+            "params": [
+                {
+                    "name": "ids",
+                    "description": "A list of ids",
+                    "type": "Array|Number"
+                },
+                {
+                    "name": "tree",
+                    "description": "The skill tree to pull the ids out of.",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "Skills",
+                "type": "Object"
+            },
+            "class": "esc.service.SkillService",
+            "module": "esc-skill-service",
+            "namespace": "esc.service"
+        },
+        {
+            "file": "server/lib/skill-service.js",
+            "line": 129,
+            "itemtype": "method",
+            "name": "getSkill",
+            "params": [
+                {
+                    "name": "ids",
+                    "description": "A single id or list of ids to resolve.",
+                    "type": "Number|Number[]"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Skill[]"
+            },
+            "class": "esc.service.SkillService",
+            "module": "esc-skill-service",
+            "namespace": "esc.service"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 45,
             "itemtype": "method",
             "name": "each",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 50,
             "itemtype": "method",
             "name": "every",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 55,
             "itemtype": "method",
             "name": "some",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 60,
             "itemtype": "method",
             "name": "filter",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 65,
             "itemtype": "method",
             "name": "map",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 70,
             "itemtype": "method",
             "name": "reduce",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
             "line": 75,
             "itemtype": "method",
             "name": "reduceRight",
-            "class": "esc.Query",
+            "class": "esc.util.Query",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
-            "line": 90,
+            "line": 96,
             "itemtype": "method",
             "name": "open",
             "static": 1,
-            "class": "esc.Database",
+            "class": "esc.util.Database",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
-            "line": 107,
+            "line": 113,
             "itemtype": "method",
             "name": "one",
             "params": [
                 {
                     "name": "select",
                     "description": "",
-                    "type": "esc.Select | String"
+                    "type": "esc.util.Select | String"
                 }
             ],
             "return": {
                 "description": "A query promise hooked to this instance's db.",
-                "type": "esc.Query"
+                "type": "esc.util.Query"
             },
-            "class": "esc.Database",
+            "class": "esc.util.Database",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
-            "line": 131,
+            "line": 137,
             "itemtype": "method",
             "name": "all",
             "params": [
                 {
                     "name": "select",
                     "description": "",
-                    "type": "esc.Select | String"
+                    "type": "esc.util.Select | String"
                 }
             ],
             "return": {
                 "description": "A query promise hooked to this instance's db.",
-                "type": "esc.Query"
+                "type": "esc.util.Query"
             },
-            "class": "esc.Database",
+            "class": "esc.util.Database",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "server/lib/sqlite.js",
-            "line": 155,
+            "line": 161,
             "itemtype": "method",
             "name": "close",
             "return": {
                 "description": "promise chain.",
-                "type": "esc.Database"
+                "type": "esc.util.Database"
             },
-            "class": "esc.Database",
+            "class": "esc.util.Database",
             "module": "esc-sqlite",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1107,9 +1521,9 @@
             "name": "em",
             "type": "Number",
             "default": "0",
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1118,9 +1532,9 @@
             "name": "explosive",
             "type": "Number",
             "default": "0",
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1129,9 +1543,9 @@
             "name": "kinetic",
             "type": "Number",
             "default": "0",
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1140,9 +1554,9 @@
             "name": "thermal",
             "type": "Number",
             "default": "0",
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1160,9 +1574,9 @@
                 "description": "The EHP of that hit point pool.",
                 "type": "Number"
             },
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1172,9 +1586,9 @@
             "name": "eft",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1184,9 +1598,9 @@
             "name": "gurista",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1196,9 +1610,9 @@
             "name": "eom",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1208,9 +1622,9 @@
             "name": "angel",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1220,9 +1634,9 @@
             "name": "sansha",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1232,9 +1646,9 @@
             "name": "bloodRaider",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1244,9 +1658,9 @@
             "name": "amarr",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1256,9 +1670,9 @@
             "name": "serpentis",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1268,9 +1682,9 @@
             "name": "caldari",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1280,9 +1694,9 @@
             "name": "gallente",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1292,9 +1706,9 @@
             "name": "minmatar",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1304,9 +1718,9 @@
             "name": "mercenaries",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1316,9 +1730,9 @@
             "name": "drones",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1328,9 +1742,9 @@
             "name": "eve",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1340,9 +1754,9 @@
             "name": "sharedDamageProfile",
             "type": "esc.DamageProfile",
             "static": 1,
-            "class": "esc.DamageProfile",
+            "class": "esc.model.DamageProfile",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1350,9 +1764,9 @@
             "itemtype": "property",
             "name": "hp",
             "type": "Number",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1360,9 +1774,9 @@
             "itemtype": "property",
             "name": "emResonance",
             "type": "Number",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1370,9 +1784,9 @@
             "itemtype": "property",
             "name": "explosiveResonance",
             "type": "Number",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1380,9 +1794,9 @@
             "itemtype": "property",
             "name": "kineticResonance",
             "type": "Number",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1390,9 +1804,9 @@
             "itemtype": "property",
             "name": "thermalResonance",
             "type": "Number",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1401,9 +1815,9 @@
             "name": "damageProfile",
             "type": "esc.DamageProfile",
             "default": "null",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1412,9 +1826,9 @@
             "name": "emResistance",
             "type": "Number",
             "readonly": "",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1423,9 +1837,9 @@
             "name": "explosiveResistance",
             "type": "Number",
             "readonly": "",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1434,9 +1848,9 @@
             "name": "kineticResistance",
             "type": "Number",
             "readonly": "",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1445,9 +1859,9 @@
             "name": "thermalResistance",
             "type": "Number",
             "readonly": "",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1457,9 +1871,9 @@
             "name": "ehp",
             "type": "Number",
             "readonly": "",
-            "class": "esc.HpPool",
+            "class": "esc.model.HpPool",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1468,9 +1882,9 @@
             "itemtype": "property",
             "name": "recharge",
             "type": "Number",
-            "class": "esc.Shield",
+            "class": "esc.model.Shield",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/hp-pool.js",
@@ -1480,9 +1894,9 @@
             "name": "peakRecharge",
             "type": "Number",
             "readonly": "",
-            "class": "esc.Shield",
+            "class": "esc.model.Shield",
             "module": "esc-hp-pool",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship-properties.js",
@@ -1491,9 +1905,9 @@
             "itemtype": "property",
             "name": "strength",
             "readonly": "",
-            "class": "esc.Sensors",
+            "class": "esc.model.Sensors",
             "module": "esc-ship-properties",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship-properties.js",
@@ -1502,9 +1916,9 @@
             "itemtype": "property",
             "name": "capacity",
             "type": "Number",
-            "class": "esc.Capacitor",
+            "class": "esc.model.Capacitor",
             "module": "esc-ship-properties",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship-properties.js",
@@ -1513,9 +1927,9 @@
             "itemtype": "property",
             "name": "recharge",
             "type": "Number",
-            "class": "esc.Capacitor",
+            "class": "esc.model.Capacitor",
             "module": "esc-ship-properties",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship-properties.js",
@@ -1525,9 +1939,9 @@
             "name": "peakRecharge",
             "type": "Number",
             "readonly": "",
-            "class": "esc.Capacitor",
+            "class": "esc.model.Capacitor",
             "module": "esc-ship-properties",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1536,9 +1950,9 @@
             "itemtype": "property",
             "name": "capacity",
             "type": "esc.Capacity",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1547,9 +1961,9 @@
             "itemtype": "property",
             "name": "sensors",
             "type": "esc.Sensors",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1558,9 +1972,9 @@
             "itemtype": "property",
             "name": "slots",
             "type": "esc.Slots",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1569,9 +1983,9 @@
             "itemtype": "property",
             "name": "capacitor",
             "type": "esc.Capacitor",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1580,9 +1994,9 @@
             "itemtype": "property",
             "name": "drones",
             "type": "esc.Drones",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1591,9 +2005,9 @@
             "itemtype": "property",
             "name": "heat",
             "type": "esc.Heat",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1602,9 +2016,9 @@
             "itemtype": "property",
             "name": "hull",
             "type": "esc.HpPool",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1613,9 +2027,9 @@
             "itemtype": "property",
             "name": "armor",
             "type": "esc.HpPool",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1624,9 +2038,9 @@
             "itemtype": "property",
             "name": "shield",
             "type": "esc.Shield",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1635,9 +2049,9 @@
             "itemtype": "property",
             "name": "jumpDrive",
             "type": "esc.JumpDrive",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1646,9 +2060,9 @@
             "itemtype": "property",
             "name": "skillRequirements",
             "type": "esc.SkillRequirements",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1657,9 +2071,9 @@
             "itemtype": "property",
             "name": "id",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1668,9 +2082,9 @@
             "itemtype": "property",
             "name": "name",
             "type": "String",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1679,9 +2093,9 @@
             "itemtype": "property",
             "name": "type",
             "type": "String",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1690,9 +2104,9 @@
             "itemtype": "property",
             "name": "description",
             "type": "String",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1701,9 +2115,9 @@
             "itemtype": "property",
             "name": "race",
             "type": "String",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1712,9 +2126,9 @@
             "itemtype": "property",
             "name": "meta",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1723,9 +2137,9 @@
             "itemtype": "property",
             "name": "techLevel",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1734,9 +2148,9 @@
             "itemtype": "property",
             "name": "signature",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1744,9 +2158,9 @@
             "itemtype": "property",
             "name": "agility",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1754,9 +2168,9 @@
             "itemtype": "property",
             "name": "velocity",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1764,9 +2178,9 @@
             "itemtype": "property",
             "name": "warpSpeed",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1774,9 +2188,9 @@
             "itemtype": "property",
             "name": "warpSpeedMultiplier",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1785,9 +2199,9 @@
             "itemtype": "property",
             "name": "cpu",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1796,9 +2210,9 @@
             "itemtype": "property",
             "name": "powerGrid",
             "type": "Number",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/ship.js",
@@ -1806,9 +2220,9 @@
             "description": "Override for the toString method.",
             "itemtype": "method",
             "name": "toString",
-            "class": "esc.Ship",
+            "class": "esc.model.Ship",
             "module": "esc-ship",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1817,9 +2231,9 @@
             "itemtype": "property",
             "name": "id",
             "type": "Number",
-            "class": "esc.Skill",
+            "class": "esc.model.Skill",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1828,9 +2242,9 @@
             "itemtype": "property",
             "name": "name",
             "type": "String",
-            "class": "esc.Skill",
+            "class": "esc.model.Skill",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1839,9 +2253,9 @@
             "itemtype": "property",
             "name": "description",
             "type": "String",
-            "class": "esc.Skill",
+            "class": "esc.model.Skill",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1850,9 +2264,9 @@
             "itemtype": "property",
             "name": "group",
             "type": "String",
-            "class": "esc.Skill",
+            "class": "esc.model.Skill",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1861,9 +2275,9 @@
             "itemtype": "property",
             "name": "rank",
             "type": "Number",
-            "class": "esc.Skill",
+            "class": "esc.model.Skill",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1872,9 +2286,9 @@
             "itemtype": "property",
             "name": "requirements",
             "type": "Array",
-            "class": "esc.Skill",
+            "class": "esc.model.Skill",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1883,9 +2297,9 @@
             "itemtype": "property",
             "name": "id",
             "type": "Number",
-            "class": "esc.SkillRequirement",
+            "class": "esc.model.SkillRequirement",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1894,9 +2308,9 @@
             "itemtype": "property",
             "name": "level",
             "type": "Number",
-            "class": "esc.SkillRequirement",
+            "class": "esc.model.SkillRequirement",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1905,9 +2319,9 @@
             "itemtype": "property",
             "name": "skill",
             "type": "esc.Skill",
-            "class": "esc.SkillRequirement",
+            "class": "esc.model.SkillRequirement",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1915,9 +2329,9 @@
             "itemtype": "property",
             "name": "skills",
             "type": "Array",
-            "class": "esc.SkillRequirements",
+            "class": "esc.model.SkillRequirements",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1925,9 +2339,9 @@
             "itemtype": "property",
             "name": "primary",
             "type": "esc.SkillRequirement",
-            "class": "esc.SkillRequirements",
+            "class": "esc.model.SkillRequirements",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1935,9 +2349,9 @@
             "itemtype": "property",
             "name": "secondary",
             "type": "esc.SkillRequirement",
-            "class": "esc.SkillRequirements",
+            "class": "esc.model.SkillRequirements",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/model/skill.js",
@@ -1945,9 +2359,9 @@
             "itemtype": "property",
             "name": "tertiary",
             "type": "esc.SkillRequirement",
-            "class": "esc.SkillRequirements",
+            "class": "esc.model.SkillRequirements",
             "module": "esc-skill",
-            "namespace": "esc"
+            "namespace": "esc.model"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -1955,9 +2369,9 @@
             "itemtype": "property",
             "name": "OPTIONS",
             "static": 1,
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -1965,9 +2379,9 @@
             "itemtype": "property",
             "name": "TEMPLATE_ESCAPE",
             "static": 1,
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -1975,9 +2389,9 @@
             "itemtype": "property",
             "name": "STRING_ESCAPE",
             "static": 1,
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -1996,9 +2410,9 @@
                 "description": "",
                 "type": "String"
             },
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -2022,9 +2436,9 @@
                 "description": "",
                 "type": "String"
             },
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -2044,9 +2458,9 @@
                     "type": "Object"
                 }
             ],
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -2070,9 +2484,9 @@
                 "description": "",
                 "type": "String|Function"
             },
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -2091,9 +2505,9 @@
                 "description": "",
                 "type": "String"
             },
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/micro-template.js",
@@ -2113,9 +2527,9 @@
                     "type": "String"
                 }
             ],
-            "class": "esc.MicroTemplate",
+            "class": "esc.util.MicroTemplate",
             "module": "esc-micro-template",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2141,9 +2555,9 @@
                 "description": "A promise wrapping the resolution of either \"resolve\" or\n\"reject\" callback",
                 "type": "Promise"
             },
-            "class": "esc.Promise",
+            "class": "esc.util.Promise",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2155,9 +2569,9 @@
                 "description": "",
                 "type": "String"
             },
-            "class": "esc.Promise",
+            "class": "esc.util.Promise",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2177,9 +2591,9 @@
                 "type": "Boolean"
             },
             "static": 1,
-            "class": "esc.Promise",
+            "class": "esc.util.Promise",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2188,9 +2602,9 @@
             "itemtype": "property",
             "name": "promise",
             "type": "Promise",
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2201,9 +2615,9 @@
             "type": "String",
             "access": "private",
             "tagname": "",
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2218,9 +2632,9 @@
                     "type": "Any"
                 }
             ],
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2235,9 +2649,9 @@
                     "type": "Any"
                 }
             ],
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2263,9 +2677,9 @@
                 "description": "The promise of a new Resolver wrapping the resolution\nof either \"resolve\" or \"reject\" callback",
                 "type": "Promise"
             },
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2277,9 +2691,9 @@
                 "description": "",
                 "type": "String"
             },
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2291,9 +2705,9 @@
                 "description": "Value passed to `resolve()` or `reject()`",
                 "type": "Any"
             },
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         },
         {
             "file": "shared/utils/promise.js",
@@ -2315,15 +2729,19 @@
             ],
             "access": "protected",
             "tagname": "",
-            "class": "esc.Promise.Resolver",
+            "class": "esc.util.Promise.Resolver",
             "module": "esc-promise",
-            "namespace": "esc"
+            "namespace": "esc.util"
         }
     ],
     "warnings": [
         {
             "message": "replacing incorrect tag: returns with return",
-            "line": " server/lib/select.js:59"
+            "line": " server/lib/select.js:68"
+        },
+        {
+            "message": "replacing incorrect tag: params with param",
+            "line": " server/lib/skill-service.js:129"
         },
         {
             "message": "param name missing: {String}",

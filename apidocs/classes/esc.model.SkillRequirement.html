@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>esc-ship-service - Eve Ship Comparator API</title>
+    <title>esc.model.SkillRequirement - Eve Ship Comparator API</title>
     <link rel="stylesheet" href="http:&#x2F;&#x2F;yui.yahooapis.com&#x2F;3.8.0pr2&#x2F;build&#x2F;cssgrids&#x2F;cssgrids-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="..&#x2F;assets/css/main.css" id="site_styles">
@@ -150,16 +150,22 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1>esc-ship-service Module</h1>
-<div class="box clearfix meta">
+                        <h1>esc.model.SkillRequirement Class</h1>
+<div class="box meta">
     
 
     
 
     
         <div class="foundat">
-            Defined in: <a href="..&#x2F;files&#x2F;server_lib_ship-service.js.html#l49"><code>server&#x2F;lib&#x2F;ship-service.js:49</code></a>
+            Defined in: <a href="..&#x2F;files&#x2F;shared_model_skill.js.html#l77"><code>shared&#x2F;model&#x2F;skill.js:77</code></a>
         </div>
+    
+
+    
+        
+            Module: <a href="../modules/esc-skill.html">esc-skill</a>
+        
     
 
     
@@ -168,29 +174,266 @@
 
 
 <div class="box intro">
-    
+    <p>A representation of a required skill, either to fly a ship or as a prereq for a skill to fly a ship.</p>
 </div>
 
 
+    <div class="constructor">
+        <h2>Constructor</h2>
+        <div id="method_esc.model.SkillRequirement" class="method item">
+    <h3 class="name"><code>esc.model.SkillRequirement</code></h3>
 
-<div class="yui3-g">
-    <div class="yui3-u-1-2">
+    
+        <span class="paren">()</span>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
         
-            <p>This module provides the following classes:</p>
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_model_skill.js.html#l77"><code>shared&#x2F;model&#x2F;skill.js:77</code></a>
+        
+        </p>
 
-            <ul class="module-classes">
-            
-                <li class="module-class">
-                    <a href="..&#x2F;classes/esc.service.ShipService.html">
-                        esc.service.ShipService
-                    </a>
-                </li>
-            
-            </ul>
+
+        
+
         
     </div>
 
-    <div class="yui3-u-1-2">
+    <div class="description">
+        
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+    </div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+        
+        
+            <li class="api-class-tab properties"><a href="#properties">Properties</a></li>
+        
+        
+        
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+            
+
+            
+                <div class="index-section properties">
+                    <h3>Properties</h3>
+
+                    <ul class="index-list properties">
+                        
+                            <li class="index-item property">
+                                <a href="#property_id">id</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_level">level</a>
+
+                                
+                                
+                            </li>
+                        
+                            <li class="index-item property">
+                                <a href="#property_skill">skill</a>
+
+                                
+                                
+                            </li>
+                        
+                    </ul>
+                </div>
+            
+
+            
+
+            
+        </div>
+
+        
+
+        
+            <div id="properties" class="api-class-tabpanel">
+                <h2 class="off-left">Properties</h2>
+
+                
+                    <div id="property_id" class="property item">
+    <h3 class="name"><code>id</code></h3>
+    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_model_skill.js.html#l88"><code>shared&#x2F;model&#x2F;skill.js:88</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The ID of the skill that is required.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_level" class="property item">
+    <h3 class="name"><code>level</code></h3>
+    <span class="type"><a href="http://yuilibrary.com/yui/docs/api/classes/Number.html" class="crosslink external" target="_blank">Number</a></span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_model_skill.js.html#l95"><code>shared&#x2F;model&#x2F;skill.js:95</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The level of the skill that is required.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+                    <div id="property_skill" class="property item">
+    <h3 class="name"><code>skill</code></h3>
+    <span class="type">esc.Skill</span>
+
+    
+
+    
+
+    
+
+    
+
+    <div class="meta">
+        
+            
+                
+                <p>
+                
+                Defined in
+                
+            
+        
+        
+        <a href="..&#x2F;files&#x2F;shared_model_skill.js.html#l101"><code>shared&#x2F;model&#x2F;skill.js:101</code></a>
+        
+        </p>
+
+        
+
+        
+    </div>
+
+    <div class="description">
+        <p>The resolved skill that is required.</p>
+    </div>
+
+    
+
+    
+
+    
+</div>
+
+                
+            </div>
+        
+
+        
+
         
     </div>
 </div>

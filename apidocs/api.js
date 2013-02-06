@@ -1,29 +1,30 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
-        "esc.Capacitor",
-        "esc.Capacity",
         "esc.CompareView",
-        "esc.Criteria",
-        "esc.DamageProfile",
-        "esc.Database",
-        "esc.Drones",
-        "esc.Heat",
-        "esc.HpPool",
-        "esc.JumpDrive",
-        "esc.MicroTemplate",
-        "esc.Promise",
-        "esc.Promise.Resolver",
-        "esc.Query",
-        "esc.Select",
-        "esc.Sensors",
-        "esc.Shield",
-        "esc.Ship",
-        "esc.ShipService",
-        "esc.Skill",
-        "esc.SkillRequirement",
-        "esc.SkillRequirements",
-        "esc.Slots"
+        "esc.model.Capacitor",
+        "esc.model.Capacity",
+        "esc.model.DamageProfile",
+        "esc.model.Drones",
+        "esc.model.Heat",
+        "esc.model.HpPool",
+        "esc.model.JumpDrive",
+        "esc.model.Sensors",
+        "esc.model.Shield",
+        "esc.model.Ship",
+        "esc.model.Skill",
+        "esc.model.SkillRequirement",
+        "esc.model.SkillRequirements",
+        "esc.model.Slots",
+        "esc.service.ShipService",
+        "esc.service.SkillService",
+        "esc.util.Criteria",
+        "esc.util.Database",
+        "esc.util.MicroTemplate",
+        "esc.util.Promise",
+        "esc.util.Promise.Resolver",
+        "esc.util.Query",
+        "esc.util.Select"
     ],
     "modules": [
         "esc-compare-view",
@@ -35,6 +36,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "esc-ship-properties",
         "esc-ship-service",
         "esc-skill",
+        "esc-skill-service",
         "esc-sqlite"
     ],
     "allModules": [
@@ -77,6 +79,10 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "esc-skill",
             "name": "esc-skill",
             "description": "Classes and objects having to do with skill requirements for ships."
+        },
+        {
+            "displayName": "esc-skill-service",
+            "name": "esc-skill-service"
         },
         {
             "displayName": "esc-sqlite",
