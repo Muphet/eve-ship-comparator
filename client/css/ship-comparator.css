@@ -69,6 +69,7 @@ body {
 }
 
 .ship-icon.meta-9::after,
+.ship-icon.meta-8::after,
 .ship-icon.meta-7::after,
 .ship-icon.meta-6::after {
   display: block;
