@@ -19,8 +19,6 @@
     },
     
     "client": {
-        "allowRollup": false,
-        "combine": false
     },
     
     "yui": {
