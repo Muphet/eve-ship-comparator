@@ -1,12 +1,12 @@
 /*global YUI */
 /**
 @module esc-ship
-@namespace esc
+@namespace esc.model
 **/
 YUI.add('esc-ship', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc'),
+    var NS = Y.namespace('esc.model'),
 
         Capacitor         = NS.Capacitor,
         Capacity          = NS.Capacity,

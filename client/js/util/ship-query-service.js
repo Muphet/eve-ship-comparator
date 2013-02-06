@@ -7,11 +7,11 @@ YUI.add('esc-ship-query-service', function(Y) {
 
     NS.ShipQuery = {
         search: function(path) {
-            return new Y.esc.Promise(function(fulfill, reject) {
+            return new Y.esc.util.Promise(function(fulfill, reject) {
                 Y.io('/search?' + path, {
                     on: {
                         success: function(id, response) {
-                            var r = JSON.parse(response.responseText).map(function(s) { return new Y.esc.Ship(s); });
+                            var r = JSON.parse(response.responseText).map(function(s) { return new Y.esc.model.Ship(s); });
 
                             fulfill(r);
                         },

@@ -55,17 +55,17 @@ body {
 
 .ship-icon.tech-1.meta-0::after {
   display: block;
-  background: url(/img/badges/tech-1.png) top left no-repeat;
+  background: url(http://s3.amazonaws.com/eve-ship-comparator/img/badges/tech-1.png) top left no-repeat;
 }
 
 .ship-icon.tech-2.meta-5::after {
   display: block;
-  background: url(/img/badges/tech-2.png) top left no-repeat;
+  background: url(http://s3.amazonaws.com/eve-ship-comparator/img/badges/tech-2.png) top left no-repeat;
 }
 
 .ship-icon.tech-3.meta-5::after {
   display: block;
-  background: url(/img/badges/tech-3.png) top left no-repeat;
+  background: url(http://s3.amazonaws.com/eve-ship-comparator/img/badges/tech-3.png) top left no-repeat;
 }
 
 .ship-icon.meta-9::after,
@@ -73,7 +73,7 @@ body {
 .ship-icon.meta-7::after,
 .ship-icon.meta-6::after {
   display: block;
-  background: url(/img/badges/faction.png) top left no-repeat;
+  background: url(http://s3.amazonaws.com/eve-ship-comparator/img/badges/faction.png) top left no-repeat;
 }
 
 #ship-picker {

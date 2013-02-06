@@ -18,11 +18,8 @@
         "combine": false
     },
     
-    "client": {
-        "allowRollup": false,
-        "combine": false
-    },
-    
+    "client": {},
+
     "yui": {
         "version": "3.8.1",
         

@@ -2,7 +2,7 @@
 YUI.add('esc-promise', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc');
+    var NS = Y.namespace('esc.util');
 
     function soon() {
         var a = [].slice.call(arguments),
@@ -39,7 +39,7 @@ YUI.add('esc-promise', function (Y) {
      `promise.then(someAsyncFunc).then(anotherAsyncFunc)`
 
      @module esc-promise
-     @namespace esc
+     @namespace esc.util
      **/
 
     /**

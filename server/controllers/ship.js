@@ -20,8 +20,7 @@ exports.index = function (req, res, next) {
 
 exports.compare = function (req, res, next) {
     var shipService = req.app.get('shipService'),
-        ships = Object.keys(req.query),
-        i, l;
+        ships = Object.keys(req.query);
 
     if (ships.length) {
         shipService.search(ships).then(function (s) {

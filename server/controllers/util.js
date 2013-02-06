@@ -13,8 +13,8 @@ var fs     = require('fs'),
 
 exports.tmpl = function(req, res, next) {
     Y.use('esc-promise', 'esc-micro-template', function(Y) {
-        var Promise = Y.esc.Promise,
-            MicroTemplate = Y.esc.MicroTemplate,
+        var Promise = Y.esc.util.Promise,
+            MicroTemplate = Y.esc.util.MicroTemplate,
 
             getTemplates = function(resolve, reject) {
                 var finder = findit.find(TEMPLATES_DIR),
@@ -75,12 +75,12 @@ exports.tmpl = function(req, res, next) {
             });
         
             out.push([
-                'if(Y.esc.MicroTemplate) {',
-                '    Y.esc.MicroTemplate.include = function(path, options) {',
-                '        return Y.esc.MicroTemplate.revive(NS[path])(options);',
+                'if(Y.esc.util.MicroTemplate) {',
+                '    Y.esc.util.MicroTemplate.include = function(path, options) {',
+                '        return Y.esc.util.MicroTemplate.revive(NS[path])(options);',
                 '    };',
-                '    Y.esc.MicroTemplate.getTemplate = function(path) {',
-                '        return Y.esc.MicroTemplate.revive(NS[path]);',
+                '    Y.esc.util.MicroTemplate.getTemplate = function(path) {',
+                '        return Y.esc.util.MicroTemplate.revive(NS[path]);',
                 '    };',
                 '}'
             ].join('\n'));

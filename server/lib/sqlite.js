@@ -1,12 +1,12 @@
 /*global YUI*/
 /**
 @module esc-sqlite
-@namespace esc
+@namespace esc.util
  */
 YUI.add('esc-sqlite', function(Y, NAME) {
     "use strict";
 
-    var NS = Y.namespace('esc'),
+    var NS = Y.namespace('esc.util'),
 
         sqlite3 = YUI.require('sqlite3').verbose(),
         SqliteDatabase = sqlite3.Database,
@@ -21,7 +21,7 @@ YUI.add('esc-sqlite', function(Y, NAME) {
     /**
     @class Query
     @constructor
-    @extends esc.Promise
+    @extends esc.util.Promise
     **/
     function Query(resolver) {
         Query.superclass.constructor.apply(this, arguments);
@@ -81,7 +81,13 @@ YUI.add('esc-sqlite', function(Y, NAME) {
     /**
     @class Database
     @constructor
-    @extends esc.Promise
+    @extends esc.util.Promise
+
+    @example
+
+        Database.open('someDatabase.sqlite').all('SELECT * FROM invTypes WHERE typeID == 12345').each(function(result) {
+            console.log(res.typeName);
+        });
     **/
     function Database(resolver) {
         Database.superclass.constructor.apply(this, arguments);
@@ -106,8 +112,8 @@ YUI.add('esc-sqlite', function(Y, NAME) {
     Y.extend(Database, Promise, {
         /**
         @method one
-        @param select {esc.Select | String}
-        @return {esc.Query} A query promise hooked to this instance's db.
+        @param select {esc.util.Select | String}
+        @return {esc.util.Query} A query promise hooked to this instance's db.
         **/
         one: function(select) {
             var self = this;
@@ -130,8 +136,8 @@ YUI.add('esc-sqlite', function(Y, NAME) {
         
         /**
         @method all
-        @param select {esc.Select | String}
-        @return {esc.Query} A query promise hooked to this instance's db.
+        @param select {esc.util.Select | String}
+        @return {esc.util.Query} A query promise hooked to this instance's db.
         **/
         all: function(select) {
             var self = this;
@@ -154,7 +160,7 @@ YUI.add('esc-sqlite', function(Y, NAME) {
         
         /**
         @method close
-        @return {esc.Database} promise chain.
+        @return {esc.util.Database} promise chain.
         **/
         close: function() {
             return this.then(function(db) {

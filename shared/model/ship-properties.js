@@ -1,12 +1,12 @@
 /*global YUI */
 /**
 @module esc-ship-properties
-@namespace esc
+@namespace esc.model
 **/
 YUI.add('esc-ship-properties', function (Y) {
     "use strict";
 
-    var NS = Y.namespace('esc');
+    var NS = Y.namespace('esc.model');
 
 //
 // --- Sensors --------------------------------------------------------------
