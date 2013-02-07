@@ -1,10 +1,29 @@
 
 <div class="ship-card" id="ship-card-${this.id}">
-    <div class="ship-icon meta-${this.meta} tech-${this.techLevel}">
+    <div class="ship-icon meta-${this.meta} tech-${this.techLevel} race-${this.race.toLowerCase()}">
         <img src="http://s3.amazonaws.com/eve-ship-comparator/img/ships/${this.id}.png" />
         <h3 class="ship-name">${this.name}</h3>
     </div>
-    <div class="ship-primary-stats">
-
-    </div>
+    <ul class="ship-primary-stats stat-list inline-stat-list">
+        <li class="power-grid stat-item">
+            <span class="label">Power Grid</span>
+            <span class="value">${this.powerGrid}</span>
+        </li>
+        <li class="cpu stat-item">
+            <span class="label">CPU</span>
+            <span class="value">${this.cpu}</span>
+        </li>
+        <li class="signature stat-item">
+            <span class="label">Signature Radius</span>
+            <span class="value">${this.signature}</span>
+        </li>
+        <li class="agility stat-item">
+            <span class="label">Agility</span>
+            <span class="value">${this.agility}</span>
+        </li>
+        <li class="velocity stat-item">
+            <span class="label">Velocity</span>
+            <span class="value">${this.velocity}</span>
+        </li>
+    </ul>
 </div>

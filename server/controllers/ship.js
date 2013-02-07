@@ -48,3 +48,25 @@ exports.search = function (req, res, next) {
         res.send([]);
     }
 };
+
+exports.fourAcross = function (req, res, next) {
+    var shipService = req.app.get('shipService'),
+        ships = [];
+
+    if(req.params.ship1) { ships.push(req.params.ship1); }
+    if(req.params.ship2) { ships.push(req.params.ship2); }
+    if(req.params.ship3) { ships.push(req.params.ship3); }
+    if(req.params.ship4) { ships.push(req.params.ship4); }
+
+    if(ships.length) {
+        shipService.search(ships).then(function(returnedShips) {
+            var shipNames = returnedShips.map(function(ship) { return ship.name; }),
+                lastShipName = shipNames.pop();
+
+            render(res, 'fourAcross', 'Comparing ' + shipNames.join(', ') + ' and ' + lastShipName, {
+                ships: returnedShips
+            });
+        });
+    }
+
+};

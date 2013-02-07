@@ -52,11 +52,14 @@ app.expose(config.client, 'ESC_CONFIG');
 app.use('/shared', express.static(__dirname + '/shared/'));
 app.use(express.static(__dirname + '/client/'));
 
-app.get('/js/templates.js', require('./server/controllers/util.js').tmpl);
-app.get('/compare', require('./server/controllers/ship.js').compare);
-app.get('/search', require('./server/controllers/ship.js').search);
-app.get('/', require('./server/controllers/ship.js').index);
+var utilController = require('./server/controllers/util.js'),
+    shipController = require('./server/controllers/ship.js');
 
+app.get('/js/templates.js',             utilController.tmpl);
+app.get('/compare',                     shipController.compare);
+app.get('/search',                      shipController.search);
+app.get('/',                            shipController.index);
+app.get('/:ship1/:ship2/:ship3/:ship4', shipController.fourAcross);
 
 app.set('view engine', 'html');
 app.set('views', config.dirs.views);

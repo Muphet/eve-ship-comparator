@@ -105,7 +105,7 @@ YUI.add('esc-ship-service', function (Y) {
             return '( ' + ids.map(function (t) {
                 var out;
                 if (isNaN(parseInt(t, 10))) {
-                    out = "invTypes.typeName LIKE '%" + t + "%' OR invGroups.groupName LIKE '%" + t + "%'";
+                    out = "invTypes.typeName LIKE '%" + t + "%' OR invGroups.groupName LIKE '" + t + "'";
                 } else {
                     out = "invTypes.typeID == " + parseInt(t, 10);
                 }

@@ -14,7 +14,6 @@ body {
 
 .ship-card {
   width: 200px;
-  height: 200px;
 
   float: left;
   padding: 10px;
@@ -32,7 +31,7 @@ body {
   height: 100%;
 }
 
-.ship-icon h3 {
+.ship-icon .ship-name {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -75,6 +74,57 @@ body {
   display: block;
   background: url(http://s3.amazonaws.com/eve-ship-comparator/img/badges/faction.png) top left no-repeat;
 }
+
+
+.stat-list {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+}
+
+.stat-list .stat-item {
+  display: block;
+  margin: 0;
+  padding: 0 0 8px;
+}
+.stat-list .stat-item .label {
+  overflow: hidden;
+  text-indent: -9999px;
+  display: inline-block;
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  background-image: url(/img/icons/unknown.png);
+
+  height: 32px;
+  width: 32px;
+  vertical-align: middle;;
+}
+
+.stat-list .stat-item .value {
+  display: inline-block;
+  line-height: 32px;
+  vertical-align: middle;
+  padding-left: 4px;
+}
+
+.stat-item.power-grid .label {
+  background-image: url(/img/icons/power-output.png);
+}
+.stat-item.cpu .label {
+  background-image: url(/img/icons/cpu.png);
+}
+.stat-item.signature .label {
+  background-image: url(/img/icons/signature-radius.png);
+}
+.stat-item.agility .label {
+  background-image: url(/img/icons/agility.png);
+}
+.stat-item.velocity .label {
+  background-image: url(/img/icons/max-velocity.png);
+}
+
 
 #ship-picker {
   margin: 50px auto 0;
