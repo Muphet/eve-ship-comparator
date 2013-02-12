@@ -11,11 +11,15 @@
             ESC_MODEL = ${{JSON.stringify(this.page)}};
         </script>
     </head>
-    <body id="eve-ship-comparator">
-        <div id="application-body">
-            ${{ $(this.page.template, this.page.model) }}
+    <body>
+        <div id="eve-ship-comparator">
+            <div id="application-body">
+                <div class="${this.page.view}-view">
+                ${{ $(this.page.template, this.page.model) }}
+            </div>
         </div>
 
         <script src="/js/templates.js"></script>
+        <script src="js/comparator.js"></script>
     </body>
 </html>

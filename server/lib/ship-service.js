@@ -112,7 +112,8 @@ YUI.add('esc-ship-service', function (Y) {
                 return out;
             }).join(' OR ') + ' )';
         })
-        .orderBy('invTypes.typeID');
+        .orderBy('groupName')
+        .orderBy('invmarketgroups.marketGroupName');
 
     /**
      @property ATTRIBUTE_QUERY {esc.util.Select}

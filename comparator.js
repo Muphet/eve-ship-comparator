@@ -59,7 +59,6 @@ app.get('/js/templates.js',             utilController.tmpl);
 app.get('/compare',                     shipController.compare);
 app.get('/search',                      shipController.search);
 app.get('/',                            shipController.index);
-app.get('/:ship1/:ship2/:ship3/:ship4', shipController.fourAcross);
 
 app.set('view engine', 'html');
 app.set('views', config.dirs.views);

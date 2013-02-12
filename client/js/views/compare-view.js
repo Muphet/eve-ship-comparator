@@ -7,27 +7,51 @@
 YUI.add('esc-compare-view', function (Y, NAME) {
     "use strict";
 
-    var NS = Y.namespace('esc');
+    var NS = Y.namespace('esc'),
+        MT = NS.util.MicroTemplate;
 
     /**
      @class CompareView
      @extends View
     **/
-
     NS.CompareView = Y.Base.create(NAME, Y.View, [], {
-        viewTemplate : Y.esc.util.MicroTemplate.getTemplate('compare'),
-        shipTemplate : Y.esc.util.MicroTemplate.getTemplate('partials/ship'),
+        template: MT.getTemplate('index'),
+        shipTemplate: MT.getTemplate('partials/ship'),
+        
+        events: {
+            '.ship-search': {
+                keyup: 'handleShipSearch'
+            }
+        },
+        
+        initializer: function() {
+            this.after('shipsChange', this.updateShips);
+        },
+        
+        handleShipSearch: function(evt) {
+            if(evt.keyCode === 13) { // ENTER
+                evt.preventDefault();
+                this.fire('search', { query: evt.target.get('value') });
+                evt.target.set('value', '');
+            }
+        },
+        
+        updateShips: function() {
+            var lc = this.get('container').one('.ship-list'),
+                template = this.shipTemplate,
+                result = [];
+            
+            Y.Array.each(this.get('ships'), function(s) {
+                result.push(template(s));
+            });
+            
+            lc.setHTML(result.join(''));
+        },
+        
+        render: function() {
+            var c = this.get('container');
 
-        render : function () {
-            var c = this.get('container'),
-                ships = this.get('ships'),
-                newContent = '';
-
-            Y.Array.each(ships, function (ship) {
-                newContent += this.shipTemplate(ship);
-            }, this);
-
-            c.setHTML(newContent);
+            c.setHTML(this.template({ ships: this.get('ships') }));
         }
     }, {
         ATTRS : {
