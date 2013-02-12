@@ -13,7 +13,7 @@ body {
 }
 
 .ship-card {
-  width: 200px;
+  width: 300px;
 
   float: left;
   padding: 10px;
@@ -123,6 +123,55 @@ body {
 }
 .stat-item.velocity .label {
   background-image: url(/img/icons/max-velocity.png);
+}
+.stat-item.hull .label {
+  background-image: url(/img/icons/volume.png);
+}
+.stat-item.armor .label {
+  background-image: url(/img/icons/armor.png);
+}
+.stat-item.shield .label {
+  background-image: url(/img/icons/shield-capacity.png);
+}
+.stat-item.em-resistance .label {
+  background-image: url(/img/icons/em-resist.png);
+}
+.stat-item.explosive-resistance .label {
+  background-image: url(/img/icons/explosive-resist.png);
+}
+.stat-item.kinetic-resistance .label {
+  background-image: url(/img/icons/kinetic-resist.png);
+}
+.stat-item.thermal-resistance .label {
+  background-image: url(/img/icons/thermal-resist.png);
+}
+
+.inline-stat-list::after {
+    display: block;
+    content: "";
+    clear: both;
+    border-bottom: 1px solid #ddddc5;
+}
+.inline-stat-list .stat-item {
+    float: left; width: 33%;
+}
+
+.columns::after {
+    padding-top: 4px;
+    display: block;
+    content: "";
+    clear: both;
+    border-bottom: 1px solid #ddddc5;
+}
+.columns .column {
+    float: left;
+}
+.columns.thirds .column {
+    width: 33%;
+}
+
+.columns.thirds .column:nth-child(2n) {
+    background: rgba(255,255,255,0.1);
 }
 
 
