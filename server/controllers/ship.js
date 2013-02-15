@@ -26,14 +26,15 @@ exports.index = function (req, res, next) {
     if (ships.length) {
         shipService.search(ships).then(function (s) {
             render(res, 'index', 'Compare Ships', {
-                ships : s
+                ships : s,
+                keywords: ships
             });
         }, function (err) {
             Y.log(err.stack, "error");
-            render(res, 'index', 'Compare Ships', { ships : [] });
+            render(res, 'index', 'Compare Ships', { ships : [], keywords: [] });
         });
     } else {
-        render(res, 'index', 'Compare Ships', { ships : [] });
+        render(res, 'index', 'Compare Ships', { ships : [], keywords: [] });
     }
 
 };

@@ -13,49 +13,85 @@ YUI.add('esc-compare-view', function (Y, NAME) {
     /**
      @class CompareView
      @extends View
-    **/
+     **/
     NS.CompareView = Y.Base.create(NAME, Y.View, [], {
-        template: MT.getTemplate('index'),
-        shipTemplate: MT.getTemplate('partials/ship'),
-        
-        events: {
-            '.ship-search': {
-                keyup: 'handleShipSearch'
+        templates : {
+            view     : MT.getTemplate('index'),
+            ships    : MT.getTemplate('partials/ship'),
+            keywords : MT.getTemplate('partials/search')
+        },
+
+        events : {
+            '.ship-search-input' : {
+                keyup : 'handleShipSearch'
+            },
+            '.ship-search .ship-search-keyword' : {
+                click : 'handleKeywordClick'
             }
         },
-        
-        initializer: function() {
+
+        initializer : function () {
             this.after('shipsChange', this.updateShips);
+            this.after('keywordsChange', this.updateKeywords);
         },
-        
-        handleShipSearch: function(evt) {
-            if(evt.keyCode === 13) { // ENTER
+
+        handleShipSearch : function (evt) {
+            if (evt.keyCode === 13) { // ENTER
                 evt.preventDefault();
-                this.fire('search', { query: evt.target.get('value') });
-                evt.target.set('value', '');
+
+                var keywords = this.get('keywords');
+
+                keywords.push(evt.target.get('value'));
+
+                this.set('keywords', keywords);
+
+                this.fire('search', { query : keywords });
             }
         },
-        
-        updateShips: function() {
+
+        handleKeywordClick: function(evt) {
+            var keyword = evt.target.getData('keyword'),
+                kws = this.get('keywords');
+
+            if(Y.Array.indexOf(kws, keyword) !== -1) {
+                kws.splice(Y.Array.indexOf(kws, keyword), 1);
+
+                this.set('keywords', kws);
+
+                this.fire('search', { query: kws });
+            }
+        },
+
+        updateKeywords: function() {
+            var sc = this.get('container').one('.ship-search'),
+                template = this.templates.keywords;
+
+            sc.setHTML(template(this.get('keywords')));
+        },
+
+        updateShips : function () {
             var lc = this.get('container').one('.ship-list'),
-                template = this.shipTemplate,
+                template = this.templates.ships,
                 result = [];
-            
-            Y.Array.each(this.get('ships'), function(s) {
+
+            Y.Array.each(this.get('ships'), function (s) {
                 result.push(template(s));
             });
-            
+
             lc.setHTML(result.join(''));
         },
-        
-        render: function() {
+
+        render : function () {
             var c = this.get('container');
 
-            c.setHTML(this.template({ ships: this.get('ships') }));
+            c.setHTML(this.template({ ships : this.get('ships') }));
         }
     }, {
         ATTRS : {
-            ships : {
+            ships    : {
+                value : []
+            },
+            keywords : {
                 value : []
             }
         }

@@ -1,5 +1,5 @@
 html {
-  font-family: Helvetica, sans-serif;
+  font: 16px/20px Helvetica, sans-serif;
   background-color: #222225;
   color: #ddddc5;
 
@@ -85,6 +85,8 @@ body {
   list-style: none;
   margin: 0;
   padding: 4px;
+  font-size: 75%;
+  font-weight: bold;
 }
 
 .stat-list .stat-item {
@@ -104,7 +106,7 @@ body {
 
   height: 32px;
   width: 32px;
-  vertical-align: middle;;
+  vertical-align: middle;
 }
 
 .stat-list .stat-item .value {
@@ -151,6 +153,27 @@ body {
   background-image: url(/img/icons/thermal-resist.png);
 }
 
+.stat-item.high-slots .label {
+  background-image: url(/img/icons/slots/64-high.png);
+}
+.stat-item.medium-slots .label {
+   background-image: url(/img/icons/slots/64-med.png);
+ }
+.stat-item.low-slots .label {
+  background-image: url(/img/icons/slots/64-low.png);
+}
+
+.stat-item.turrets .label {
+  background-image: url(/img/icons/hardpoints-turret.png);
+}
+.stat-item.launchers .label {
+  background-image: url(/img/icons/hardpoints-launcher.png);
+}
+.stat-item.drones .label {
+  background-image: url(/img/icons/drone.png);
+}
+
+
 .inline-stat-list::after {
     display: block;
     content: "";
@@ -189,13 +212,38 @@ body {
   background-color: #444448;
   padding: 12px;
   border: 0;
-  color: #fff;
 }
 
-.ship-search:focus {
-  outline: 2px solid #ddddc5;
+.ship-search .ship-search-keyword {
+  background: #555559;
+  color: #ddddc5;
+  display: inline-block;
+  padding: 0 6px;
+  line-height: 1.5;
+  cursor: pointer;
+  vertical-align: middle;
+}
+.ship-search .ship-search-keyword:hover {
+  color: #c22;
 }
 
-.ship-search::-webkit-input-placeholder {
+.ship-search-input {
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  line-height: 1.5;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.ship-search-input:focus {
+  outline: none;
+}
+
+.ship-search-input::-webkit-input-placeholder {
   color: #ddddc5;
 }

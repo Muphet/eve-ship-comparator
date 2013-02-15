@@ -1,4 +1,6 @@
-<input class="ship-search" placeholder="Type in a ship query" />
+<div class="ship-search">
+    ${{ $('partials/search', this.keywords) }}
+</div>
 
 <div class="ship-list">
     <% Y.Array.each(this.ships, function(ship) { %>

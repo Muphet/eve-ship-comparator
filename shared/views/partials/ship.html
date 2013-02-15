@@ -78,7 +78,7 @@
         </div>
         <div class="column">
             <ul class="stat-list">
-                <li class="hull stat-item">
+                <li class="shield stat-item">
                     <span class="label">Shield HP</span>
                     <span class="value">${this.shield.ehp.toFixed(0)}</span>
                 </li>
@@ -101,6 +101,33 @@
             </ul>
         </div>
     </div>
+    <ul class="ship-slots stat-list inline-stat-list">
+        <li class="high-slots stat-item">
+            <span class="label">High Slots</span>
+            <span class="value">${this.slots.high}</span>
+        </li>
+        <li class="medium-slots stat-item">
+            <span class="label">Medium Slots</span>
+            <span class="value">${this.slots.medium}</span>
+        </li>
+        <li class="low-slots stat-item">
+            <span class="label">Low Slots</span>
+            <span class="value">${this.slots.low}</span>
+        </li>
+
+        <li class="turrets stat-item">
+            <span class="label">Turrets</span>
+            <span class="value">${this.slots.turrets}</span>
+        </li>
+        <li class="launchers stat-item">
+            <span class="label">Launchers</span>
+            <span class="value">${this.slots.launchers}</span>
+        </li>
+        <li class="drones stat-item">
+            <span class="label">Drones</span>
+            <span class="value">${this.drones.bandwidth} / ${this.drones.capacity}</span>
+        </li>
+    </ul>
     <div class="ship-description">
         ${{this.description}}
     </div>

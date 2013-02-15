@@ -309,8 +309,9 @@ YUI.add('esc-ship-service', function (Y) {
          **/
         resolveSkills : function (ships) {
             var out,
-                i,
-                l,
+                i, ii,
+                l, ll,
+                skill,
                 requiredSkills = {};
 
             if (this.skillService) {
@@ -319,11 +320,12 @@ YUI.add('esc-ship-service', function (Y) {
                 }
 
                 for (i = 0, l = ships.length; i < l; i += 1) {
-                    ships[i].skillRequirements.skills.forEach(function (sr) {
-                        if (sr && sr.id) {
-                            requiredSkills[sr.id] = true;
+                    for(ii = 0, ll = ships[i].skillRequirements.skills.length; ii < ll; ii += 1) {
+                        skill = ships[i].skillRequirements.skills[ii];
+                        if(skill && skill.id) {
+                            requiredSkills[skill.id] = true;
                         }
-                    });
+                    }
                 }
 
                 out = this.skillService.getSkill(Object.keys(requiredSkills)).then(function (skills) {

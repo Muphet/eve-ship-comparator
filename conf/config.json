@@ -25,7 +25,19 @@
         
         "modules": {
             "client": {
-                "esc-compare-view": { "path": "views/compare-view.js", "requires": [ "view" ] }
+                "esc-compare-app": { "path": "compare-app.js",
+                    "requires": [
+                        "io",
+                        "json",
+                        "app",
+                        "app-content",
+                        "esc-ship",
+                        "esc-compare-view",
+                        "esc-promise"
+                    ]
+                },
+                "esc-compare-view": { "path": "views/compare-view.js", "requires": [ "view", "esc-templates" ] },
+                "esc-templates": { "path": "templates.js", "requires": [ "esc-micro-template" ] }
             },
             
             "server": {
