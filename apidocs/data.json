@@ -176,7 +176,7 @@
             },
             "tag": "module",
             "file": "client/js/views/compare-view.js",
-            "line": 12
+            "line": 13
         },
         "esc-select": {
             "name": "esc-select",
@@ -348,7 +348,7 @@
             "module": "esc-compare-view",
             "namespace": "esc",
             "file": "client/js/views/compare-view.js",
-            "line": 12,
+            "line": 13,
             "extends": "View"
         },
         "esc.util.Criteria": {
@@ -1118,7 +1118,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 117,
+            "line": 118,
             "itemtype": "property",
             "name": "ATTRIBUTE_QUERY",
             "type": "esc.util.Select",
@@ -1129,7 +1129,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 132,
+            "line": 133,
             "itemtype": "property",
             "name": "SKILL_QUERY",
             "type": "esc.util.Select",
@@ -1140,7 +1140,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 172,
+            "line": 173,
             "itemtype": "property",
             "name": "ROW_PROPERTY_MAPPINGS",
             "type": "Object",
@@ -1151,7 +1151,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 277,
+            "line": 278,
             "itemtype": "property",
             "name": "skillService",
             "type": "esc.util.SkillService",
@@ -1161,7 +1161,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 282,
+            "line": 283,
             "itemtype": "property",
             "name": "db",
             "type": "esc.util.Database",
@@ -1171,7 +1171,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 287,
+            "line": 288,
             "itemtype": "method",
             "name": "search",
             "params": [
@@ -1191,7 +1191,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 303,
+            "line": 304,
             "itemtype": "method",
             "name": "resolveSkills",
             "access": "private",
@@ -1213,7 +1213,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 351,
+            "line": 352,
             "itemtype": "method",
             "name": "queryAttributes",
             "access": "private",
@@ -1235,7 +1235,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 392,
+            "line": 393,
             "itemtype": "method",
             "name": "querySkills",
             "access": "private",
@@ -1257,7 +1257,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 442,
+            "line": 443,
             "itemtype": "method",
             "name": "cleanDescription",
             "access": "private",
@@ -1279,7 +1279,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 483,
+            "line": 484,
             "itemtype": "method",
             "name": "mapResultsToShips",
             "access": "private",
@@ -1301,7 +1301,7 @@
         },
         {
             "file": "server/lib/ship-service.js",
-            "line": 503,
+            "line": 504,
             "itemtype": "method",
             "name": "mapDatabaseRowToShip",
             "access": "private",

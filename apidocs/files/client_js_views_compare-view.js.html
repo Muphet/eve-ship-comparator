@@ -163,27 +163,51 @@
 YUI.add(&#x27;esc-compare-view&#x27;, function (Y, NAME) {
     &quot;use strict&quot;;
 
-    var NS = Y.namespace(&#x27;esc&#x27;);
+    var NS = Y.namespace(&#x27;esc&#x27;),
+        MT = NS.util.MicroTemplate;
 
     &#x2F;**
      @class CompareView
      @extends View
     **&#x2F;
-
     NS.CompareView = Y.Base.create(NAME, Y.View, [], {
-        viewTemplate : Y.esc.util.MicroTemplate.getTemplate(&#x27;compare&#x27;),
-        shipTemplate : Y.esc.util.MicroTemplate.getTemplate(&#x27;partials&#x2F;ship&#x27;),
+        template: MT.getTemplate(&#x27;index&#x27;),
+        shipTemplate: MT.getTemplate(&#x27;partials&#x2F;ship&#x27;),
+        
+        events: {
+            &#x27;.ship-search&#x27;: {
+                keyup: &#x27;handleShipSearch&#x27;
+            }
+        },
+        
+        initializer: function() {
+            this.after(&#x27;shipsChange&#x27;, this.updateShips);
+        },
+        
+        handleShipSearch: function(evt) {
+            if(evt.keyCode === 13) { &#x2F;&#x2F; ENTER
+                evt.preventDefault();
+                this.fire(&#x27;search&#x27;, { query: evt.target.get(&#x27;value&#x27;) });
+                evt.target.set(&#x27;value&#x27;, &#x27;&#x27;);
+            }
+        },
+        
+        updateShips: function() {
+            var lc = this.get(&#x27;container&#x27;).one(&#x27;.ship-list&#x27;),
+                template = this.shipTemplate,
+                result = [];
+            
+            Y.Array.each(this.get(&#x27;ships&#x27;), function(s) {
+                result.push(template(s));
+            });
+            
+            lc.setHTML(result.join(&#x27;&#x27;));
+        },
+        
+        render: function() {
+            var c = this.get(&#x27;container&#x27;);
 
-        render : function () {
-            var c = this.get(&#x27;container&#x27;),
-                ships = this.get(&#x27;ships&#x27;),
-                newContent = &#x27;&#x27;;
-
-            Y.Array.each(ships, function (ship) {
-                newContent += this.shipTemplate(ship);
-            }, this);
-
-            c.setHTML(newContent);
+            c.setHTML(this.template({ ships: this.get(&#x27;ships&#x27;) }));
         }
     }, {
         ATTRS : {

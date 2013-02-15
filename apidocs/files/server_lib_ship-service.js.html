@@ -261,14 +261,15 @@ YUI.add(&#x27;esc-ship-service&#x27;, function (Y) {
             return &#x27;( &#x27; + ids.map(function (t) {
                 var out;
                 if (isNaN(parseInt(t, 10))) {
-                    out = &quot;invTypes.typeName LIKE &#x27;%&quot; + t + &quot;%&#x27; OR invGroups.groupName LIKE &#x27;%&quot; + t + &quot;%&#x27;&quot;;
+                    out = &quot;invTypes.typeName LIKE &#x27;%&quot; + t + &quot;%&#x27; OR invGroups.groupName LIKE &#x27;&quot; + t + &quot;&#x27;&quot;;
                 } else {
                     out = &quot;invTypes.typeID == &quot; + parseInt(t, 10);
                 }
                 return out;
             }).join(&#x27; OR &#x27;) + &#x27; )&#x27;;
         })
-        .orderBy(&#x27;invTypes.typeID&#x27;);
+        .orderBy(&#x27;groupName&#x27;)
+        .orderBy(&#x27;invmarketgroups.marketGroupName&#x27;);
 
     &#x2F;**
      @property ATTRIBUTE_QUERY {esc.util.Select}
