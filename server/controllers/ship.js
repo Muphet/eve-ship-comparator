@@ -7,6 +7,7 @@ var Y = require('yui').getInstance();
 function render(res, bodyTemplate, title, model) {
     res.render('layouts/main', {
         page : {
+            view     : bodyTemplate, // todo: make this configurable
             template : bodyTemplate,
             title    : title,
             model    : model
@@ -14,23 +15,25 @@ function render(res, bodyTemplate, title, model) {
     });
 }
 
-exports.index = function (req, res, next) {
-    res.redirect('/compare?punisher&merlin&rifter&tristan');
+exports.compare = function (req, res, next) {
+    res.redirect('/' + (req._parsedUrl.search || '?') );
 };
 
-exports.compare = function (req, res, next) {
+exports.index = function (req, res, next) {
     var shipService = req.app.get('shipService'),
         ships = Object.keys(req.query);
 
     if (ships.length) {
         shipService.search(ships).then(function (s) {
-            render(res, 'compare', 'Compare Ships', { ships : s });
+            render(res, 'index', 'Compare Ships', {
+                ships : s
+            });
         }, function (err) {
             Y.log(err.stack, "error");
-            render(res, 'compare', 'Compare Ships', { ships : [] });
+            render(res, 'index', 'Compare Ships', { ships : [] });
         });
     } else {
-        render(res, 'compare', 'Compare Ships', { ships : [] });
+        render(res, 'index', 'Compare Ships', { ships : [] });
     }
 
 };

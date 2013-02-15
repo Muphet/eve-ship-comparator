@@ -3,21 +3,23 @@
     <head>
         <title>${ this.page.title || "Compare Ships" }</title>
         <link id="main-styles" rel="stylesheet" href="/css/ship-comparator.css" />
-    </head>
-    <body id="eve-ship-comparator" class="yui3-skin-night yui3-app">
-        <div id="application-body">
-            ${{ $(this.page.template, this.page.model) }}
-        </div>
-
+        <script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
         <script>
-        // ESC_CONFIG
-        ${{this.javascript}}
+            ${{this.javascript}}
         </script>
         <script>
             ESC_MODEL = ${{JSON.stringify(this.page)}};
         </script>
-        <script src="http://yui.yahooapis.com/3.8.1/build/yui/yui-min.js"></script>
-        <script src="js/templates.js"></script>
+    </head>
+    <body>
+        <div id="eve-ship-comparator">
+            <div id="application-body">
+                <div class="${this.page.view}-view">
+                ${{ $(this.page.template, this.page.model) }}
+            </div>
+        </div>
+
+        <script src="/js/templates.js"></script>
         <script src="js/comparator.js"></script>
     </body>
 </html>
