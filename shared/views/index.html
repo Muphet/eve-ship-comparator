@@ -1,9 +1,9 @@
 <div class="ship-search">
-    ${{ $('partials/search', this.keywords) }}
+    ${{ $i('partials/search', this.keywords) }}
 </div>
 
 <div class="ship-list">
     <% Y.Array.each(this.ships, function(ship) { %>
-    ${{ $('partials/ship', ship) }}
+    ${{ $i('partials/ship', ship) }}
     <% }) %>
 </div>

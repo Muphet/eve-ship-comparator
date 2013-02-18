@@ -86,6 +86,12 @@ YUI.add('esc-micro-template', function (Y) {
     };
 
     /**
+    @property helpers
+    @static
+    **/
+    MicroTemplate.helpers = {};
+
+    /**
      @method compile
      @static
      @param text {String}
@@ -142,10 +148,10 @@ YUI.add('esc-micro-template', function (Y) {
         // If compile() was called from precompile(), return precompiled source.
 
         if (precompile) {
-            out = "function (Y, $, $e, data) {\n" + source + "\n}";
+            out = "function (Y, $i, $h, $e, data) {\n" + source + "\n}";
         } else {
             // TODO: try/catch this
-            out = MicroTemplate.revive(new Function('Y', '$', '$e', 'data', source));
+            out = MicroTemplate.revive(new Function('Y', '$i', '$h', '$e', 'data', source));
         }
 
         return out;
@@ -171,9 +177,7 @@ YUI.add('esc-micro-template', function (Y) {
         return function (data) {
             data = data || {};
 
-            data.include = MicroTemplate.include;
-
-            return precompiled.call(data, Y, MicroTemplate.include, MicroTemplate.escape, data);
+            return precompiled.call(data, Y, MicroTemplate.include, MicroTemplate.helpers, MicroTemplate.escape, data);
         }
     };
 

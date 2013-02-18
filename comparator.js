@@ -12,12 +12,8 @@ var express = require('express'),
 
 Y.applyConfig(config.server);
 
-Y.use('esc-micro-template', 'esc-ship-service', 'esc-skill-service', function(Y) {
+Y.use('esc-templates', 'esc-ship-service', 'esc-skill-service', function(Y) {
     var MicroTemplate = Y.esc.util.MicroTemplate;
-    
-    MicroTemplate.include = function(path, options) {
-        return MicroTemplate.render(fs.readFileSync(__dirname + '/shared/views/' + path + '.html', 'utf8'), options);
-    };
     
     app.engine('html', function(path, options, fn) {
         if(typeof options === 'function') {

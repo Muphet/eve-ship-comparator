@@ -93,6 +93,7 @@ body {
   display: block;
   margin: 0;
   padding: 0 0 8px;
+  white-space: nowrap;
 }
 .stat-list .stat-item .label {
   overflow: hidden;
@@ -223,8 +224,11 @@ body {
   cursor: pointer;
   vertical-align: middle;
 }
+
+
+.ship-search .ship-search-keyword:focus,
 .ship-search .ship-search-keyword:hover {
-  color: #c22;
+  outline: 2px solid #ddddc5;
 }
 
 .ship-search-input {

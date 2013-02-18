@@ -23,10 +23,11 @@ YUI.add('esc-compare-view', function (Y, NAME) {
 
         events : {
             '.ship-search-input' : {
-                keyup : 'handleShipSearch'
+                keydown : 'handleShipSearch'
             },
             '.ship-search .ship-search-keyword' : {
-                click : 'handleKeywordClick'
+                click   : 'handleKeywordClick',
+                keydown : 'handleKeywordKeyup'
             }
         },
 
@@ -46,6 +47,8 @@ YUI.add('esc-compare-view', function (Y, NAME) {
                 this.set('keywords', keywords);
 
                 this.fire('search', { query : keywords });
+            } else if(evt.keyCode === 8 && evt.target.get('value').length === 0) { // BACKSPACE
+                this.get('container').one('.ship-search .ship-search-keyword:last-of-type').focus();
             }
         },
 
@@ -53,12 +56,37 @@ YUI.add('esc-compare-view', function (Y, NAME) {
             var keyword = evt.target.getData('keyword'),
                 kws = this.get('keywords');
 
+            return false;
+
             if(Y.Array.indexOf(kws, keyword) !== -1) {
                 kws.splice(Y.Array.indexOf(kws, keyword), 1);
 
                 this.set('keywords', kws);
 
                 this.fire('search', { query: kws });
+            }
+        },
+
+        handleKeywordKeyup: function(evt) {
+            var keyword = evt.target.getData('keyword'),
+                kws = this.get('keywords');
+
+            if(evt.keyCode === 8) {
+                evt.preventDefault();
+            }
+
+            if(evt.keyCode === 8 && Y.Array.indexOf(kws, keyword) !== -1) {
+                kws.splice(Y.Array.indexOf(kws, keyword), 1);
+
+                this.set('keywords', kws);
+
+                Y.log(kws);
+
+                this.fire('search', { query: kws });
+
+                Y.later(0, this, function() {
+                    this.get('container').one('.ship-search-input').focus();
+                });
             }
         },
 

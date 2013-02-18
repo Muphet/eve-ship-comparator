@@ -37,10 +37,21 @@
                     ]
                 },
                 "esc-compare-view": { "path": "views/compare-view.js", "requires": [ "view", "esc-templates" ] },
-                "esc-templates": { "path": "templates.js", "requires": [ "esc-micro-template" ] }
+                "esc-templates": { "path": "templates.js",
+                    "requires": [
+                        "esc-micro-template",
+                        "esc-template-helpers"
+                    ]
+                }
             },
             
             "server": {
+                "esc-templates"     : { "path": "lib/templates.js",
+                    "requires": [
+                        "esc-micro-template",
+                        "esc-template-helpers"
+                    ]
+                },
                 "esc-sqlite"        : { "path": "lib/sqlite.js",       "requires": [ "esc-promise", "oop" ] },
                 "esc-select"        : { "path": "lib/select.js",       "requires": [] },
                 "esc-ship-service"  : { "path": "lib/ship-service.js", 
@@ -60,10 +71,11 @@
             },
         
             "shared": {
+                "esc-template-helpers": { "path": "utils/template-helpers.js", "requires": [ "esc-micro-template" ] },
                 "esc-micro-template"  : { "path": "utils/micro-template.js" },
                 "esc-promise"         : { "path": "utils/promise.js" },
                 "esc-ship-properties" : { "path": "model/ship-properties.js" },
-                "esc-hp-pool"         : { "path": "model/hp-pool.js",         "requires": [ "oop" ] },
+                "esc-hp-pool"         : { "path": "model/hp-pool.js",          "requires": [ "oop" ] },
                 "esc-skill"           : { "path": "model/skill.js" },
                 "esc-ship"            : { "path": "model/ship.js",
                     "requires": [

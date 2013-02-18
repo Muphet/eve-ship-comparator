@@ -5,26 +5,11 @@
         <h3 class="ship-name">${this.name}</h3>
     </div>
     <ul class="ship-primary-stats stat-list inline-stat-list">
-        <li class="power-grid stat-item">
-            <span class="label">Power Grid</span>
-            <span class="value">${this.powerGrid}</span>
-        </li>
-        <li class="cpu stat-item">
-            <span class="label">CPU</span>
-            <span class="value">${this.cpu}</span>
-        </li>
-        <li class="signature stat-item">
-            <span class="label">Signature Radius</span>
-            <span class="value">${this.signature}</span>
-        </li>
-        <li class="agility stat-item">
-            <span class="label">Agility</span>
-            <span class="value">${this.agility}</span>
-        </li>
-        <li class="velocity stat-item">
-            <span class="label">Velocity</span>
-            <span class="value">${this.velocity}</span>
-        </li>
+        ${{ $h.shipStatItem({ label: 'Power Grid',       className: 'power-grid', value: this.powerGrid }) }}
+        ${{ $h.shipStatItem({ label: 'CPU',              className: 'cpu',        value: this.cpu       }) }}
+        ${{ $h.shipStatItem({ label: 'Signature Radius', className: 'signature',  value: this.signature }) }}
+        ${{ $h.shipStatItem({ label: 'Agility',          className: 'agility',    value: this.agility   }) }}
+        ${{ $h.shipStatItem({ label: 'Velocity',         className: 'velocity',   value: this.velocity  }) }}
     </ul>
     <div class="columns thirds">
         <div class="column">
