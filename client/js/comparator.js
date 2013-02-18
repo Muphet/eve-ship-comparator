@@ -25,6 +25,8 @@ YUI(ESC_CONFIG).use('esc-compare-app', function (Y) {
                     keywords: model.keywords
                 }
             }
+        }, function() {
+            Y.one("input").focus();
         });
     }
     

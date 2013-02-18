@@ -47,7 +47,7 @@ YUI.add('esc-compare-view', function (Y, NAME) {
                 this.set('keywords', keywords);
 
                 this.fire('search', { query : keywords });
-            } else if(evt.keyCode === 8 && evt.target.get('value').length === 0) { // BACKSPACE
+            } else if(evt.keyCode === 37 || evt.keyCode === 8 && evt.target.get('value').length === 0) { // BACKSPACE
                 this.get('container').one('.ship-search .ship-search-keyword:last-of-type').focus();
             }
         },
@@ -56,13 +56,10 @@ YUI.add('esc-compare-view', function (Y, NAME) {
             var keyword = evt.target.getData('keyword'),
                 kws = this.get('keywords');
 
-            return false;
-
             if(Y.Array.indexOf(kws, keyword) !== -1) {
                 kws.splice(Y.Array.indexOf(kws, keyword), 1);
 
                 this.set('keywords', kws);
-
                 this.fire('search', { query: kws });
             }
         },
@@ -80,13 +77,15 @@ YUI.add('esc-compare-view', function (Y, NAME) {
 
                 this.set('keywords', kws);
 
-                Y.log(kws);
-
                 this.fire('search', { query: kws });
 
                 Y.later(0, this, function() {
                     this.get('container').one('.ship-search-input').focus();
                 });
+            } else if(evt.keyCode === 37) {
+                evt.target.previous().focus();
+            } else if(evt.keyCode === 39) {
+                evt.target.next().focus();
             }
         },
 
