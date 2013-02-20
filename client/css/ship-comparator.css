@@ -20,6 +20,11 @@ body {
   box-sizing: border-box;
 }
 
+.ship-card .ship-icon img {
+  width: 280px;
+  height: 280px;
+}
+
 .ship-card:nth-child(4n+1) {
     display: block;
     clear: both;

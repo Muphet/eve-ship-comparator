@@ -14,75 +14,29 @@
     <div class="columns thirds">
         <div class="column">
             <ul class="stat-list">
-                <li class="hull stat-item">
-                    <span class="label">Hull HP</span>
-                    <span class="value">${this.hull.ehp.toFixed(0)}</span>
-                </li>
-                <li class="em-resistance stat-item">
-                    <span class="label">EM Resistance</span>
-                    <span class="value">${(this.hull.emResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="explosive-resistance stat-item">
-                    <span class="label">Explosive Resistance</span>
-                    <span class="value">${(this.hull.explosiveResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="kinetic-resistance stat-item">
-                    <span class="label">Kinetic Resistance</span>
-                    <span class="value">${(this.hull.kineticResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="thermal-resistance stat-item">
-                    <span class="label">Thermal Resistance</span>
-                    <span class="value">${(this.hull.thermalResistance * 100).toFixed(0)}</span>
-                </li>
-
+                ${{ $h.shipStatItem({ label: 'Hull HP',              className: 'hull',                 value: this.hull.ehp })}}
+                ${{ $h.shipStatItem({ label: 'EM Resistance',        className: 'em-resistance',        value: this.hull.emResistance,        percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Explosive Resistance', className: 'explosive-resistance', value: this.hull.explosiveResistance, percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Kinetic Resistance',   className: 'kinetic-resistance',   value: this.hull.kineticResistance,   percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Thermal Resistance',   className: 'thermal-resistance',   value: this.hull.thermalResistance,   percent: true }) }}
             </ul>
         </div>
         <div class="column">
             <ul class="stat-list">
-                <li class="armor stat-item">
-                    <span class="label">Armor HP</span>
-                    <span class="value">${this.armor.ehp.toFixed(0)}</span>
-                </li>
-                <li class="em-resistance stat-item">
-                    <span class="label">EM Resistance</span>
-                    <span class="value">${(this.armor.emResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="explosive-resistance stat-item">
-                    <span class="label">Explosive Resistance</span>
-                    <span class="value">${(this.armor.explosiveResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="kinetic-resistance stat-item">
-                    <span class="label">Kinetic Resistance</span>
-                    <span class="value">${(this.armor.kineticResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="thermal-resistance stat-item">
-                    <span class="label">Thermal Resistance</span>
-                    <span class="value">${(this.armor.thermalResistance * 100).toFixed(0)}</span>
-                </li>
+                ${{ $h.shipStatItem({ label: 'Armor HP',             className: 'armor',                value: this.armor.ehp })}}
+                ${{ $h.shipStatItem({ label: 'EM Resistance',        className: 'em-resistance',        value: this.armor.emResistance,        percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Explosive Resistance', className: 'explosive-resistance', value: this.armor.explosiveResistance, percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Kinetic Resistance',   className: 'kinetic-resistance',   value: this.armor.kineticResistance,   percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Thermal Resistance',   className: 'thermal-resistance',   value: this.armor.thermalResistance,   percent: true }) }}
             </ul>
         </div>
         <div class="column">
             <ul class="stat-list">
-                <li class="shield stat-item">
-                    <span class="label">Shield HP</span>
-                    <span class="value">${this.shield.ehp.toFixed(0)}</span>
-                </li>
-                <li class="em-resistance stat-item">
-                    <span class="label">EM Resistance</span>
-                    <span class="value">${(this.shield.emResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="explosive-resistance stat-item">
-                    <span class="label">Explosive Resistance</span>
-                    <span class="value">${(this.shield.explosiveResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="kinetic-resistance stat-item">
-                    <span class="label">Kinetic Resistance</span>
-                    <span class="value">${(this.shield.kineticResistance * 100).toFixed(0)}</span>
-                </li>
-                <li class="thermal-resistance stat-item">
-                    <span class="label">Thermal Resistance</span>
-                    <span class="value">${(this.shield.thermalResistance * 100).toFixed(0)}</span>
-                </li>
+                ${{ $h.shipStatItem({ label: 'Shield HP',            className: 'shield',               value: this.shield.ehp })}}
+                ${{ $h.shipStatItem({ label: 'EM Resistance',        className: 'em-resistance',        value: this.shield.emResistance,        percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Explosive Resistance', className: 'explosive-resistance', value: this.shield.explosiveResistance, percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Kinetic Resistance',   className: 'kinetic-resistance',   value: this.shield.kineticResistance,   percent: true }) }}
+                ${{ $h.shipStatItem({ label: 'Thermal Resistance',   className: 'thermal-resistance',   value: this.shield.thermalResistance,   percent: true }) }}
             </ul>
         </div>
     </div>
