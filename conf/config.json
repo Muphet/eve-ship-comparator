@@ -51,22 +51,6 @@
                         "esc-micro-template",
                         "esc-template-helpers"
                     ]
-                },
-                "esc-sqlite"        : { "path": "lib/sqlite.js",       "requires": [ "esc-promise", "oop" ] },
-                "esc-select"        : { "path": "lib/select.js",       "requires": [] },
-                "esc-ship-service"  : { "path": "lib/ship-service.js", 
-                    "requires": [
-                        "esc-sqlite",
-                        "esc-select",
-                        "esc-ship"
-                    ]
-                },
-                "esc-skill-service" : { "path": "lib/skill-service.js",
-                    "requires": [
-                        "esc-promise",
-                        "esc-skill",
-                        "oop"
-                    ]
                 }
             },
         
@@ -74,16 +58,6 @@
                 "esc-template-helpers": { "path": "utils/template-helpers.js", "requires": [ "esc-micro-template" ] },
                 "esc-micro-template"  : { "path": "utils/micro-template.js" },
                 "esc-promise"         : { "path": "utils/promise.js" },
-                "esc-ship-properties" : { "path": "model/ship-properties.js" },
-                "esc-hp-pool"         : { "path": "model/hp-pool.js",          "requires": [ "oop" ] },
-                "esc-skill"           : { "path": "model/skill.js" },
-                "esc-ship"            : { "path": "model/ship.js",
-                    "requires": [
-                        "esc-hp-pool",
-                        "esc-skill",
-                        "esc-ship-properties"
-                    ]
-                }
             }
         }
     }
