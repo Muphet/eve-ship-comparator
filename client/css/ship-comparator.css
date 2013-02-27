@@ -138,60 +138,60 @@ body {
 }
 
 .stat-item.power-grid .label {
-  background-image: url(/img/icons/power-output.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/power-output.png);
 }
 .stat-item.cpu .label {
-  background-image: url(/img/icons/cpu.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/cpu.png);
 }
 .stat-item.signature .label {
-  background-image: url(/img/icons/signature-radius.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/signature-radius.png);
 }
 .stat-item.agility .label {
-  background-image: url(/img/icons/agility.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/agility.png);
 }
 .stat-item.velocity .label {
-  background-image: url(/img/icons/max-velocity.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/max-velocity.png);
 }
 .stat-item.hull .label {
-  background-image: url(/img/icons/volume.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/volume.png);
 }
 .stat-item.armor .label {
-  background-image: url(/img/icons/armor.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/armor.png);
 }
 .stat-item.shield .label {
-  background-image: url(/img/icons/shield-capacity.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/shield-capacity.png);
 }
 .stat-item.em-resistance .label {
-  background-image: url(/img/icons/em-resist.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/em-resist.png);
 }
 .stat-item.explosive-resistance .label {
-  background-image: url(/img/icons/explosive-resist.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/explosive-resist.png);
 }
 .stat-item.kinetic-resistance .label {
-  background-image: url(/img/icons/kinetic-resist.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/kinetic-resist.png);
 }
 .stat-item.thermal-resistance .label {
-  background-image: url(/img/icons/thermal-resist.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/thermal-resist.png);
 }
 
 .stat-item.high-slots .label {
-  background-image: url(/img/icons/slots/64-high.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/slots/64-high.png);
 }
 .stat-item.medium-slots .label {
-   background-image: url(/img/icons/slots/64-med.png);
+   background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/slots/64-med.png);
  }
 .stat-item.low-slots .label {
-  background-image: url(/img/icons/slots/64-low.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/slots/64-low.png);
 }
 
 .stat-item.turrets .label {
-  background-image: url(/img/icons/hardpoints-turret.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/hardpoints-turret.png);
 }
 .stat-item.launchers .label {
-  background-image: url(/img/icons/hardpoints-launcher.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/hardpoints-launcher.png);
 }
 .stat-item.drones .label {
-  background-image: url(/img/icons/drone.png);
+  background-image: url(http://s3.amazonaws.com/eve-ship-comparator/img/icons/drone.png);
 }
 
 
