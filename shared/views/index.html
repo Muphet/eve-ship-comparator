@@ -1,9 +1,20 @@
+<div class="header">
+    <label class="ehp-checkbox">
+        <input type="checkbox" ${ this.useEhp ? 'checked' : '' } />
+        <span>Use EHP</span>
+    </label>
+    <label class="description-checkbox">
+        <input type="checkbox" ${ this.showDescription ? 'checked' : '' } />
+        <span>Show Descriptions</span>
+    </label>
+</div>
+
 <div class="ship-search">
     ${{ $i('partials/search', this.keywords) }}
 </div>
 
 <div class="ship-list">
     <% Y.Array.each(this.ships, function(ship) { %>
-    ${{ $i('partials/ship', ship) }}
-    <% }) %>
+    ${{ $i('partials/ship', { ship: ship, useEhp: this.useEhp, showDescription: this.showDescription }) }}
+    <% }, this  ) %>
 </div>

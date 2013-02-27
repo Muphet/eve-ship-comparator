@@ -28,11 +28,17 @@ YUI.add('esc-compare-view', function (Y, NAME) {
             '.ship-search .ship-search-keyword' : {
                 click   : 'handleKeywordClick',
                 keydown : 'handleKeywordKeyup'
+            },
+            '.ehp-checkbox input' : {
+                change  : 'handleEhpChange'
+            },
+            '.description-checkbox input' : {
+                change : 'handleShowDescriptionChange'
             }
         },
 
         initializer : function () {
-            this.after('shipsChange', this.updateShips);
+            this.after(['shipsChange', 'useEhpChange', 'showDescriptionChange'], this.updateShips);
             this.after('keywordsChange', this.updateKeywords);
         },
 
@@ -88,21 +94,34 @@ YUI.add('esc-compare-view', function (Y, NAME) {
                 evt.target.next().focus();
             }
         },
+        
+        handleEhpChange: function() {
+            var cb = this.get('container').one('.ehp-checkbox input');
+            this.set('useEhp', cb.get('checked'));
+        },
+        
+        handleShowDescriptionChange: function() {
+            var cb = this.get('container').one('.description-checkbox input');
+            this.set('showDescription', cb.get('checked'));
+        },
 
         updateKeywords: function() {
             var sc = this.get('container').one('.ship-search'),
                 template = this.templates.keywords;
 
             sc.setHTML(template(this.get('keywords')));
+            sc.one('input').focus();
         },
 
         updateShips : function () {
             var lc = this.get('container').one('.ship-list'),
                 template = this.templates.ships,
+                useEhp = this.get('useEhp'),
+                showDescription = this.get('showDescription'),
                 result = [];
 
             Y.Array.each(this.get('ships'), function (s) {
-                result.push(template(s));
+                result.push(template({ ship: s, useEhp: useEhp, showDescription: showDescription }));
             });
 
             lc.setHTML(result.join(''));
@@ -111,10 +130,21 @@ YUI.add('esc-compare-view', function (Y, NAME) {
         render : function () {
             var c = this.get('container');
 
-            c.setHTML(this.template({ ships : this.get('ships') }));
+            c.setHTML(this.template({
+                ships : this.get('ships'),
+                useEhp: this.get('useEhp'),
+                keywords: this.get('keywords'),
+                showDescription: this.get('showDescription')
+            }));
         }
     }, {
         ATTRS : {
+            useEhp   : {
+                value : true
+            },
+            showDescription: {
+                value: false
+            },
             ships    : {
                 value : []
             },

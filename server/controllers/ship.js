@@ -27,6 +27,8 @@ exports.index = function (req, res, next) {
         shipService.search(ships).then(function (s) {
             render(res, 'index', 'Compare Ships', {
                 ships : s,
+                useEhp : true,
+                showDescription: false,
                 keywords: ships
             });
         }, function (err) {

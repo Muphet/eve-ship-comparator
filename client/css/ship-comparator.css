@@ -9,7 +9,18 @@ html {
 body {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px 0 100px;
+  padding: 0 100px 20px;
+}
+
+.header {
+    padding: 10px 5px 5px;
+    background: #444448;
+}
+
+.header label input,
+.header label span {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .ship-card {
@@ -33,6 +44,10 @@ body {
 .ship-icon {
   position: relative;
 
+}
+
+.ship-card .description.hide {
+    display: none;
 }
 
 .ship-icon img {
