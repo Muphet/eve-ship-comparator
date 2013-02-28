@@ -26,7 +26,7 @@ YUI(ESC_CONFIG).use('esc-compare-app', function (Y) {
                 }
             }
         }, function() {
-            Y.one("input").focus();
+            this.get('container').one('.ship-search-input').focus();
         });
     }
     

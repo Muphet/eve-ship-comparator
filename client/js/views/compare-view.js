@@ -110,7 +110,7 @@ YUI.add('esc-compare-view', function (Y, NAME) {
                 template = this.templates.keywords;
 
             sc.setHTML(template(this.get('keywords')));
-            sc.one('input').focus();
+            sc.one('.ship-search-keyword').focus();
         },
 
         updateShips : function () {
