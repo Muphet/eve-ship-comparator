@@ -67,7 +67,9 @@
             <span class="value">${this.ship.drones.bandwidth} / ${this.ship.drones.capacity}</span>
         </li>
     </ul>
-    <div class="description ${this.showDescription ? 'show' : 'hide'}">
+    <% if(this.showDescription) { %>
+    <div class="description">
         ${{this.ship.description}}
     </div>
+    <% } %>
 </div>
