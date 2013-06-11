@@ -1,0 +1,10 @@
+{
+    "/item/list"           : "Returns a list of all items in the database.",
+    "/item/search"         : "A stupid search implementation",
+    "/item/:id"            : "Returns basic information about a single item.",
+    "/item/:id/attributes" : "Returns extensive information about an item.",
+    "/item/:id/skills"     : "Returns the prerequisite skills for an item.",
+    
+    "/market/tree"         : "Returns the entire market tree as one object.",
+    "/market/path/:id"     : "Returns the path from a leaf market section back to the root market folder."
+}
