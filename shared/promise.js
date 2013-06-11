@@ -1,10 +1,19 @@
 (function(ns) {
-    var _async;
+    var _async,
+        timers;
     
     if(ns.setImmediate) { // If we have setImmediate, use it.
         _async = setImmediate;
     } else if(typeof process !== 'undefined') { // If we're in nodejs 0.11+, use their timers module.
-        _async = require('timers').setImmediate;
+        timers = require('timers');
+        
+        if(timers && timers.setImmediate) {
+            console.log("using timers.setImmediate");
+            _async = timers.setImmediate;
+        } else {
+            console.log("using process.nextTick");
+            _async = process.nextTick;
+        }
     } else {
         _async = setTimeout;
     }
