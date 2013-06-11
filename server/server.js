@@ -8,7 +8,7 @@ var path    = require('path'),
     app     = express();
     
 
-db.trace(function(f) { console.log(f); });
+// db.trace(function(f) { console.log(f); });
 
 // --------------------------------------------------------------------------
 
@@ -36,10 +36,13 @@ function resolveMarketPath(leafId) {
 
     function next(id) {
         return db.one(queries.MARKET_PATH, { $id: id }).then(function(sect) {
+            var parent = sect.parent;
+
+            delete sect.parent;
             path.push(sect);
             
-            if(sect.parent) {
-                return next(sect.parent);
+            if(parent) {
+                return next(parent);
             } else {
                 return path;
             }
