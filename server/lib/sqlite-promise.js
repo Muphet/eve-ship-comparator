@@ -13,7 +13,7 @@ extend(Database, Promise, {
     one: function(q, a) {
         var self = this;
         
-        return new ListPromise(function(fulfill, reject) {
+        return new Promise(function(fulfill, reject) {
             self.then(function(db) {
                 db.get(q, a, function(err, data) {
                     (err) ? reject(err) : fulfill(data);

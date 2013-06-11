@@ -7,8 +7,14 @@ var path    = require('path'),
     db      = sqlite(path.join( __dirname, './data/odyssey10.sqlite' )),
     app     = express();
     
+db.then(function(db) {
+    console.log("database connected.");
+}, function(err) {
+    console.error(err);
+    process.exit(1);
+})
 
-// db.trace(function(f) { console.log(f); });
+db.trace(function(f) { console.log(f); });
 
 // --------------------------------------------------------------------------
 
@@ -103,8 +109,6 @@ app.get('/item/:id', function(req, res) {
     db.one(queries.ITEM_ID_QUERY, { $id: req.params.id }).then(function(result) {
         res.header('Access-Control-Allow-Origin', '*');
         res.json(result || {});
-    }, function(err) {
-        throw err;
     });
 });
 
@@ -121,5 +125,7 @@ app.get('/item/:id/attributes', function(req, res) {
         res.json(result || []);
     });
 });
+
+console.log("starting on port", (process.env.PORT || 8080));
 
 app.listen(process.env.PORT || 8080);
