@@ -1,17 +1,19 @@
 
-var express = require('express'),
+var path    = require('path'),
+    express = require('express'),
     routes  = require('./routes'),
     queries = require('./util/sqlite-queries'),
     sqlite  = require('./lib/sqlite-promise'),
-    db      = sqlite('./data/database.sqlite'),
+    db      = sqlite(path.join( __dirname, './data/odyssey10.sqlite' )),
     app     = express();
+    
 
-
-// db.trace(function(f) { console.log(f); });
+db.trace(function(f) { console.log(f); });
 
 // --------------------------------------------------------------------------
 
 app.get('/', function(req, res) {
+    res.header('Access-Control-Allow-Origin', '*');
     res.json(routes);
 });
 
@@ -49,12 +51,14 @@ function resolveMarketPath(leafId) {
 
 app.get('/market/tree', function(req, res) {
     resolveMarketSections().then(function(result) {
+       res.header('Access-Control-Allow-Origin', '*');
        res.json(result.children || []);
    });
 });
 
 app.get('/market/path/:id', function(req, res) {
     resolveMarketPath(req.params.id).then(function(result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);
     })
 });
@@ -79,6 +83,7 @@ function resolvePrerequisites(skill) {
 
 app.get('/item/list', function(req, res) {
     db.all(queries.LIST_ITEMS).then(function(result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);
     });
 });
@@ -86,27 +91,30 @@ app.get('/item/list', function(req, res) {
 app.get('/item/search', function(req, res) {
     console.log(req.query.q);
     db.all(queries.SEARCH_ITEMS, { $q: '%' + req.query.q + '%' }).then(function(result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);
     });
 });
 
 app.get('/item/:id', function(req, res) {
-    console.log(queries.ITEM_ID_QUERY, req.params.id);
     db.one(queries.ITEM_ID_QUERY, { $id: req.params.id }).then(function(result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result || {});
-    }, function(er) {
-        console.log(er);
+    }, function(err) {
+        throw err;
     });
 });
 
 app.get('/item/:id/skills', function(req, res) {
     resolvePrerequisites(req.params.id).then(function(result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result.prerequisites || []);
     });
 });
 
 app.get('/item/:id/attributes', function(req, res) {
     db.all(queries.ATTRIBUTE_QUERY, { $id: req.params.id }).then(function(result) {
+        res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);
     });
 });
