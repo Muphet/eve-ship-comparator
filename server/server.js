@@ -1,7 +1,8 @@
 
-var path    = require('path'),
-    express = require('express'),
-    routes  = require('./routes'),
+var path      = require('path'),
+    express   = require('express'),
+    routes    = require('./routes'),
+    sanitizer = require('sanitizer'),
     queries = require('./util/sqlite-queries'),
     sqlite  = require('./lib/sqlite-promise'),
     db      = sqlite(path.join( __dirname, './data/odyssey10.sqlite' )),
@@ -16,9 +17,12 @@ db.then(function(db) {
 
 db.trace(function(f) { console.log(f); });
 
+app.use(express.static('public'));
+app.use('/shared', express.static('shared'));
+
 // --------------------------------------------------------------------------
 
-app.get('/', function(req, res) {
+app.get('/api', function(req, res) {
     res.header('Access-Control-Allow-Origin', '*');
     res.json(routes);
 });
@@ -58,14 +62,14 @@ function resolveMarketPath(leafId) {
     return next(leafId);
 }
 
-app.get('/market/tree', function(req, res) {
+app.get('/api/market/tree', function(req, res) {
     resolveMarketSections().then(function(result) {
        res.header('Access-Control-Allow-Origin', '*');
        res.json(result.children || []);
    });
 });
 
-app.get('/market/path/:id', function(req, res) {
+app.get('/api/market/path/:id', function(req, res) {
     resolveMarketPath(req.params.id).then(function(result) {
         res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);
@@ -90,14 +94,55 @@ function resolvePrerequisites(skill) {
     });
 }
 
-app.get('/item/list', function(req, res) {
+var descriptionSanitizer = (function() {
+    var stack,
+        emit = function(t, o) {
+            o.push(t);
+        },
+        mdownMapping = {
+            'br'     : '\n',
+            'b'      : '**',
+            'strong' : '**',
+            'i'      : '*',
+            'em'     : '*'
+        };
+
+
+    return sanitizer.makeSaxParser({
+        startTag: function(tag, attributes, out) {
+            if(mdownMapping[tag]) {
+                out.push(mdownMapping[tag]);
+            }
+        },
+        endTag: function(tag, out) {
+            if(mdownMapping[tag]) {
+                out.push(mdownMapping[tag]);
+            }
+        },
+        pcdata: emit,
+        rcdata: emit,
+        cdata: emit
+    });
+}());
+
+
+function cleanupDescription(item) {
+    var cleanup = [];
+
+    descriptionSanitizer(item.description, cleanup);
+    item.description = cleanup.join('').replace(/\n/g, '\n\n');
+
+    return item;
+}
+
+app.get('/api/item/list', function(req, res) {
     db.all(queries.LIST_ITEMS).then(function(result) {
         res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);
     });
 });
 
-app.get('/item/search', function(req, res) {
+app.get('/api/item/search', function(req, res) {
     console.log(req.query.q);
     db.all(queries.SEARCH_ITEMS, { $q: '%' + req.query.q + '%' }).then(function(result) {
         res.header('Access-Control-Allow-Origin', '*');
@@ -105,21 +150,25 @@ app.get('/item/search', function(req, res) {
     });
 });
 
-app.get('/item/:id', function(req, res) {
-    db.one(queries.ITEM_ID_QUERY, { $id: req.params.id }).then(function(result) {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.json(result || {});
-    });
+app.get('/api/item/:id', function(req, res) {
+    db.one(queries.ITEM_ID_QUERY, { $id: req.params.id }).
+        then(cleanupDescription).
+        then(function(result) {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.json(result || {});
+        }, function(err) {
+            console.error(err);
+        });
 });
 
-app.get('/item/:id/skills', function(req, res) {
+app.get('/api/item/:id/skills', function(req, res) {
     resolvePrerequisites(req.params.id).then(function(result) {
         res.header('Access-Control-Allow-Origin', '*');
         res.json(result.prerequisites || []);
     });
 });
 
-app.get('/item/:id/attributes', function(req, res) {
+app.get('/api/item/:id/attributes', function(req, res) {
     db.all(queries.ATTRIBUTE_QUERY, { $id: req.params.id }).then(function(result) {
         res.header('Access-Control-Allow-Origin', '*');
         res.json(result || []);

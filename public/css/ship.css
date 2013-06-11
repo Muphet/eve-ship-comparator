@@ -1,0 +1,11 @@
+
+#layout {
+    max-width: 60rem;
+    margin: 3rem auto;
+}
+
+.ship .ship-name {
+    text-align: right;
+    margin-right: 1rem;
+    padding: 0;
+}

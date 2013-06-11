@@ -12,6 +12,7 @@
     "subdomain": "eve-ship-comparator",
     "dependencies": {
         "sqlite3"       : "*",
-        "express"       : "*"
+        "express"       : "*",
+        "sanitizer"     : "*"
     }
 }
