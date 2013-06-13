@@ -51,7 +51,17 @@
             return typeof o[key] === 'undefined' ? match : o[key];
         }) : s;
     }
+    
+    function zip(keys, values) {
+        var out = {};
+        keys.forEach(function(key, i) {
+            out[key] = values[i];
+        });
+        
+        return out;
+    }
 
+    ns.zip = zip;
     ns.sub = sub;
     ns.mix = mix;
     ns.extend = extend;

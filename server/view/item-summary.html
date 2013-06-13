@@ -1,0 +1,7 @@
+<div class="item-summary">
+    <% if(data.image) { %>
+        <img src="${{data.image}}" class="item-summary-image hidden" onload="this.classList.remove('hidden')" />
+    <% } %>
+    <div class="item-name">${data.name}</div>
+    <div class="item-description">${{data.description}}</div>
+</div>

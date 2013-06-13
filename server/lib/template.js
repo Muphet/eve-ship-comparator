@@ -8,7 +8,11 @@ module.exports = function(path, data, callback) {
         if(err) {
             callback(err);
         } else {
-            callback(null, micro.render(tmplString, data));
+            try {
+                callback(null, micro.render(tmplString, data));
+            } catch (e) {
+                callback(e);
+            }
         }
     });
 };

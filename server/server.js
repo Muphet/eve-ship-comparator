@@ -12,6 +12,7 @@ var path      = require('path'),
     Promise   = require('../shared/promise').Promise,
     marked    = require('../shared/marked'),
     collect   = require('../shared/list-promise').collect,
+    zip       = require('../shared/utils').zip,
 
     db        = sqlite(path.join( __dirname, './data/odyssey10.sqlite' )),
     app       = express();
@@ -210,11 +211,19 @@ function htmlifyDescription(item) {
     return item;
 }
 
-function render(view, data) {
+function render(view, data, key) {
     return new Promise(function(fulfill, reject) {
-        app.render(view, data, function(err, templ) {
+        var o;
+        if(key) {
+            o = {};
+            o[key] = data;
+        } else {
+            o = data;
+        }
+
+        app.render(view, o, function(err, templ) {
             if(err) {
-                console.log(err);
+                console.error(err);
                 reject(err);
             } else {
                 fulfill(templ);
@@ -225,9 +234,7 @@ function render(view, data) {
 
 app.get('/item/:id', function(req, res) {
     var id = req.params.id;
-    
-    res.send("HELLO");
-    
+
     collect([
         
         // QUERY ITEM DATA
@@ -242,15 +249,33 @@ app.get('/item/:id', function(req, res) {
         // QUERY ATTRIBUTE DATA
         db.all(queries.ATTRIBUTE_QUERY, { $id: id }),
 
-    ]).then(function(results) {
-        var attributes = results.pop(),
-            skills = results.pop(),
-            ship = results.pop();
+    ]).
+    then(zip.bind(this, [ 'item', 'skills', 'attributes' ])).
+    then(function(results) {
+        collect([
+            render('item-summary.html',   results.item),
+            render('attribute-list.html', results.attributes, 'attributes'),
+            render('skill-list.html',     results.skills.prerequisites, 'skills')
+        ]).
+        then(zip.bind(this, [ 'item', 'attributes', 'skills' ])).
+        then(render.bind(this, 'item.html')).
+        then(function(itemHTML) {
+            app.render('layout.html', { body: itemHTML }, function(err, renderedHTML) {
+                if(err) {
+                    res.json(500, err);
+                } else {
+                    res.send(renderedHTML);
+                }
+            });
 
-        app.render('ship.html', ship, function(err, templ) {
-            console.log(err);
-            console.log(templ);
+        }, function(err) {
+            console.error("Error while rendering templates.");
+            res.json(500, err);
         });
+    }, function(err) {
+        console.error("Error while queryin data.");
+        console.error(err);
+        res.json(500, err);
     });
 });
 

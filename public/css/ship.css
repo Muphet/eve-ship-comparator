@@ -1,18 +1,120 @@
-#layout {
-    max-width: 60rem;
-    margin: 3rem auto;
+body {
+    background: #111;
 }
-
-.ship .ship-name {
-    text-align: right;
-    margin-right: 1rem;
-    padding: 0;
+#application {
+    max-width: 45rem;
+    margin: 5rem auto;
 }
-
-.ship img {
+.item {
+    color: rgba(255,255,255,0.9);
+}
+.item .item-summary {
     position: relative;
+    overflow: hidden;
+    background: url(/img/cloud-ring.jpg) center center no-repeat;
+    background-size: cover;
+    
+}
+.item .item-summary::before {
+    border: 1px solid rgba(255,255,255,0.15);
+
+    content: "";
     display: block;
-    width: 80%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+.item .item-summary::after {
+    content: "";
+    position: absolute;
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, #222 21%);
+    
+    top: 20rem;
+    height: 50rem;
+    width: 100%;
+}
+
+.item img.item-summary-image {
+    position: absolute;
+    top: -25%;
+    left: -5%;
+    width: 110%;
     height: auto;
-    margin: 1rem;
+
+    -webkit-transition: opacity 1s, -webkit-transform 0.8s;
+}
+.item img.item-summary-image.hidden {
+    opacity: 0;
+    -webkit-transform: scale(1.1) translate(-1rem,-1rem);
+}
+
+
+.item .item-name {
+    position: relative;
+    font-size: 400%;
+    padding: 6rem 1rem 1rem;
+    margin: 0 1rem;
+    font-family: "Futura";
+    letter-spacing: -0.025em;
+    text-shadow: 0 0 10px rgba(0,0,0,0.8);
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.item .item-description {
+    position: relative;
+    z-index: 1;
+    padding: 1rem 2rem;
+    text-shadow: 0 0 3px #000;
+    background-image: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(20,20,20,1) 80%);
+}
+
+.item .deeper-attributes {
+    padding: 0 2rem;
+    background: rgba(20,20,20,1);
+}
+
+.attribute-list {
+    margin: 0;
+    letter-spacing: -0.31em;
+    text-rendering: optimizespeed;
+}
+.attribute-list .attribute {
+    width: 50%;
+    display: inline-block;
+    letter-spacing: normal;
+    vertical-align: bottom;
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+.attribute-list dt.attribute {
+    font-weight: bold;
+}
+.attribute-list dd.attribute {
+    text-align: right;
+}
+
+
+.skill-list {
+    padding: 0 0 0 1rem;
+    margin: 0;
+}
+.skill-list .skill {
+    display: block;
+    list-style-type: none;
+}
+.skill-list .skill-details {
+    padding: 0.2rem 0;
+    position: relative;
+}
+.skill-list .skill-level {
+    position: absolute;
+    right: 0;
+    letter-spacing: 0.15em;
+    background: -webkit-linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.9));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }

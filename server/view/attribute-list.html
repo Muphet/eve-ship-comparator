@@ -1,0 +1,6 @@
+<dl class="attribute-list">
+<% data.attributes.forEach(function(attribute) { %>
+    <dt class="attribute attribute-${attribute.name}">${attribute.displayName || attribute.name}</dt>
+    <dd class="attribute attribute-${attribute.name}">${attribute.value}</dt>
+<% }) %>
+</dl>

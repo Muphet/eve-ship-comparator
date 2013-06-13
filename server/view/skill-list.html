@@ -1,0 +1,17 @@
+<% function skillList(s, depth) { %>
+    <ul class="skill-list">
+        <% s.forEach(function(skill) { %>
+            <li class="skill skill-depth-${depth}">
+                <div class="skill-details">
+                    <span class="skill-name">${skill.name} (x${skill.rank})</span>
+                    <span class="skill-level">${{Array(skill.requiredLevel + 1).join('&#9608;')}}</span>
+                </div>
+                <% if(skill.prerequisites && skill.prerequisites.length) {
+                    skillList(skill.prerequisites, depth + 1);
+                } %>
+            </li>
+        <% }) %>
+    </ul>
+<% } %>
+
+<% skillList(data.skills, 0) %>

@@ -45,7 +45,7 @@
             promise,
             remaining = promises.length,
             results = new Array(promises.length);
-        
+                
         promise = new ListPromise(function(fulfill, reject) {
             doFulfill = fulfill;
             doReject = reject;
@@ -55,6 +55,7 @@
             promises.forEach(function(p, i) {
                 if(Promise.isPromise(p)) {
                     p.then(function(result) {
+                        
                         remaining -= 1;
                         results[i] = result;
 
