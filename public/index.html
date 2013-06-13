@@ -2,47 +2,32 @@
 <html>
     <head>
         <title>Eve ship</title>
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
         <link rel="stylesheet" href="/css/ship.css" />
     </head>
     <body>
-        <div class="ship pure-g" id="layout">
-            <div class="pure-u-1-3">
-                <h1 class="ship-name" id="bar"></h1>
-            </div>
-            <div class="pure-u-1-3" id="foo"></div>
-            <div class="pure-u-1-3" id="baz"></div>
+        <div id="application">
         </div>
-        
+
         <script src="/shared/promise.js"></script>
         <script src="/shared/utils.js"></script>
-        <script src="/shared/marked.js"></script>
+        <script src="/shared/list-promise.js"></script>
         <script src="/js/ajax-promise.js"></script>
 
         <script>
-        json('/api/item/24690').then(function(s) {
-            document.getElementById('bar').innerHTML = s.name;
-            document.getElementById('foo').innerHTML = marked(s.description);
+        collect([
+            js(['/shared/micro.js', '/shared/marked.js', '/template/ship.js' ]),
+            json('/api/item/24690'),
+            json('/api/item/24690/attributes'),
+            json('/api/item/24690/skills'),
+        ]).then(function(res) {
+            var skills = res.pop(),
+                attributes = res.pop(),
+                ship = res.pop();
+
+            document.getElementById('application').innerHTML = templates['ship'](ship);
         });
         
-        json('/api/item/24690/attributes').then(function(a) {
-            var list = document.createElement('dl');
-            
-            console.log(a);
-            
-            a.forEach(function(attr) {
-                var dt = document.createElement('dt'),
-                    dd = document.createElement('dd');
-                    
-                dt.innerHTML = attr.displayName || attr.name;
-                dd.innerHTML = attr.value;
-                
-                list.appendChild(dt);
-                list.appendChild(dd);
-            });
-            
-            document.getElementById('baz').appendChild(list);
-        });
         </script>
     </body>
 </html>

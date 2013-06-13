@@ -1,5 +1,5 @@
 (function(ns) {
-    if(process) {
+    if(typeof process !== 'undefined') { // is nodejs
         extend = require('./utils').extend;
         Promise = require('./promise').Promise;
     }
