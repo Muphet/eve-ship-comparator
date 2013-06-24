@@ -82,14 +82,10 @@
                     thenFulfill = fulfill;
                     thenReject = reject;
                 });
-        
-            if(typeof cb === 'function') {
-                callbacks.push(wrap(thenFulfill, thenReject, cb));
-            }
-            if(typeof eb === 'function') {
-                errbacks.push(wrap(thenFulfill, thenReject, eb));
-            }
-        
+
+            callbacks.push( typeof cb === 'function' ? wrap(thenFulfill, thenReject, cb) : thenFulfill );
+            errbacks.push(  typeof eb === 'function' ? wrap(thenFulfill, thenReject, eb) : thenReject  );
+
             if(status === 'fulfilled') {
                 fulfill(result);
             } else if(status === 'rejected') {

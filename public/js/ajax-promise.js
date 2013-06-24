@@ -63,15 +63,15 @@
         var promise = ajax(url),
             out = promise.then(function(res) { return JSON.parse(res.responseText); })
         
-        out.timeout = promise.timeout;
-        out.abort   = promise.abort;
         return out
     }
     
     function js(paths) {
         var head = document.head;
         
-        if(typeof paths === 'string' || (Array.isArray(paths) && paths.length === 1)) {
+        if(arguments.length > 1) {
+            return js([].slice.call(arguments));
+        } else if(typeof paths === 'string' || (Array.isArray(paths) && paths.length === 1)) {
             paths = (Array.isArray(paths)) ? paths[0] : paths;
             
             return new Promise(function(fulfill, reject) {

@@ -16,7 +16,7 @@
 
         <script>
         collect([
-            js(['/shared/micro.js', '/shared/marked.js', '/template/ship.js' ]),
+            js('/shared/micro.js', '/shared/marked.js', '/template/item.js'),
             json('/api/item/24690'),
             json('/api/item/24690/attributes'),
             json('/api/item/24690/skills'),
@@ -29,5 +29,29 @@
         });
         
         </script>
+        
+        <!--
+            // Firefox nightly
+        task(function () {
+            // Pull dependencies
+            yield js(
+                '/shared/micro.js',
+                '/shared/marked.js',
+                '/template/item.js',
+                '/template/item-summary.js',
+                '/template/attribute-list.js',
+                '/template/skill-list.js'
+            );
+            
+            var results = yield collect(
+                    json('/api/item/24690'),
+                    json('/api/item/24690/attributes'),
+                    json('/api/item/24690/skills')
+                ).zip('item', 'attributes', 'skills');
+            
+            document.getElementById('application').innerHTML = templates['item-summary'](results.item);
+        });
+            
+        -->
     </body>
 </html>

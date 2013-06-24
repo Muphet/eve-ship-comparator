@@ -52,7 +52,7 @@
         }) : s;
     }
     
-    function zip(keys, values) {
+    function hash(keys, values) {
         var out = {};
         keys.forEach(function(key, i) {
             out[key] = values[i];
@@ -61,9 +61,9 @@
         return out;
     }
 
-    ns.zip = zip;
-    ns.sub = sub;
-    ns.mix = mix;
+    ns.hash   = hash;
+    ns.sub    = sub;
+    ns.mix    = mix;
     ns.extend = extend;
 
 }(typeof process !== 'undefined' ? exports : window));

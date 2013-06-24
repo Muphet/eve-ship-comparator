@@ -1,21 +1,22 @@
 
-var path      = require('path'),
-    express   = require('express'),
-    sanitizer = require('sanitizer'),
+var path        = require('path'),
+    express     = require('express'),
+    sanitizer   = require('sanitizer'),
 
-    routes    = require('./routes'),
+    routes      = require('./routes'),
 
-    queries   = require('./util/sqlite-queries'),
-    sqlite    = require('./lib/sqlite-promise'),
-    template  = require('./lib/template'),
+    queries     = require('./util/sqlite-queries'),
+    sqlite      = require('./lib/sqlite-promise'),
+    template    = require('./lib/template'),
 
-    Promise   = require('../shared/promise').Promise,
-    marked    = require('../shared/marked'),
-    collect   = require('../shared/list-promise').collect,
-    zip       = require('../shared/utils').zip,
+    Promise     = require('../shared/promise').Promise,
+    marked      = require('../shared/marked'),
+    collect     = require('../shared/list-promise').collect,
+    ListPromise = require('../shared/list-promise').ListPromise,
+    zip         = require('../shared/utils').zip,
 
-    db        = sqlite(path.join( __dirname, './data/odyssey10.sqlite' )),
-    app       = express();
+    db          = sqlite(path.join( __dirname, './data/odyssey10.sqlite' )),
+    app         = express();
     
 db.then(function(db) {
     console.log("database connected.");
@@ -232,10 +233,21 @@ function render(view, data, key) {
     });
 }
 
+app.get('/', function(req, res) {
+
+});
+
 app.get('/item/:id', function(req, res) {
     var id = req.params.id;
+    
+    var itemData = db.one(queries.ITEM_ID_QUERY, { $id: id }).
+            then(cleanupDescription).
+            then(htmlifyDescription).
+            then(addImageUrl);
 
-    collect([
+
+
+    collect(
         
         // QUERY ITEM DATA
         db.one(queries.ITEM_ID_QUERY, { $id: id }).
@@ -247,34 +259,33 @@ app.get('/item/:id', function(req, res) {
         resolvePrerequisites(id),
         
         // QUERY ATTRIBUTE DATA
-        db.all(queries.ATTRIBUTE_QUERY, { $id: id }),
+        db.all(queries.ATTRIBUTE_QUERY, { $id: id })
 
-    ]).
-    then(zip.bind(this, [ 'item', 'skills', 'attributes' ])).
+    ).
+    hash('item', 'skills', 'attributes').
     then(function(results) {
-        collect([
+        return collect(
             render('item-summary.html',   results.item),
             render('attribute-list.html', results.attributes, 'attributes'),
             render('skill-list.html',     results.skills.prerequisites, 'skills')
-        ]).
-        then(zip.bind(this, [ 'item', 'attributes', 'skills' ])).
-        then(render.bind(this, 'item.html')).
-        then(function(itemHTML) {
-            app.render('layout.html', { body: itemHTML }, function(err, renderedHTML) {
-                if(err) {
-                    res.json(500, err);
-                } else {
-                    res.send(renderedHTML);
-                }
-            });
+        );
+    }).
+    as(ListPromise).
+    hash('item', 'attributes', 'skills').
+    then(render.bind(this, 'item.html')).
+    then(function(itemHTML) {
 
-        }, function(err) {
-            console.error("Error while rendering templates.");
-            res.json(500, err);
+        app.render('layout.html', { body: itemHTML }, function(err, renderedHTML) {
+            if(err) {
+                res.json(500, err);
+            } else {
+                res.send(renderedHTML);
+            }
         });
+
     }, function(err) {
-        console.error("Error while queryin data.");
-        console.error(err);
+        
+        console.error("Error while rendering templates.");
         res.json(500, err);
     });
 });

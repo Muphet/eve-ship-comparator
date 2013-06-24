@@ -2,6 +2,7 @@
     if(typeof process !== 'undefined') { // is nodejs
         extend = require('./utils').extend;
         Promise = require('./promise').Promise;
+        hash = require('./utils').hash;
     }
 
     function ListPromise() {
@@ -34,7 +35,14 @@
         filter      : arrayMethod('filter'),
         map         : arrayMethod('map'),
         reduce      : arrayMethod('reduce'),
-        reduceRight : arrayMethod('reduceRight')
+        reduceRight : arrayMethod('reduceRight'),
+
+        hash        : function() {
+            var args = [].slice.call(arguments);
+            return this.then(function(r) {
+                return hash(args, r);
+            }).as(Promise);
+        }
     });
     
     ns.ListPromise = ListPromise;
@@ -45,7 +53,11 @@
             promise,
             remaining = promises.length,
             results = new Array(promises.length);
-                
+
+        if(arguments.length > 1) {
+            return collect([].slice.call(arguments));
+        }
+
         promise = new ListPromise(function(fulfill, reject) {
             doFulfill = fulfill;
             doReject = reject;
