@@ -150,9 +150,7 @@ function resolvePrerequisites(skill) {
 }
 
 function addImageUrl(item) {
-    if(item.category === 'Ship') {
-        item.image = 'http://s3.amazonaws.com/eve-ship-comparator/img/ships/' + item.id + '.png';
-    }
+    item.image = 'http://s3.amazonaws.com/eve-ship-comparator/img/ships/' + item.id + '.png';
     
     return item;
 }
